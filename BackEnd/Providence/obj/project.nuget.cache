@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZGppsxiBwPVnqhrDWC2Fb1QnotPAW8h5ITebg+u+YpCTH/+kTWCC0cOWS9Ghwe2hTm8c/XUvu10z7qL8G6Lc7w==",
+  "dgSpecHash": "lhOPpeKlXNoKgGWTiOC+OeQIu/JpUEqM9+N+FNaYCeN3ITqD1GZys2ngP2fAtbl4EfKGK+/mxAEm9coSlcj9JQ==",
   "success": true,
-  "projectFilePath": "D:\\Project_Code\\Project_Semester_3\\For Code\\Semester_3\\BackEnd\\Providence\\Providence.csproj",
+  "projectFilePath": "D:\\Project_Code\\Project_Semester_3\\src\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lenovo\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
