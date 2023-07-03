@@ -1,0 +1,13 @@
+<nav class="main-nav">
+    <ul class="menu sf-arrows">
+        <li class="megamenu-container" [class.active]="current=='/'">
+            <a routerLink="/">Home</a>
+        </li>
+        <li [class.active]="current.includes('/category')">
+            <a routerLink="/product/category">Category</a>
+        </li>
+        <li [class.active]="current.includes('/product')">
+            <a routerLink="/product/shop/list">Product</a>
+        </li>
+    </ul>
+</nav>

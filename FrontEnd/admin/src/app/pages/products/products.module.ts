@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
-import { NbAccordionModule, NbActionsModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDatepickerModule, NbInputModule, NbListModule, NbRadioModule, NbSelectModule, NbUserModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbAlertModule, NbButtonModule, NbCardModule, NbCheckboxModule, NbDatepickerModule, NbIconModule, NbInputModule, NbListModule, NbRadioModule, NbSelectModule, NbUserModule } from '@nebular/theme';
 import { NbTabsetModule } from '@nebular/theme';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ProductsRoutingModule, routedComponents } from './products-routing.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomProductActionComponent } from './product-list/custom/custom-product-action.component';
+import { CustomProductFilterActionsComponent } from './product-list/custom/custom-product-filter-actions.component';
+import { CustomProductFilterSoldComponent } from './product-list/custom/custom-product-filter-sold.component';
+import { ImagesCarouselComponent } from './images-carousel.component';
+import { CustomCategoryActionComponent } from './product-category/custom/custom-category-action.component';
+import { CustomCategoryFilterActionsComponent } from './product-category/custom/custom-category-filter-actions.component';
+import { CustomCouponActionComponent } from './product-coupon/custom/custom-coupon-action.component';
+import { CustomCouponFilterActionsComponent } from './product-coupon/custom/custom-coupon-filter-actions.component';
+import { CustomCategoryImageComponent } from './product-category/custom/custom-category-image.component';
 
 @NgModule({
   imports: [
@@ -27,10 +36,22 @@ import { FormsModule } from '@angular/forms';
     NbListModule,
     ProductsRoutingModule,
     CKEditorModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    NbIconModule,
+    NbAlertModule
   ],
   declarations: [
     ...routedComponents,
+    CustomProductActionComponent,
+    CustomProductFilterActionsComponent,
+    CustomProductFilterSoldComponent,
+    ImagesCarouselComponent,
+    CustomCategoryActionComponent,
+    CustomCategoryFilterActionsComponent,
+    CustomCategoryImageComponent,
+    CustomCouponActionComponent,
+    CustomCouponFilterActionsComponent,
   ],
 })
 export class ProductsModule { }
