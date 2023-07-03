@@ -6,7 +6,7 @@ namespace Providence.Converters;
 
 public class DateConverter : JsonConverter<DateTime>
 {
-    private string formatDate = "dd/MM/yyyy";
+    private string formatDate = "dd/MM/yyyy HH:mm:ss";
 
     public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
