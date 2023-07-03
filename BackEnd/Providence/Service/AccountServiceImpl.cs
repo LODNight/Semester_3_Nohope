@@ -98,11 +98,11 @@ public class AccountServiceImpl : AccountService
     {
         return db.Accounts.Select(acc => new
         {
-            id = acc.AccountId,
+            accountId = acc.AccountId,
             firstname = acc.Firstname,
             lastname = acc.Lastname,
             email = acc.Email,
-            phone = acc.Phone,
+            phoneNumber = acc.Phone,
             gender = acc.Gender,
             address = acc.Address,
             avatar = acc.Avatar,

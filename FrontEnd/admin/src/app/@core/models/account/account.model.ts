@@ -8,9 +8,11 @@ import { Order } from "../order/order.model";
 export class Account {
     accountId: number
     password?: string;   
-    fullName: string;
+    firstname: string;
+    lastname: string;
     email: string;
     phoneNumber: string;
+    status?: boolean;
     role?: Role;
     imageUrl: string;
     createdAt: Date

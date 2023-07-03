@@ -212,7 +212,7 @@ molla-quick-view, .container.quickView-container {
 	.banner-content {
 		position: static;
 		transform: translateY(0);
-		padding-top: 2.5rem;
+		padding: 4.7rem 1rem;
 
 		flex-grow: 0;
 		flex-shrink: 0;
@@ -305,7 +305,7 @@ molla-quick-view, .container.quickView-container {
 		font-size: 1.3rem;
 		font-weight: 400;
 		letter-spacing: .01em;
-		padding-left: 2.7rem;
+		padding-left: 2rem;
 		position: relative;
 		
 		&:before,

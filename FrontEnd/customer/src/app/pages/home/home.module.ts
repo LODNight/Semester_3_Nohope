@@ -4,17 +4,19 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OwlModule } from 'angular-owl-carousel';
 
-import { ThemeModule } from '../../@theme/theme.module';
+import { SharedModule } from '../../shared/shared.module';
 
-import { TopCollectionComponent } from './top-collection/top-collection.component';
 import { IndexComponent } from './index/index.component';
-import { RecentCollectionComponent } from './recent-collection/recent-collection.component';
+import { TrendyCollectionComponent } from './trendy-collection/trendy-collection.component';
+import { NewCollectionComponent } from './new-collection/new-collection.component';
+import { RecommendCollectionComponent } from './recommend-collection/recommend-collection.component';
 
 @NgModule({
 	declarations: [
-		TopCollectionComponent,
 		IndexComponent,
-		RecentCollectionComponent
+		TrendyCollectionComponent,
+		NewCollectionComponent,
+		RecommendCollectionComponent
 	],
 
 	imports: [
@@ -22,7 +24,7 @@ import { RecentCollectionComponent } from './recent-collection/recent-collection
 		RouterModule,
 		NgbModule,
 		OwlModule,
-		ThemeModule
+		SharedModule
 	]
 })
 

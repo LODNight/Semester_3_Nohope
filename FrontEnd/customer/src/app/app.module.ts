@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
@@ -14,18 +15,19 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
-import { ThemeModule } from './@theme/theme.module';
-import { OthersModule } from './pages/others/others.module';
+import { SharedModule } from './shared/shared.module';
+import { ElementsModule } from './pages/elements/elements.module';
+import { PagesModule } from './pages/others/pages.module';
 import { HomeModule } from './pages/home/home.module';
 
 // reducers
-import { appReducers, metaReducers } from './@core/reducers/app.reducer';
-import { wishlistReducer } from './@core/reducers/wishlist.reducer';
-import { compareReducer } from './@core/reducers/compare.reducer';
-import { cartReducer } from './@core/reducers/cart.reducer';
+import { appReducers, metaReducers } from './core/reducers/app.reducer';
+import { wishlistReducer } from './core/reducers/wishlist.reducer';
+import { compareReducer } from './core/reducers/compare.reducer';
+import { cartReducer } from './core/reducers/cart.reducer';
 
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './@theme/layout/layout.component';
+import { LayoutComponent } from './shared/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -33,14 +35,16 @@ import { LayoutComponent } from './@theme/layout/layout.component';
     LayoutComponent,
   ],
   imports: [
-    ThemeModule,
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
+    RouterModule,
     HttpClientModule,
     OwlModule,
-    OthersModule,
+    ElementsModule,
+    PagesModule,
+    SharedModule,
     HomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
