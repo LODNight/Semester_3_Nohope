@@ -1,0 +1,381 @@
+<main class="main home-page skeleton-body">
+    <div class="intro-slider-container mb-5">
+        <owl-carousel carouselClasses="intro-slider owl-theme owl-simple owl-nav-inside owl-light" [options]="introSlider">
+            <div class="intro-slide" style="background-image: url('assets/images/home/sliders/slide-1.png')">
+                <div class="container intro-content">
+                    <div class="row justify-content-end">
+                        <div class="col-auto col-sm-7 col-md-6 col-lg-5" contentAnim aniName="fadeInUpShorter">
+                            <h3 class="intro-subtitle text-third">Deals and Promotions</h3>
+                            <h1 class="intro-title">Beats by</h1>
+                            <h1 class="intro-title">Dre Studio 3</h1>
+
+                            <div class="intro-price">
+                                <sup class="intro-old-price">$349,95</sup>
+                                <span class="text-third">
+                                    $279<sup>.99</sup>
+                                </span>
+                            </div>
+
+                            <a routerLink="/shop/sidebar/list" class="btn btn-primary btn-round">
+                                <span>Shop More</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="intro-slide" style="background-image: url('assets/images/home/sliders/slide-2.png')">
+                <div class="container intro-content">
+                    <div class="row justify-content-end">
+                        <div class="col-auto col-sm-7 col-md-6 col-lg-5" contentAnim aniName="fadeInUpShorter">
+                            <h3 class="intro-subtitle text-primary">New Arrival</h3>
+                            <h1 class="intro-title">Apple iPad Pro <br>12.9 Inch, 64GB </h1>
+
+                            <div class="intro-price">
+                                <sup>Today:</sup>
+                                <span class="text-primary">
+                                    $999<sup>.99</sup>
+                                </span>
+                            </div>
+
+                            <a routerLink="/shop/sidebar/list" class="btn btn-primary btn-round">
+                                <span>Shop More</span>
+                                <i class="icon-long-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </owl-carousel>
+    </div>
+
+    <div class="container">
+        <h2 class="title text-center mb-4" contentAnim aniName="blurIn">Explore Popular Categories</h2>
+        
+        <div class="cat-blocks-container" contentAnim>
+            <div class="row">
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <a routerLink="/shop/sidebar/list" [queryParams]="{category: 'computer'}" class="cat-block">
+                        <figure>
+                            <span>
+                                <img src="assets/images/home/cats/1.png" width="131" height="76" alt="Category image">
+                            </span>
+                        </figure>
+
+                        <h3 class="cat-block-title">Computer & Laptop</h3>
+                    </a>
+                </div>
+
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <a routerLink="/shop/sidebar/list" [queryParams]="{category: 'camera'}" class="cat-block">
+                        <figure>
+                            <span>
+                                <img src="assets/images/home/cats/2.png" width="111" height="64" alt="Category image">
+                            </span>
+                        </figure>
+
+                        <h3 class="cat-block-title">Digital Cameras</h3>
+                    </a>
+                </div>
+
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <a routerLink="/shop/sidebar/list" [queryParams]="{category: 'phones'}" class="cat-block">
+                        <figure>
+                            <span>
+                                <img src="assets/images/home/cats/3.png" width="54" height="86" alt="Category image">
+                            </span>
+                        </figure>
+
+                        <h3 class="cat-block-title">Smart Phones</h3>
+                    </a>
+                </div>
+
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <a routerLink="/shop/sidebar/list" [queryParams]="{category: 'televisions'}" class="cat-block">
+                        <figure>
+                            <span>
+                                <img src="assets/images/home/cats/4.png" width="124" height="81" alt="Category image">
+                            </span>
+                        </figure>
+
+                        <h3 class="cat-block-title">Televisions</h3>
+                    </a>
+                </div>
+
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <a routerLink="/shop/sidebar/list" [queryParams]="{category: 'audio'}" class="cat-block">
+                        <figure>
+                            <span>
+                                <img src="assets/images/home/cats/5.png" width="88" height="53" alt="Category image">
+                            </span>
+                        </figure>
+
+                        <h3 class="cat-block-title">Audio</h3>
+                    </a>
+                </div>
+
+                <div class="col-6 col-sm-4 col-lg-2">
+                    <a routerLink="/shop/sidebar/list" [queryParams]="{category: 'watches'}" class="cat-block">
+                        <figure>
+                            <span>
+                                <img src="assets/images/home/cats/6.png" width="71" height="85" alt="Category image">
+                            </span>
+                        </figure>
+
+                        <h3 class="cat-block-title">Smart Watches</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-4"></div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="banner banner-overlay banner-overlay-light" contentAnim aniName="fadeInLeftShorter">
+                    <a routerLink="/shop/sidebar/3cols">
+                        <molla-image src="assets/images/home/banners/banner-1.png" alt="Banner" fixedPt="160px"></molla-image>
+                    </a>
+
+                    <div class="banner-content">
+                        <h4 class="banner-subtitle"><a routerLink="/shop/sidebar/3cols">Smart Offer</a></h4>
+                        <h3 class="banner-title"><a routerLink="/shop/sidebar/3cols">Save $150 <strong>on Samsung <br>Galaxy Note9</strong></a></h3>
+                        <a routerLink="/shop/sidebar/3cols" class="banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="banner banner-overlay banner-overlay-light" contentAnim aniName="fadeInUpShorter">
+                    <a routerLink="/shop/sidebar/3cols">
+                        <molla-image src="assets/images/home/banners/banner-2.jpg" alt="Banner" fixedPt="160px"></molla-image>
+                    </a>
+
+                    <div class="banner-content">
+                        <h4 class="banner-subtitle"><a routerLink="/shop/sidebar/3cols">Time Deals</a></h4>
+                        <h3 class="banner-title"><a routerLink="/shop/sidebar/3cols"><strong>Bose SoundSport</strong> <br>Time Deal -30%</a></h3>
+                        <a routerLink="/shop/sidebar/3cols" class="banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="banner banner-overlay banner-overlay-light" contentAnim aniName="fadeInRightShorter">
+                    <a routerLink="/shop/sidebar/3cols">
+                        <molla-image src="assets/images/home/banners/banner-3.png" alt="Banner" fixedPt="160px"></molla-image>
+                    </a>
+
+                    <div class="banner-content">
+                        <h4 class="banner-subtitle"><a routerLink="/shop/sidebar/3cols">Clearance</a></h4>
+                        <h3 class="banner-title"><a routerLink="/shop/sidebar/3cols"><strong>GoPro - Fusion 360</strong> <br>Save $70</a></h3>
+                        <a routerLink="/shop/sidebar/3cols" class="banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3"></div>
+
+    <molla-new-collection [products]="newProducts" [loaded]="loaded"></molla-new-collection>
+
+    <div class="container" contentAnim>
+        <div class="cta cta-border mb-5" style="background-image: url('assets/images/home/bg-1.jpg')">
+            <img src="assets/images/home/camera.png" alt="camera" class="cta-img">
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="cta-content d-flex">
+                        <div class="cta-text text-right text-white">
+                            <p>Shop Today’s Deals <br><strong>Awesome Made Easy. HERO7 Black</strong></p>
+                        </div>
+                        <a routerLink="/shop/sidebar/list" class="btn btn-primary btn-round"><span>Shop Now - $429.99</span><i class="icon-long-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="heading text-center mb-3" contentAnim aniName="blurIn">
+            <h2 class="title">Deals & Outlet</h2>
+            <p class="title-desc">today’s deal and more</p>
+        </div>
+    
+        <div class="row">
+            <div class="col-lg-6 deal-col" contentAnim aniName="fadeInRightShorter">
+                <div class="deal" style="background-image: url('assets/images/home/deals/bg-1.jpg')">
+                    <div class="deal-top">
+                        <h2>Deal of the Day.</h2>
+                        <h4>Limited quantities. </h4>
+                    </div>
+    
+                    <div class="deal-content">
+                        <h3 class="product-title"><a routerLink="/product/default/brown-faux-fur-longline-coat">Brown faux fur longline coat</a></h3>
+    
+                        <div class="product-price">
+                            <span class="new-price">$310.00</span>
+                            <span class="old-price">Was $190.00</span>
+                        </div>
+    
+                        <a routerLink="/shop/sidebar/list" class="btn btn-link"><span>Shop Now</span><i class="icon-long-arrow-right"></i></a>
+                    </div>
+    
+                    <div class="deal-bottom">
+                        <molla-count-down until="+10h" wrap="deal-countdown" format="HMS" [labelsShort]="true"></molla-count-down>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" contentAnim aniName="fadeInLeftShorter">
+                <div class="deal" style="background-image: url('assets/images/home/deals/bg-2.jpg')">
+                    <div class="deal-top">
+                        <h2>Your Exclusive Offers.</h2>
+                        <h4>Sign in to see amazing deals.</h4>
+                    </div>
+    
+                    <div class="deal-content">
+                        <h3 class="product-title"><a routerLink="/product/default/microsoft-refurbish-xbox-one-s-500gb">Microsoft – Refurbish Xbox One S 500GB</a></h3>
+    
+                        <div class="product-price">
+                            <span class="new-price">$29.99</span>
+                        </div>
+    
+                        <a routerLink="/shop/sidebar/list" class="btn btn-link"><span>Sign In and Save money</span><i class="icon-long-arrow-right"></i></a>
+                    </div>
+    
+                    <div class="deal-bottom">
+                        <molla-count-down until="+10h" wrap="deal-countdown" format="HMS" [labelsShort]="true"></molla-count-down>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <div class="more-container text-center mt-1 mb-5">
+            <a routerLink="/shop/sidebar/list" class="btn btn-outline-dark-2 btn-round btn-more"><span>Shop more Outlet deals</span><i class="icon-long-arrow-right"></i></a>
+        </div>
+    </div>
+
+    <div class="container" contentAnim>
+        <hr class="mb-0">
+        <owl-carousel carouselClasses="brands-border mt-3 mb-3 owl-simple owl-theme" [options]="brandSlider">
+            <a href="javascript:;" class="brand">
+                <img src="assets/images/brands/1.png" alt="Brand Name">
+            </a>
+    
+            <a href="javascript:;" class="brand">
+                <img src="assets/images/brands/2.png" alt="Brand Name">
+            </a>
+    
+            <a href="javascript:;" class="brand">
+                <img src="assets/images/brands/3.png" alt="Brand Name">
+            </a>
+    
+            <a href="javascript:;" class="brand">
+                <img src="assets/images/brands/4.png" alt="Brand Name">
+            </a>
+    
+            <a href="javascript:;" class="brand">
+                <img src="assets/images/brands/5.png" alt="Brand Name">
+            </a>
+    
+            <a href="javascript:;" class="brand">
+                <img src="assets/images/brands/6.png" alt="Brand Name">
+            </a>
+    
+            <a href="javascript:;" class="brand">
+                <img src="assets/images/brands/7.png" alt="Brand Name">
+            </a>
+        </owl-carousel>
+    </div>
+    
+    <molla-trendy-collection [products]="topProducts" [loaded]="loaded"></molla-trendy-collection>
+
+    <div class="mb-5"></div>
+
+    <molla-recommend-collection [products]="products" [loaded]="loaded"></molla-recommend-collection>
+
+    <div class="container">
+        <hr class="mb-0">
+    </div>
+
+    <div class="icon-boxes-container bg-transparent">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3" contentAnim aniName="fadeInLeftShorter">
+                    <div class="icon-box icon-box-side">
+                        <span class="icon-box-icon text-dark">
+                            <i class="icon-rocket"></i>
+                        </span>
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Free Shipping</h3>
+                            <p>Orders $50 or more</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3" contentAnim aniName="fadeInLeftShorter">
+                    <div class="icon-box icon-box-side">
+                        <span class="icon-box-icon text-dark">
+                            <i class="icon-rotate-left"></i>
+                        </span>
+
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Free Returns</h3>
+                            <p>Within 30 days</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3" contentAnim aniName="fadeInRightShorter">
+                    <div class="icon-box icon-box-side">
+                        <span class="icon-box-icon text-dark">
+                            <i class="icon-info-circle"></i>
+                        </span>
+
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">Get 20% Off 1 Item</h3>
+                            <p>When you sign up</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3" contentAnim aniName="fadeInRightShorter">
+                    <div class="icon-box icon-box-side">
+                        <span class="icon-box-icon text-dark">
+                            <i class="icon-life-ring"></i>
+                        </span>
+
+                        <div class="icon-box-content">
+                            <h3 class="icon-box-title">We Support</h3>
+                            <p>24/7 amazing services</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta bg-image bg-dark pt-4 pb-5 mb-0" style="background-image: url('assets/images/home/bg-5.jpg')">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <div class="cta-heading text-center">
+                        <h3 class="cta-title text-white">Get The Latest Deals</h3>
+                        <p class="cta-desc text-white">and receive <span class="font-weight-normal">$20 coupon</span> for first shopping</p>
+                    </div>
+                
+                    <form action="#">
+                        <div class="input-group input-group-round">
+                            <input type="email" class="form-control form-control-white border-0" placeholder="Enter your Email Address" aria-label="Email Adress" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit"><span>Subscribe</span><i class="icon-long-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
