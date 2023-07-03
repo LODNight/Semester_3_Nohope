@@ -11,6 +11,8 @@ import { DatePipe } from '@angular/common';
 import { CustomCustomerActionComponent } from './custom/custom-customer-action.component';
 import { CustomCustomerImageComponent } from './custom/custom-customer-image.component';
 import { AccountService } from '../../../@core/services/account/account.service';
+import { totalmem } from 'os';
+import { AccountStatus } from '../../../@core/models/account/account-status.model';
 
 @Component({
   selector: "ngx-customer-list",
@@ -21,8 +23,10 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
   numberOfItem: number = localStorage.getItem('itemPerPage') != null ? +localStorage.getItem('itemPerPage') : 10; // default
   source: LocalDataSource = new LocalDataSource();
   // Setting for List layout
+
   paymentMethods: PaymentMethod[];
   orderStatuses: OrderStatus[];
+  accountStatus: AccountStatus[];
 
   settings = {};
 
@@ -58,7 +62,8 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
         },
         fullName: {
           title: 'Full Name',
-          type: 'string'
+          type: 'string',
+          width: '15%'
         },
         phoneNumber: {
           title: 'Phone Number',
@@ -69,10 +74,19 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
           type: 'string',
           width: '20%'
         },
-        totalOrder: {
-          title: 'Total Orders',
-          type: 'number',
-          width: '10%'
+        status: {
+          title: 'Status',
+          type: 'boolean',
+          width: '10%',
+          filter: {
+            type: 'list',
+            config: {
+              selectText: 'Status...',
+              list: this.accountStatus.map(acc => {
+                return { value: acc.value, title: acc.name}
+              }) ,
+            },
+          },
         },
         createdAt: {
           title: 'Registration Date',
@@ -99,10 +113,12 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
           return {
             accountId: account.accountId,
             imageUrl: account.imageUrl,
-            fullName: account.fullName,
+            fullName: account.firstname  + ' ' + account.lastname,
             email: account.email,
             phoneNumber: account.phoneNumber,
-            createdAt: new DatePipe('en-US').transform(account.createdAt, 'dd/MM/yyyy').toString(),
+            address: account.address,
+            status: account.status ? 'show' : 'hide',
+            createdAt: account.createdAt,
             totalOrder: account.orders != undefined ? account.orders.length : 0
           }
         })
