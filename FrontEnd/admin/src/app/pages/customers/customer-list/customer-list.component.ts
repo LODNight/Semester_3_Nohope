@@ -12,7 +12,6 @@ import { CustomCustomerActionComponent } from './custom/custom-customer-action.c
 import { CustomCustomerImageComponent } from './custom/custom-customer-image.component';
 import { AccountService } from '../../../@core/services/account/account.service';
 import { totalmem } from 'os';
-import { AccountStatus } from '../../../@core/models/account/account-status.model';
 
 @Component({
   selector: "ngx-customer-list",
@@ -26,7 +25,6 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
 
   paymentMethods: PaymentMethod[];
   orderStatuses: OrderStatus[];
-  accountStatus: AccountStatus[];
 
   settings = {};
 
@@ -77,14 +75,12 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
         status: {
           title: 'Status',
           type: 'boolean',
-          width: '10%',
           filter: {
-            type: 'list',
+            type: 'checkbox',
             config: {
-              selectText: 'Status...',
-              list: this.accountStatus.map(acc => {
-                return { value: acc.value, title: acc.name}
-              }) ,
+              true: 'Show',
+              false: 'Hide',
+              resetText: 'clear',
             },
           },
         },

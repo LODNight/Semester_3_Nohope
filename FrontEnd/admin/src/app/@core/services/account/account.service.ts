@@ -5,7 +5,6 @@ import { BaseURLService } from '../base-url.service';
 import { HttpClient } from '@angular/common/http';
 import { Account } from '../../models/account/account.model';
 import { OrderService } from '../order/order.service';
-import { AccountStatus } from '../../models/account/account-status.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,16 +39,6 @@ export class AccountService {
   }
 
   findAll(): Observable<Account[]> {
-    const status: AccountStatus[] = [
-      {
-        value: true,
-        name: 'show'        
-      },
-      {
-        value: false,
-        name: 'hide'
-      }
-    ]
     const url: string = `${this.baseUrlService.baseURL}/account/findAll`
     return this.httpClient.get<Account[]>(url)
   }
