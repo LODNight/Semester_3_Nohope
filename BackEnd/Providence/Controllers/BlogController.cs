@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Providence.Helpers;
+using Providence.Models;
 using Providence.Service;
 using System.Diagnostics;
 
@@ -24,6 +26,56 @@ public class BlogController : Controller
         try
         {
             return Ok(blogService.findAll());
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
+
+    // ===============================
+    // ============== POST
+    // ===============================
+    // Create New blog
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPost("create")]
+    public IActionResult Create([FromBody] Blog blog)
+    {
+        try
+        {
+            return Ok(new
+            {
+                status = blogService.create(blog)
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
+
+    // ===============================
+    // ============== PUT
+    // ===============================
+
+    // Update Information blog
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPut("update")]
+    public IActionResult Update([FromBody] Blog blog)
+    {
+        try
+        {
+            blog.UpdatedAt = DateTime.Now;
+
+            return Ok(new
+            {
+                status = blogService.update(blog)
+            });
+
         }
         catch (Exception ex)
         {

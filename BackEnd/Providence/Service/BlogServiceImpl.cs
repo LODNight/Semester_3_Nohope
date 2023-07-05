@@ -21,6 +21,24 @@ public class BlogServiceImpl : BlogService
         this.configuration = configuration;
     }
 
+
+    // ============================== 
+    // Create
+    // ============================== 
+    public bool create(Blog blog)
+    {
+        try
+        {
+            db.Blogs.Add(blog);
+            return db.SaveChanges() > 0;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return false;
+        }
+    }
+
     // ============================== 
     // FInd
     // ============================== 
@@ -39,5 +57,18 @@ public class BlogServiceImpl : BlogService
         }).ToList();
     }
 
-    
+
+    // Update
+    public bool update(Blog blog)
+    {
+        try
+        {
+            db.Entry(blog).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            return db.SaveChanges() > 0;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
