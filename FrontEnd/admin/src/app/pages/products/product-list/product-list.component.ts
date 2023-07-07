@@ -77,53 +77,30 @@ export class ProductListComponent implements OnInit, AfterViewInit {
             type: 'list',
             config: {
               selectText: 'Category...',
-              list: this.categories.map(cate => {
-                return { value: cate.categoryName, title: cate.categoryName}
-              }) ,
+              list: [
+                { value: '1', title: 'Category 1' },
+                { value: '2', title: 'Category 2' },
+                
+              ],
             },
           },
         },
-        shape: {
-          title: 'Shape',
-          type: 'string',
-          filter: {
-            type: 'list',
-            config: {
-              selectText: 'Shape...',
-              list: this.shapes.map(shape => {
-                return { value: shape.shapeName, title: shape.shapeName}
-              }) ,
-            },
-          },
+        quantity: {
+          title: 'Quantity',
+          type: 'int',
+          sort: false,
         },
-        style: {
-          title: 'Style',
-          type: 'string',
-          filter: {
-            type: 'list',
-            config: {
-              selectText: 'Style...',
-              list: this.styles.map(style => {
-                return { value: style.styleName, title: style.styleName}
-              }) 
-            },
-          },
+        manufacturerId: {
+          title: 'Manufacturies',
+          type: 'int',
+          sort: false,
         },
-        quantitySold: {
-          title: 'Sold',
-          type: 'number',
-          width: '5%'
+        totalRating: {
+          title: 'Total Rating',
+          type: 'int',
+          sort: false,
         },
-        totalLikes: {
-          title: 'Likes',
-          type: 'number',
-          width: '5%'
-        },
-        rating: {
-          title: 'Rating',
-          type: 'number',
-          width: '3%'
-        },
+
         actions: {
           title: 'Actions',
           type: 'custom',
@@ -147,13 +124,10 @@ export class ProductListComponent implements OnInit, AfterViewInit {
             productId: pro.productId,
             productName: pro.productName,
             isHide: pro.isHide,
-            category: pro.category.categoryName,
-            shape: pro.shape.shapeName,
-            style: pro.style.styleName,
+            category: pro.categoryName,
+            quantity: pro.quantity,
             image: pro.imageUrls[0],
             quantitySold: pro.quantitySold,
-            totalLikes: pro.totalLikes,
-            rating: pro.rating
           }
         })
         this.source.load(mappedProducts)

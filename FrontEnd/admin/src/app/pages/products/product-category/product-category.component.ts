@@ -132,7 +132,7 @@ export class ProductCategoryComponent implements OnInit {
 
     let category: ProductCategory = new ProductCategory()
     category.categoryName = this.addCategoryFormGroup.get('name').value
-    category.imageUrl = this.addCategoryFormGroup.get('imageUrl').value
+    // category.imageUrl = this.addCategoryFormGroup.get('imageUrl').value
     if(this.categoryService.insert(category)) {
       this.utilsService.updateToastState(new ToastState('add', 'category', 'success'))
       this.addCategoryFormGroup.reset()
@@ -150,7 +150,7 @@ export class ProductCategoryComponent implements OnInit {
     let category: ProductCategory = new ProductCategory()
     category.categoryId = this.editCategoryFormGroup.get('id').value
     category.categoryName = this.addCategoryFormGroup.get('name').value
-    category.imageUrl = this.addCategoryFormGroup.get('imageUrl').value
+    // category.imageUrl = this.addCategoryFormGroup.get('imageUrl').value
 
     if(this.categoryService.edit(category)) {
       this.utilsService.updateToastState(new ToastState('edit', 'category', 'success'))

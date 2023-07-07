@@ -34,6 +34,7 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
     private router: Router,
   ) {
     this.settings = {
+      
       actions: {
         position: 'right',
         edit: false,
@@ -41,6 +42,7 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
         add: false,
         columnTitle: ''
       },
+      // selectMode: 'multi',
       columns: {
         imageUrl: {
           title: "Avatar",

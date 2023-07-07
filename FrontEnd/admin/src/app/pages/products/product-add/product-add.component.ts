@@ -155,10 +155,10 @@ export class ProductAddComponent implements OnInit, AfterViewInit {
     let insertProduct: Product = new Product();
     insertProduct.productName = this.product.get('name').value;
     insertProduct.description = this.product.get('description').value;
+    insertProduct.quantity = this.product.get('quantity').value;
     insertProduct.isHide = false;
-    insertProduct.category = this.categories.find(cate => cate.categoryName = this.product.get('category').value);
-    insertProduct.shape = this.shapes.find(shape => shape.shapeName = this.product.get('shape').value);
-    insertProduct.style = this.styles.find(style => style.styleName = this.product.get('style').value) ;
+    insertProduct.categoryName = this.product.get('categoryName').value;
+    // insertProduct.category = this.categories.find(cate => cate.categoryName = this.product.get('category').value);
     insertProduct.imageUrls = this.product.get('images').value
     insertProduct.createdAt = new Date();
     insertProduct.updatedAt = new Date();
