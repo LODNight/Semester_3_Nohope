@@ -147,6 +147,7 @@ public class AccountController : Controller
     {
         try
         {
+            account.CreatedAt = account.CreatedAt;
             account.UpdatedAt = DateTime.Now;
 
             return Ok(new
@@ -172,6 +173,7 @@ public class AccountController : Controller
     {
         try
         {
+            account.UpdatedAt = DateTime.Now;
             if (string.IsNullOrEmpty(account.Password))
             {
                 account.Password = accountService.findByIdNoTracking(account.AccountId).Password;
@@ -195,6 +197,26 @@ public class AccountController : Controller
         }
     }
 
+    // ===============================
+    // ============== DELETE
+    // ===============================
 
-
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpDelete("delete/{id}")]
+    public IActionResult Delete(int id)
+    {
+        try
+        {
+            return Ok(new
+            {
+                status = accountService.Delete(id)
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
 }

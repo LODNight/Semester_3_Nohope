@@ -1,21 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.SqlServer.Server;
 using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
 using System.Diagnostics;
+using System.Globalization;
+
 
 namespace Providence.Controllers;
-[Route("api/blog")]
-public class BlogController : Controller
+[Route("api/coupons")]
+public class CouponsController : Controller
 {
-    private BlogService blogService;
+    private CouponsService couponsService;
 
-    public BlogController(BlogService blogService)
+    public CouponsController(CouponsService couponsService)
     {
-        this.blogService = blogService;
+        this.couponsService = couponsService;
     }
+
     // ===============================
-    // ============== GET GET
+    // ============== GET
     // ===============================
 
     // Find All
@@ -25,7 +29,7 @@ public class BlogController : Controller
     {
         try
         {
-            return Ok(blogService.findAll());
+            return Ok(couponsService.findAll());
         }
         catch (Exception ex)
         {
@@ -34,20 +38,38 @@ public class BlogController : Controller
         }
     }
 
+    // Find All
+    [Produces("application/json")]
+    [HttpGet("searchByName/{name}")]
+    public IActionResult SearchByName(string name)
+    {
+        try
+        {
+            return Ok(couponsService.searchByName(name));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
+
+
     // ===============================
     // ============== POST
     // ===============================
-    // Create New blog
+
+    // Create New Coupons
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("create")]
-    public IActionResult Create([FromBody] Blog blog)
+    public IActionResult Create([FromBody] Coupon coupon)
     {
         try
         {
             return Ok(new
             {
-                status = blogService.create(blog)
+                status = couponsService.create(coupon)
             });
         }
         catch (Exception ex)
@@ -56,24 +78,26 @@ public class BlogController : Controller
             return BadRequest();
         }
     }
+
 
     // ===============================
     // ============== PUT
     // ===============================
 
-    // Update Information blog
+    // Update Information Coupons
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("update")]
-    public IActionResult Update([FromBody] Blog blog)
+    public IActionResult UpdateInformation([FromBody] Coupon coupon)
     {
         try
         {
-            blog.UpdatedAt = DateTime.Now;
+            coupon.UpdatedAt = DateTime.Now;
 
             return Ok(new
             {
-                status = blogService.update(blog)
+
+                status = couponsService.update(coupon)
             });
 
         }
@@ -83,7 +107,7 @@ public class BlogController : Controller
             return BadRequest();
         }
     }
-    
+
     // ===============================
     // ============== DELETE
     // ===============================
@@ -97,7 +121,7 @@ public class BlogController : Controller
         {
             return Ok(new
             {
-                status = blogService.Delete(id)
+                status = couponsService.Delete(id)
             });
         }
         catch (Exception ex)
@@ -106,4 +130,5 @@ public class BlogController : Controller
             return BadRequest();
         }
     }
+
 }
