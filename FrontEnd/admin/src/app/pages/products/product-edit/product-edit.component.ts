@@ -80,9 +80,7 @@ export class ProductEditComponent implements OnInit, AfterViewInit {
     // setting basic information
     this.product.get('id').setValue(this.edittingProduct.productId);
     this.product.get('name').setValue(this.edittingProduct.productName)
-    this.product.get('category').setValue(this.edittingProduct.category.categoryName)
-    this.product.get('shape').setValue(this.edittingProduct.shape.shapeName)
-    this.product.get('style').setValue(this.edittingProduct.style.styleName)
+    // this.product.get('category').setValue(this.edittingProduct.category.categoryName)
     this.product.get('description').setValue(this.edittingProduct.description)
     this.product.get('images').setValue(this.edittingProduct.imageUrls)
 
@@ -206,9 +204,7 @@ export class ProductEditComponent implements OnInit, AfterViewInit {
     editedProduct.productName = this.product.get('name').value;
     editedProduct.description = this.product.get('description').value;
     editedProduct.isHide = false;
-    editedProduct.category = this.categories.find(cate => cate.categoryName = this.product.get('category').value);
-    editedProduct.shape = this.shapes.find(shape => shape.shapeName = this.product.get('shape').value);
-    editedProduct.style = this.styles.find(style => style.styleName = this.product.get('style').value) ;
+    // editedProduct.category = this.categories.find(cate => cate.categoryName = this.product.get('category').value);
     editedProduct.imageUrls = this.product.get('images').value
     editedProduct.createdAt = new Date();
     editedProduct.updatedAt = new Date();

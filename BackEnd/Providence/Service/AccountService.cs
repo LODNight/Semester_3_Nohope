@@ -12,6 +12,9 @@ public interface AccountService
     public bool updateInformation(Account account);
     public bool changePass(Account account);
 
+    // ====== Delete
+    public bool Delete(int id);
+
     // ====== Find / Search / Filter
     // Find
     public dynamic findAll();

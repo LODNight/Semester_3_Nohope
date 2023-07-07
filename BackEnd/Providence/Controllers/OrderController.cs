@@ -5,14 +5,16 @@ using Providence.Service;
 using System.Diagnostics;
 
 namespace Providence.Controllers;
-[Route("api/blog")]
-public class BlogController : Controller
+[Route("api/order")]
+public class OrderController : Controller
 {
-    private BlogService blogService;
+    private OrderService orderService;
+    private OrderDetailService orderDetailService;
 
-    public BlogController(BlogService blogService)
+    public OrderController(OrderService orderService, OrderDetailService orderDetailService)
     {
-        this.blogService = blogService;
+        this.orderService = orderService;
+        this.orderDetailService = orderDetailService;
     }
     // ===============================
     // ============== GET GET
@@ -25,7 +27,26 @@ public class BlogController : Controller
     {
         try
         {
-            return Ok(blogService.findAll());
+            return Ok(orderService.findAll());
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
+
+    // =============================
+    // ========== Order Detail
+
+    // Find Order Detail
+    [Produces("application/json")]
+    [HttpGet("findOrderDetail/{id}")]
+    public IActionResult FindOrderDetail(int id)
+    {
+        try
+        {
+            return Ok(orderDetailService.findOrderDetail(id));
         }
         catch (Exception ex)
         {
@@ -37,17 +58,17 @@ public class BlogController : Controller
     // ===============================
     // ============== POST
     // ===============================
-    // Create New blog
+    // Create New Order
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("create")]
-    public IActionResult Create([FromBody] Blog blog)
+    public IActionResult Create([FromBody] Order order)
     {
         try
         {
             return Ok(new
             {
-                status = blogService.create(blog)
+                status = orderService.create(order)
             });
         }
         catch (Exception ex)
@@ -57,23 +78,45 @@ public class BlogController : Controller
         }
     }
 
+    // =============================
+    // ========== Order Detail
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPost("createDetail")]
+    public IActionResult CreateOrderDetail([FromBody] OrderDetail orderDetail)
+    {
+        try
+        {
+            return Ok(new
+            {
+                status = orderDetailService.create(orderDetail)
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
+
+
     // ===============================
     // ============== PUT
     // ===============================
 
-    // Update Information blog
+    // Update Information Order
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("update")]
-    public IActionResult Update([FromBody] Blog blog)
+    public IActionResult Update([FromBody] Order order)
     {
         try
         {
-            blog.UpdatedAt = DateTime.Now;
+            order.UpdatedAt = DateTime.Now;
 
             return Ok(new
             {
-                status = blogService.update(blog)
+                status = orderService.update(order)
             });
 
         }
@@ -97,7 +140,7 @@ public class BlogController : Controller
         {
             return Ok(new
             {
-                status = blogService.Delete(id)
+                status = orderService.Delete(id)
             });
         }
         catch (Exception ex)

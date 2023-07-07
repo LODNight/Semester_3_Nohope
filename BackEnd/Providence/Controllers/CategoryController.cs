@@ -2,17 +2,18 @@
 using Providence.Models;
 using Providence.Service;
 using System.Diagnostics;
+using static Azure.Core.HttpHeader;
 
 namespace Providence.Controllers;
-[Route("api/product")]
-public class ProductController : Controller
+[Route("api/category")]
+public class CategoryController : Controller
 {
-    private ProductService productService;
+    private CategoryService categoryService;
     private IWebHostEnvironment webHostEnvironment;
 
-    public ProductController(ProductService productService, IWebHostEnvironment webHostEnvironment)
+    public CategoryController(CategoryService categoryService, IWebHostEnvironment webHostEnvironment)
     {
-        this.productService = productService;
+        this.categoryService = categoryService;
         this.webHostEnvironment = webHostEnvironment;
     }
 
@@ -22,7 +23,7 @@ public class ProductController : Controller
     {
         try
         {
-            return Ok(productService.findAll());
+            return Ok(categoryService.findAll());
         }
         catch (Exception ex)
         {
@@ -37,7 +38,7 @@ public class ProductController : Controller
     {
         try
         {
-            return Ok(productService.find(id));
+            return Ok(categoryService.find(id));
         }
         catch (Exception ex)
         {
@@ -48,13 +49,13 @@ public class ProductController : Controller
 
     [Produces("application/json")]
     [HttpPost("create")]
-    public IActionResult Create([FromBody] Product product)
+    public IActionResult Create([FromBody] Category category)
     {
         try
         {
             return Ok(new
             {
-                status = productService.Create(product)
+                status = categoryService.Create(category)
             });
         }
         catch (Exception ex)
@@ -66,13 +67,14 @@ public class ProductController : Controller
 
     [Produces("application/json")]
     [HttpPut("edit")]
-    public IActionResult Edit([FromBody] Product product)
+    public IActionResult Edit([FromBody] Category category)
     {
         try
         {
+            category.UpdatedAt = DateTime.Now;
             return Ok(new
             {
-                status = productService.Edit(product)
+                status = categoryService.Edit(category)
             });
         }
         catch (Exception ex)
@@ -90,7 +92,7 @@ public class ProductController : Controller
         {
             return Ok(new
             {
-                status = productService.Delete(id)
+                status = categoryService.Delete(id)
             });
         }
         catch (Exception ex)

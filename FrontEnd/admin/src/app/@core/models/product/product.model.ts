@@ -9,9 +9,9 @@ export class Product {
     productName: string;
     description: string;
     isHide: boolean;
-    category: ProductCategory;
-    shape: ProductShape;
-    style: ProductStyle;
+    quantity: number;
+    categoryName: string;
+    manufacturerId: number;
     createdAt: Date;
     updatedAt: Date;
     

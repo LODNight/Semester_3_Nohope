@@ -5,6 +5,7 @@ import { BaseURLService } from '../base-url.service';
 import { HttpClient } from '@angular/common/http';
 import { Account } from '../../models/account/account.model';
 import { OrderService } from '../order/order.service';
+import { Product } from '../../models/product/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,8 @@ export class AccountService {
         orders: this.orders
       },
     ])
+    
+
   }
 
   findAll(): Observable<Account[]> {
@@ -311,21 +314,25 @@ export class AccountService {
   //   ])
   // }
 
-  findById(id: number): Observable<Account> {
+  findById(id: number): Observable<Account | null> {
+    const url: string = `${this.baseUrlService.baseURL}/account/find/${id}`
+    
     if (id >= 0 && id <= 10) {
-      return of(
-        {
-          accountId: 1,
-          firstname: 'ABc',
-          lastname: 'Aka',
-          email: 'daohoangmykhanh@gmail.com',
-          phoneNumber: '0123456789',
-          imageUrl: 'assets/images/eva.png',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          orders: this.orders
-        },
-      )
+      // return of(
+      //   {
+      //     accountId: 1,
+      //     firstname: 'ABc',
+      //     lastname: 'Aka',
+      //     email: 'daohoangmykhanh@gmail.com',
+      //     phoneNumber: '0123456789',
+      //     imageUrl: 'assets/images/eva.png',
+      //     createdAt: new Date(),
+      //     updatedAt: new Date(),
+      //     orders: this.orders
+      //   },
+      // )
+      // return of ()
+      return this.httpClient.get<Account>(url)
     }
     return null
   }

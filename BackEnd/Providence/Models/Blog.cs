@@ -7,6 +7,10 @@ public partial class Blog
 {
     public int BlogId { get; set; }
 
+    public string? BlogName { get; set; }
+
+    public string? BlogImage { get; set; }
+
     public string? ShortDescription { get; set; }
 
     public string? LongDescription { get; set; }

@@ -32,7 +32,7 @@ export class ProductCategoryService {
   }
 
   findAll(): Observable<ProductCategory[]> {
-    // const url: string = `${this.categoryUrl}/category/findAll`
+    // const url: string = `${this.baseUrlService.baseURL}/category/findAll`
     // return this.httpClient.get<ProductCategory[]>(url)
     const cates: ProductCategory[] = [
       {

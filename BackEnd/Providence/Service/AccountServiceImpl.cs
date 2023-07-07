@@ -89,6 +89,21 @@ public class AccountServiceImpl : AccountService
         return db.Accounts.AsNoTracking().SingleOrDefault(a => a.AccountId == id);
     }
 
+    // Delete 
+    public bool Delete(int id)
+    {
+        try
+        {
+            db.Accounts.Remove(db.Accounts.Find(id));
+            return db.SaveChanges() > 0;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return false;
+        }
+    }
+
     // ============================== 
     // FInd
     // ============================== 
@@ -178,6 +193,5 @@ public class AccountServiceImpl : AccountService
             updatedAt = acc.UpdatedAt,
         }).ToList();
     }
-
 
 }
