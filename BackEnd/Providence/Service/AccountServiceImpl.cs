@@ -194,4 +194,23 @@ public class AccountServiceImpl : AccountService
         }).ToList();
     }
 
+    public dynamic find(int id)
+    {
+        return db.Accounts.Where(p => p.AccountId == id).Select(acc => new
+        {
+            accountId = acc.AccountId,
+            firstname = acc.Firstname,
+            lastname = acc.Lastname,
+            email = acc.Email,
+            phoneNumber = acc.Phone,
+            gender = acc.Gender,
+            address = acc.Address,
+            avatar = acc.Avatar,
+            roleid = acc.RoleId,
+            rolename = acc.Role.RoleName,
+            status = acc.Status,
+            createdAt = acc.CreatedAt,
+            updatedAt = acc.UpdatedAt,
+        }).ToList();
+    }
 }

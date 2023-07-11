@@ -83,6 +83,7 @@ public class ProductServiceImpl : ProductService
             product_name = p.ProductName,
             price = p.Price,
             categoryId = p.CategoryId,
+            categoryName = p.Category.CategoryName,
             description = p.Description,
             quantity = p.Quantity,
             detail = p.Detail,

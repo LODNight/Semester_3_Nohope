@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.SqlServer.Server;
+using Providence.Helper;
 using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
@@ -12,10 +13,12 @@ namespace Providence.Controllers;
 public class AccountController : Controller
 {
     private AccountService accountService;
+    private IConfiguration configuration;
 
-    public AccountController(AccountService accountService)
+    public AccountController(AccountService accountService, IConfiguration configuration)
     {
         this.accountService = accountService;
+        this.configuration = configuration;
     }
 
 
@@ -31,6 +34,22 @@ public class AccountController : Controller
         try
         {
             return Ok(accountService.findAll());
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
+            return BadRequest();
+        }
+    }
+    
+    // Find
+    [Produces("application/json")]
+    [HttpGet("find/{id}")]
+    public IActionResult Find(int id)
+    {
+        try
+        {
+            return Ok(accountService.find(id));
         }
         catch (Exception ex)
         {
@@ -121,17 +140,67 @@ public class AccountController : Controller
             account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
             account.Status = true;
             account.SecurityCode = RandomHelper.RandomString(4);
-
-            return Ok(new
+            // Mail
+            if (accountService.register(account))
             {
-                status = accountService.register(account)
-            });
+                //Send mail
+                var content = "Security Code: " + account.SecurityCode;
+                var mailHelper = new MailHelper(configuration);
+                mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
+
+                return RedirectToAction("verify", "account", new
+                {
+                    email = account.Email
+                });
+
+            }
+            else
+            {
+                return Ok(new
+                {
+
+                    status = accountService.register(account)
+                });
+            }
+
+
+            //// Other
+            //try
+            //{
+            //    var mailHelper = new MailHelper(configuration);
+            //    var content = "Fullname: " + contact.FullName;
+            //    content += "<br>Email: " + contact.Email;
+            //    content += "<br>Phone: " + contact.Phone;
+            //    content += "<br>Title: " + contact.Title;
+            //    content += "<br>Content: " + contact.Content;
+            //    if (mailHelper.Send(contact.Email, configuration["Gmail:Username"], contact.Title, content))
+            //    {
+            //        TempData["msg"] = "Send Successfully";
+            //    }
+            //    else
+            //    {
+            //        TempData["msg"] = "Failed";
+            //    }
+            //}
+            //catch (Exception)
+            //{
+            //    TempData["msg"] = "Failed";
+            //}
+
+            ///--------------
+            //return Ok(new
+            //{
+
+            //    status = accountService.register(account)
+            //});
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
             return BadRequest();
         }
+
+        
     }
 
 

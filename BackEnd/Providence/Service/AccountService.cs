@@ -18,6 +18,7 @@ public interface AccountService
     // ====== Find / Search / Filter
     // Find
     public dynamic findAll();
+    public dynamic find(int id);
     public Account findByIdNoTracking(int id);
     public dynamic findbyEmail(string email);
     public dynamic findbyName(string keyword);

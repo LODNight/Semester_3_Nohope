@@ -5,10 +5,10 @@ import { Injectable } from "@angular/core";
 })
 export class BaseURLService {
     // Tín
-    // private _baseURL: string = "http://localhost:5271/api"
+    private _baseURL: string = "http://localhost:5271/api"
 
     //Chau
-    private _baseURL: string = "http://localhost:5208/api"
+    // private _baseURL: string = "http://localhost:5208/api"
     get baseURL(): string{
         return this._baseURL ;
     }
