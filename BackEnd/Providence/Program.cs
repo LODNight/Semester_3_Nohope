@@ -23,6 +23,8 @@ builder.Services.AddScoped<CategoryService, CategoryServiceImpl>();
 builder.Services.AddScoped<ProductService, ProductServiceImpl>();
 builder.Services.AddScoped<OrderService, OrderServiceImpl>();
 builder.Services.AddScoped<OrderDetailService, OrderDetailServiceImpl>();
+builder.Services.AddScoped<WishlistService, WishlistServiceImpl>();
+builder.Services.AddScoped<CartService, CartServiceImpl>();
 
 var app = builder.Build();
 
