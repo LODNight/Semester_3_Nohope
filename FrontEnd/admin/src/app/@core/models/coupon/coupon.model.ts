@@ -1,10 +1,10 @@
-import { CouponType } from "./coupon-type.model";
+import { CouponsType } from "./coupons-type.model";
 
 export class Coupon {
     couponId: number;
-    code: string;
+    couponType?: CouponsType
+    couponName: string;
     discount: number;
-    couponType: CouponType
     description: string;
     createdAt: Date;
     expiredAt: Date;

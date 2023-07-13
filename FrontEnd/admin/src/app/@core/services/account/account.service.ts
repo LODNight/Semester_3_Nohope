@@ -1,356 +1,75 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { Order } from '../../models/order/order.model';
 import { BaseURLService } from '../base-url.service';
 import { HttpClient } from '@angular/common/http';
 import { Account } from '../../models/account/account.model';
 import { OrderService } from '../order/order.service';
-import { Product } from '../../models/product/product.model';
+import { Address } from '../../models/address/address.model';
+import { Province } from '../../models/address/provinces.model';
+import { District } from '../../models/address/districts.model';
+import { Ward } from '../../models/address/wards.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  orders: Order[]
+
+  // for changing when create, edit, delete => reload
+  private accountChangeSubject = new Subject<void>();
+
+  get accountChange$(): Observable<void> {
+    return this.accountChangeSubject.asObservable();
+  }
+
+  notifyAccountChange(): void {
+    this.accountChangeSubject.next();
+  }
+
   constructor(
     private baseUrlService: BaseURLService,
     private httpClient: HttpClient,
-    private orderService: OrderService
   ) {
-    this.orderService.findAll().subscribe(
-      data => this.orders = data
-    )
-  }
-
-  findByEmailKeyword(emailKeyword: string): Observable<Account[]> {
-    return of([
-      {
-        accountId: 1,
-        firstname: 'ABc',
-        lastname: 'Aka',
-        email: 'daohoangmykhanh@gmail.com',
-        phoneNumber: '0123456789',
-        imageUrl: 'assets/images/eva.png',
-        status: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        orders: this.orders
-      },
-    ])
-    
-
   }
 
   findAll(): Observable<Account[]> {
-    const url: string = `${this.baseUrlService.baseURL}/account/findAll`
+    const url: string = `${this.baseUrlService.baseURL}/account`
     return this.httpClient.get<Account[]>(url)
   }
 
-  // findAll(): Observable<Account[]> {
-  //   return of([
-  //     {
-  //       accountId: 1,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 2,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 3,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 4,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 5,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 6,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     }, {
-  //       accountId: 7,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 8,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 9,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 10,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 11,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 12,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     }, {
-  //       accountId: 13,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 14,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 15,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     }, {
-  //       accountId: 16,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 17,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 18,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     }, {
-  //       accountId: 19,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 20,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 21,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     }, {
-  //       accountId: 22,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 23,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 24,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     }, {
-  //       accountId: 25,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 26,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 27,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     }, {
-  //       accountId: 28,
-  //       fullName: 'Đào Hoàng Mỹ Khánh',
-  //       email: 'daohoangmykhanh@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/eva.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 29,
-  //       fullName: 'Nguyễn Phi Hùng',
-  //       email: 'hungn12333@gmail.com',
-  //       phoneNumber: '0123456789',
-  //       imageUrl: 'assets/images/alan.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //     {
-  //       accountId: 30,
-  //       fullName: 'Nguyễn Mạnh Phú',
-  //       email: 'nguyenphu1147@gmail.com',
-  //       phoneNumber: '0783562372',
-  //       imageUrl: 'assets/images/jack.png',
-  //       createdAt: new Date(),
-  //       updatedAt: new Date()
-  //     },
-  //   ])
-  // }
-
-  findById(id: number): Observable<Account | null> {
-    const url: string = `${this.baseUrlService.baseURL}/account/find/${id}`
-    
-    if (id >= 0 && id <= 10) {
-      // return of(
-      //   {
-      //     accountId: 1,
-      //     firstname: 'ABc',
-      //     lastname: 'Aka',
-      //     email: 'daohoangmykhanh@gmail.com',
-      //     phoneNumber: '0123456789',
-      //     imageUrl: 'assets/images/eva.png',
-      //     createdAt: new Date(),
-      //     updatedAt: new Date(),
-      //     orders: this.orders
-      //   },
-      // )
-      // return of ()
-      return this.httpClient.get<Account>(url)
-    }
-    return null
+  findById(id: number): Observable<Account> {
+    const url: string = `${this.baseUrlService.baseURL}/account/detail/${id}`
+    return this.httpClient.get<Account>(url);
   }
 
-  findByEmail(email: string): Observable<Account | null> {
-    if (email == 'daohoangmykhanh@gmail.com') {
-      return of(new Account());
-    }
-    return of(null)
+  insert(account: Account): Observable<Account> {
+    const url: string = `${this.baseUrlService.baseURL}/account/create`
+    return this.httpClient.post<Account>(url, account);
   }
 
-
-
-  insert(order: Order): Order {
-    return new Order()
+  update(account: Account): Observable<boolean> {
+    const url: string = `${this.baseUrlService.baseURL}/account/update/${account.accountId}`
+    return this.httpClient.post<boolean>(url, account);
   }
 
-  edit(product: Order): boolean {
-    return true;
+  delete(id: number): Observable<boolean> {
+    const url: string = `${this.baseUrlService.baseURL}/account/delete/${id}`
+    return this.httpClient.get<boolean>(url);
   }
+  
+  findByEmailKeyword(emailKeyword: string): Observable<Account[]> {
+    const url: string = `${this.baseUrlService.baseURL}/customerByEmail/${emailKeyword}`
+    return this.httpClient.get<Account[]>(url);
+  }
+
+  isEmailExists(email: string): Observable<boolean> {
+    const url: string = `${this.baseUrlService.baseURL}/isEmailExists/${email}`
+    return this.httpClient.get<boolean>(url);
+  }
+
+  findAllAddress(): Observable<Address[]> {
+    const url: string = `${this.baseUrlService.baseURL}/address`
+    return this.httpClient.get<Address[]>(url)
+  }
+
 }

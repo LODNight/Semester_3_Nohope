@@ -6,18 +6,18 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Store } from '@ngrx/store';
 
-import { StoreService } from './core/store/store.service';
-import { UtilsService } from './shared/services/utils.service';
+import { StoreService } from './@core/services/store.service';
+import { UtilsService } from './@core/services/utils.service';
 
-import { RefreshStoreAction } from 'src/app/core/actions/actions';
+import { RefreshStoreAction } from 'src/app/@core/services/actions';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
 @Component({
 	selector: 'molla-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.scss']
+	templateUrl: './app.component.html'
 })
 
 export class AppComponent {
@@ -28,8 +28,11 @@ export class AppComponent {
 		public viewPort: ViewportScroller,
 		public storeService: StoreService,
 		public utilsService: UtilsService,
-		public modalService: NgbModal
+		public modalService: NgbModal,
+    private translateService: TranslateService
 	) {
+    this.translateService.setDefaultLang('en-US');
+
 		const navigationEnd = this.router.events.pipe(
 			filter(event => event instanceof NavigationEnd)
 		);
@@ -50,6 +53,12 @@ export class AppComponent {
 			}
 
 			this.modalService.dismissAll();
+
+			if (event.url.startsWith('/product') || (event.url.startsWith('/pages') && !event.url.includes('faq'))) {
+				document.querySelector('.header').classList.remove('border-0');
+			} else {
+				document.querySelector('.header').classList.add('border-0');
+			}
 		})
 
 		if (localStorage.getItem("molla-angular-demo") !== environment.demo) {

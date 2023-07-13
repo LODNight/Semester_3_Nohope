@@ -1,3 +1,4 @@
+import { takeUntil } from 'rxjs/operators';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Router } from '@angular/router';
@@ -8,10 +9,12 @@ import { PaymentMethodService } from '../../../@core/services/order/payment-meth
 import { OrderStatusService } from '../../../@core/services/order/order-status.service';
 import { OrderService } from '../../../@core/services/order/order.service';
 import { DatePipe } from '@angular/common';
-import { CustomCustomerActionComponent } from './custom/custom-customer-action.component';
+import { CustomCustomerActionComponent } from './custom/custom-customer-action/custom-customer-action.component';
 import { CustomCustomerImageComponent } from './custom/custom-customer-image.component';
 import { AccountService } from '../../../@core/services/account/account.service';
-import { totalmem } from 'os';
+import { UtilsService } from '../../../@core/services/utils.service';
+import { CustomCustomerFilterActionsComponent } from './custom/custom-customer-filter-actions/custom-customer-filter-actions.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: "ngx-customer-list",
@@ -22,19 +25,18 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
   numberOfItem: number = localStorage.getItem('itemPerPage') != null ? +localStorage.getItem('itemPerPage') : 10; // default
   source: LocalDataSource = new LocalDataSource();
   // Setting for List layout
-
   paymentMethods: PaymentMethod[];
   orderStatuses: OrderStatus[];
+  private unsubscribe = new Subject<void>();
 
   settings = {};
-
 
   constructor(
     private accountService: AccountService,
     private router: Router,
+    private utilsService: UtilsService
   ) {
     this.settings = {
-      
       actions: {
         position: 'right',
         edit: false,
@@ -42,7 +44,6 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
         add: false,
         columnTitle: ''
       },
-      // selectMode: 'multi',
       columns: {
         imageUrl: {
           title: "Avatar",
@@ -51,7 +52,7 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
           sort: false,
           filter: false
         },
-        accountId: {
+        id: {
           title: 'ID',
           type: 'number',
           width: '3%'
@@ -62,29 +63,16 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
         },
         fullName: {
           title: 'Full Name',
-          type: 'string',
-          width: '15%'
+          type: 'string'
         },
         phoneNumber: {
           title: 'Phone Number',
           type: 'string',
         },
-        address: {
-          title: 'Address',
-          type: 'string',
-          width: '20%'
-        },
-        status: {
-          title: 'Status',
-          type: 'boolean',
-          filter: {
-            type: 'checkbox',
-            config: {
-              true: 'Show',
-              false: 'Hide',
-              resetText: 'clear',
-            },
-          },
+        totalOrder: {
+          title: 'Total Orders',
+          type: 'number',
+          width: '10%'
         },
         createdAt: {
           title: 'Registration Date',
@@ -94,7 +82,10 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
           title: 'Actions',
           type: 'custom',
           sort: false,
-          filter: false,
+          filter: {
+            type: 'custom',
+            component: CustomCustomerFilterActionsComponent,
+          },
           renderComponent: CustomCustomerActionComponent
         }
       },
@@ -103,29 +94,39 @@ export class CustomerListComponent  implements OnInit, AfterViewInit {
         perPage: this.numberOfItem
       },
     }
+    this.accountService.accountChange$
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(() => {
+        this.loadCustomers();
+      });
+    this.loadCustomers();
+  }
+
+  loadCustomers() {
     this.accountService.findAll().subscribe(
       data => {
-        const mappedAccounts: any[] = data.map(account => {
-          console.log(account);
+        if("result" in data) {
+          console.error(data)
+        } else {
+
+          console.log(data);
           
-          return {
-            accountId: account.accountId,
-            imageUrl: account.imageUrl,
-            fullName: account.firstname  + ' ' + account.lastname,
-            email: account.email,
-            phoneNumber: account.phoneNumber,
-            address: account.address,
-            status: account.status ? 'show' : 'hide',
-            createdAt: account.createdAt,
-            totalOrder: account.orders != undefined ? account.orders.length : 0
-          }
-        })
-        this.source.load(mappedAccounts)
+          const mappedAccounts: any[] = data.map((account: any) => {
+            return {
+              id: account.id,
+              imageUrl: this.utilsService.getImageFromBase64(account.image?.imageUrl),
+              fullName: account.fullName,
+              email: account.email,
+              phoneNumber: account.phoneNumber,
+              createdAt:  new DatePipe('en-US').transform(account.createdAt, 'dd-MM-yyyy'),
+              totalOrder: account.order != undefined ? account.order : 0
+            }
+          })
+          this.source.load(mappedAccounts)
+        }
       }
     )
   }
-
-  
   ngOnInit(): void {
     let x;
   }

@@ -5,11 +5,10 @@ import { Order } from "./order.model";
 export class OrderDetail {
     orderDetailId: number;
     order?: Order
-    productId: number;
-    height: number;
-    width: number;
-    color: ProductColor;
+    productId?: number;
     quantity: number;
     price: number;
-    imageUrl?: string;
+
+    createdAt: Date
+    updatedAt: Date
 }

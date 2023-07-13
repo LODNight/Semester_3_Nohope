@@ -76,6 +76,10 @@
 @import 'mixins/buttons';
 
 @import 'config/variables';
+$font-family: 'Manrope', sans-serif;
+$second-font-family: 'Poppins', sans-serif;
+
+$secondary-dark-color: #222;
 
 /*-------------------- 1.General Styles ---------- */
 @import 'base/base';

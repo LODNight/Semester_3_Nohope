@@ -7,15 +7,17 @@ import { PaymentMethod } from "./payment-method.model";
 
 export class Order {
     orderId: number;
-    orderTrackingNumber: string;
-    accountEmail: string
+    account: Account;
+    accountEmail?: string
+
     totalPrice: number;
-    totalQuantity: number;
-    coupon?: Coupon;
     orderStatus?: OrderStatus
+    coupon?: Coupon;
+
     shippingAddress?: Address;
     paymentMethod: PaymentMethod
     orderDetails?: OrderDetail[];
+    
     createdAt: Date
     updatedAt: Date
 }

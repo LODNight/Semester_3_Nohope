@@ -58,10 +58,6 @@ a:focus {
     }
 }
 
-.main-nav li.active a.link-active {
-    color: $primary-color;
-}
-
 .header-3,
 .header-4 {
     .header-search-extended {
@@ -421,6 +417,10 @@ a:focus {
     }
 }
 
+.nav.nav-dark .nav-item .nav-link.active {
+    color: #333;
+}
+
 .nav.nav-border-anim {
     .nav-link {
         &:before {
@@ -740,6 +740,10 @@ a:focus {
     }
 }
 
+.main-nav li.active a.link-active {
+    color: $primary-color;
+}
+
 .demo-item {
     a {
 
@@ -768,9 +772,9 @@ a:focus {
             background-color: $primary-color;
         }
 
-        &:hover,
-        &:focus {
+        &:hover {
             color: #fff;
+            background-color: $primary-color;
         }
     }
 
@@ -1470,8 +1474,7 @@ a:focus {
 .pager-link {
     color: $primary-color;
 
-    &:hover,
-    &:focus {
+    &:hover {
         color: $primary-color;
 
         &:after {
@@ -1510,134 +1513,18 @@ a:focus {
     }
 }
 
-/* Plugins */
-.owl-theme {
-    .owl-nav {
-        [class*='owl-'] {
-            color: $primary-color;
-            // &:not(.disabled):hover {
-            //     border-color: $primary-color;
-            //     background: $primary-color;
-            // }
-        }
-    }
-
-    &.owl-light {
-        .owl-nav {
-            [class*='owl-'] {
-                &:not(.disabled):hover {
-                    border-color: $primary-color;
-                }
-            }
-        }
-        .owl-dots {
-            .owl-dot {
-                &:hover {
-                    span {
-                        border-color: $primary-color;
-                        background: $primary-color;
-                    }
-                }
-
-                &.active {
-                    span {
-                        border-color: $primary-color;
-                        background: $primary-color;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.owl-full {
-    .owl-nav {
-        [class*='owl-'] {
-            color: $primary-color;
-            &:hover,
-            &:focus {
-                color:$primary-color;
-            }
-        }
-    }
-
-    .owl-dots {
-        .owl-dot {
-            span {
-                border-color: $primary-color;
-            }
-
-            &:hover {
-                span {
-                    border-color: $primary-color;
-                    background: $primary-color;
-                }
-            }
-
-            &.active {
-                span {
-                    border-color: $primary-color;
-                    background: $primary-color;
-                }
-            }
-        }
-    }
-
-
-    &.owl-nav-dark {
-        .owl-nav {
-            [class*='owl-'] {
-                &:hover,
-                &:focus {
-                    color:$primary-color;
-                }
-            }
-        }
-    }
-}
-
-.owl-simple {
-    .owl-nav {
-        [class*='owl-'] {
-            &:not(.disabled):hover {
-                color:$primary-color;
-            }
-        }
-    }
-    &.owl-light {
-        .owl-dots {
-            .owl-dot {
-                &:hover {
-                    span {
-                        border-color: $primary-color;
-                        background: $primary-color;
-                    }
-                }
-
-                &.active {
-                    span {
-                        border-color: $primary-color;
-                        background: $primary-color;
-                    }
-                }
-            }
-        }
-    }
-}
-
 
 .quickView-content {
-    .owl-theme.owl-light .owl-nav [class*='owl-'] {
-        border: none;
-        font-size: 3rem;
-        color: #fff;
-
+    .product-details-action .btn-cart {
+        // transition: color .3s;
         &:hover,
         &:focus {
-            color: $primary-color;
-            background-color: transparent;
+            border-color: $primary-color;
+            background-color: $primary-color;
+            color: #fff;
         }
     }
+
 
     .btn-wishlist,
     .btn-compare {

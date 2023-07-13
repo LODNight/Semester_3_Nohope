@@ -1,15 +1,9 @@
-import { sliderOpt } from 'src/app/shared/data';
+import { sliderOpt } from 'src/app/@theme/data';
 
 export const introSlider = {
     ...sliderOpt,
     nav: false,
-    dots: false,
     loop: false,
-    responsive: {
-        992: {
-            nav: true
-        }
-    }
 }
 
 export const brandSlider = {
@@ -17,6 +11,7 @@ export const brandSlider = {
     nav: false,
     dots: false,
     margin: 0,
+    loop: false,
     responsive: {
         0: {
             items: 2
@@ -31,60 +26,35 @@ export const brandSlider = {
             items: 5
         },
         1024: {
-            items: 6
-        },
-        1360: {
             items: 6,
-            nav: true,
             margin: 30
         }
     }
 }
 
-export const newSlider = {
+export const productSlider = {
     ...sliderOpt,
-    nav: true, 
-    dots: false,
+    nav: false,
+    dots: true,
     margin: 20,
     loop: false,
     responsive: {
         0: {
-            items:2
+            items: 2
         },
         480: {
-            items:2
+            items: 2
         },
         768: {
-            items:3
+            items: 3
         },
         992: {
-            items:4
+            items: 4
         },
         1200: {
-            items:5,
-            dots: true
-        }
-    }
-}
-
-export const trendySlider = {
-    ...sliderOpt,
-    nav: true, 
-    dots: false,
-    margin: 20,
-    loop: false,
-    responsive: {
-        0: {
-            items:2
-        },
-        480: {
-            items:2
-        },
-        768: {
-            items:3
-        },
-        992: {
-            items:4
+            items: 4,
+            nav: true,
+            dots: false
         }
     }
 }

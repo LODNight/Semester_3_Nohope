@@ -1,0 +1,45 @@
+<div class="mobile-menu-container">
+  <div class="mobile-menu-wrapper">
+    <span class="mobile-menu-close" (click)="hideMobileMenu()"><i class="icon-close"></i></span>
+
+    <form action="#" method="get" class="mobile-search" (submit)="submitSearchForm($event)">
+      <label for="mobile-search" class="sr-only">Search</label>
+      <input type="search" class="form-control" name="mobile-search"
+        id="mobile-search" placeholder="{{ 'HEADER.HEADER_SEARCH.SEARCH_PRODUCT' | translate }}" required>
+      <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+    </form>
+
+    <nav class="mobile-nav">
+      <ul class="mobile-menu">
+        <li><a routerLink="/">{{ 'HEADER.HOME' | translate }}</a></li>
+        <li><a routerLink="/product/shop/list">{{ 'HEADER.PRODUCT' | translate }}</a></li>
+        <li>
+          <a routerLink="/product/category" class="sf-with-ul">
+            {{ 'HEADER.CATEGORY' | translate }}
+            <span class="mmenu-btn" (click)="submenuToggle($event)"></span>
+          </a>
+          <!-- <ul>
+            <li><a routerLink="/product/default/dark-yellow-lace-cut-out-swing-dress">Default</a>
+            </li>
+            <li><a routerLink="/product/centered/beige-ring-handle-circle-cross-body-bag">Centered</a>
+            </li>
+            <li><a routerLink="/product/extended/yellow-tie-strap-block-heel-sandals"><span>Extended
+                  Info<span class="tip tip-new">New</span></span></a></li>
+            <li><a routerLink="/product/gallery/beige-metal-hoop-tote-bag">Gallery</a></li>
+            <li><a routerLink="/product/sticky/brown-faux-fur-longline-coat">Sticky Info</a>
+            </li>
+            <li><a routerLink="/product/sidebar/beige-v-neck-button-cardigan">Boxed With
+                Sidebar</a></li>
+            <li><a routerLink="/product/fullwidth/black-faux-leather-chain-trim-sandals">Full
+                Width</a></li>
+            <li><a routerLink="/product/masonry/black-denim-dungaree-dress">Masonry Sticky
+                Info</a></li>
+          </ul> -->
+        </li>
+        <li><a routerLink="/pages/about">{{ 'HEADER.ABOUT_US' | translate }}</a></li>
+        <li><a routerLink="/pages/contact">{{ 'HEADER.CONTACT' | translate }}</a></li>
+
+      </ul>
+    </nav>
+  </div>
+</div>

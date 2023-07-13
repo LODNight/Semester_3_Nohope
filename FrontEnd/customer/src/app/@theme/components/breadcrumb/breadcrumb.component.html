@@ -1,0 +1,13 @@
+<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+    <div class="d-flex align-items-center container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a routerLink="/">{{"HEADER.HOME" | translate}}</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a routerLink="/product/shop/list">{{"HEADER.PRODUCT" | translate}}</a>
+            </li>
+            <li class="breadcrumb-item active">{{ current }}</li>
+        </ol>
+    </div>
+</nav>
