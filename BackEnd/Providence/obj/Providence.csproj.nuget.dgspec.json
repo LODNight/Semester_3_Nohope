@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj": {}
+    "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj": {}
   },
   "projects": {
-    "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj": {
+    "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj",
+        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj",
         "projectName": "Providence",
-        "projectPath": "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\obj\\",
+        "projectPath": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj",
+        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

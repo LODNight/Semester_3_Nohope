@@ -217,8 +217,6 @@ public class AccountServiceImpl : AccountService
     {
         return db.Accounts.Count(p => p.Email == email) > 0;
     }
-<<<<<<< HEAD
-=======
 
     public dynamic VerifyCode(string account)
     {
@@ -252,5 +250,4 @@ public class AccountServiceImpl : AccountService
 
         }
     }
->>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
 }

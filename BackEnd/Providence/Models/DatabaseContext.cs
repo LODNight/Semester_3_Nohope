@@ -64,12 +64,8 @@ public partial class DatabaseContext : DbContext
     public virtual DbSet<Wishlist> Wishlists { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-<<<<<<< HEAD
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-P4M4QJ81\\NGUYENPHU;Database=Semester_3;user id=sa;password=1111;trusted_connection=true;encrypt=false");
-=======
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=NHATTIN\\SQLEXPRESS;Database=Semester_3;user id=sa;password=123123;trusted_connection=true;encrypt=false");
->>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -370,21 +366,9 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.Discount).HasColumnName("discount");
-<<<<<<< HEAD
-<<<<<<< HEAD
             entity.Property(e => e.ExpiredAt)
                 .HasColumnType("datetime")
                 .HasColumnName("expired_at");
-=======
-            entity.Property(e => e.ExpiredDay)
-                .HasColumnType("datetime")
-                .HasColumnName("expired_day");
->>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
-=======
-            entity.Property(e => e.ExpiredAt)
-                .HasColumnType("datetime")
-                .HasColumnName("expired_at");
->>>>>>> 95a6e80213c75b2929850ff86d8d801a686b7c36
 
             entity.HasOne(d => d.CouponType).WithMany(p => p.Coupons)
                 .HasForeignKey(d => d.CouponTypeId)

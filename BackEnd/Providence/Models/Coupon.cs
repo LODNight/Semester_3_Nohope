@@ -17,11 +17,7 @@ public partial class Coupon
 
     public DateTime? ExpiredAt { get; set; }
 
-<<<<<<< HEAD
-    public DateTime? ExpiredAt { get; set; }
-=======
     public DateTime? CreatedAt { get; set; }
->>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
 
     public virtual ICollection<AccountCoupon> AccountCoupons { get; set; } = new List<AccountCoupon>();
 

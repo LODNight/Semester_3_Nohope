@@ -207,53 +207,6 @@ public class AccountController : Controller
                 return BadRequest("Wrong");
             }
 
-<<<<<<< HEAD
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return BadRequest();
-        }
-
-        
-    }
-    
-    // Create New Account
-    [Consumes("application/json")]
-    [Produces("application/json")]
-    [HttpPost("securitycode")]
-    public IActionResult SecuriityCode([FromBody] Account account)
-    {
-        try
-        {
-            if (accountService.CheckMail(account.Email))
-            {
-                return BadRequest("Email have Exist");
-            }
-
-            account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
-            account.Status = false;
-            account.SecurityCode = RandomHelper.RandomString(4);
-            // Mail
-
-
-            if (accountService.register(account))
-            {
-                //Send mail
-                var content = "Security Code: " + account.SecurityCode;
-                var mailHelper = new MailHelper(configuration);
-                mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
-
-                return Ok(account.Email);
-
-            }
-            else
-            {
-                return BadRequest("Wrong");
-            }
-
-=======
->>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
         }
         catch (Exception ex)
         {

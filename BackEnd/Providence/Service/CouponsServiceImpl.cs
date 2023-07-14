@@ -45,23 +45,13 @@ public class CouponsServiceImpl : CouponsService
         return db.Coupons.Select(coupon => new
         {
             id = coupon.CouponId,
-<<<<<<< HEAD
-            coupouName = coupon.CouponName,
-            couponTypeid = coupon.CouponsTypeId,
-            couponTypeName = coupon.CouponsType.NameType,
-=======
             couponname = coupon.CouponName,
             coupontypeid = coupon.CouponTypeId,
             coupontypename = coupon.CouponType.NameType,
->>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
             discount = coupon.Discount,
             discription = coupon.Description,
             expiredDay = coupon.ExpiredDay,
             createdAt = coupon.CreatedAt,
-<<<<<<< HEAD
-            expiredAt = coupon.ExpiredAt,
-=======
->>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
         }).ToList();
     }
 
@@ -78,10 +68,6 @@ public class CouponsServiceImpl : CouponsService
             discription = coupon.Description,
             expiredDay = coupon.ExpiredDay,
             createdAt = coupon.CreatedAt,
-<<<<<<< HEAD
-            expiredAt = coupon.ExpiredAt,
-=======
->>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
         }).ToList();
     }
 
