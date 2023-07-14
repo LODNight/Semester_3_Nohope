@@ -3,11 +3,15 @@ using System.Collections.Generic;
 
 namespace Providence.Models;
 
-public partial class Cart
+public partial class BlogReview
 {
-    public int CartId { get; set; }
+    public int BlogReviewId { get; set; }
+
+    public int? BlogId { get; set; }
 
     public int? AccountId { get; set; }
+
+    public string? Content { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
@@ -15,5 +19,5 @@ public partial class Cart
 
     public virtual Account? Account { get; set; }
 
-    public virtual ICollection<CartDetail> CartDetails { get; set; } = new List<CartDetail>();
+    public virtual Blog? Blog { get; set; }
 }

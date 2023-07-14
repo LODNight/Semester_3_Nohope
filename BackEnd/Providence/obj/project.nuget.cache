@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "maZ2wJDU0ZjtGVjsMbmx0b10ttDJLoiIGGVAMNtNHSH1ZU0q86huNB29w44C9s6/pI6AJawpWUjYHbQfyRlhEg==",
+  "dgSpecHash": "SIFlB8wsdH1Rb7/Y7/ZkRcB/36QXvyviCU/WCNrbCNtZHD+DN5/zOUQk3J95Era5W66malVtqJP3mXiz1ioGfg==",
   "success": true,
   "projectFilePath": "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.9\\microsoft.aspnetcore.authentication.jwtbearer.7.0.9.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.data.sqlclient\\5.1.1\\microsoft.data.sqlclient.5.1.1.nupkg.sha512",
@@ -33,12 +34,12 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.extensions.primitives\\7.0.0\\microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identity.client\\4.47.2\\microsoft.identity.client.4.47.2.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identity.client.extensions.msal\\2.19.3\\microsoft.identity.client.extensions.msal.2.19.3.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.abstractions\\6.24.0\\microsoft.identitymodel.abstractions.6.24.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.24.0\\microsoft.identitymodel.jsonwebtokens.6.24.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.logging\\6.24.0\\microsoft.identitymodel.logging.6.24.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.abstractions\\6.32.0\\microsoft.identitymodel.abstractions.6.32.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.32.0\\microsoft.identitymodel.jsonwebtokens.6.32.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.logging\\6.32.0\\microsoft.identitymodel.logging.6.32.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.24.0\\microsoft.identitymodel.protocols.6.24.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.24.0\\microsoft.identitymodel.protocols.openidconnect.6.24.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.24.0\\microsoft.identitymodel.tokens.6.24.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.32.0\\microsoft.identitymodel.tokens.6.32.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
@@ -53,7 +54,7 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.formats.asn1\\5.0.0\\system.formats.asn1.5.0.0.nupkg.sha512",
-    "C:\\Users\\ADMIN\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.24.0\\system.identitymodel.tokens.jwt.6.24.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.32.0\\system.identitymodel.tokens.jwt.6.32.0.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.memory.data\\1.0.2\\system.memory.data.1.0.2.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
@@ -72,5 +73,12 @@
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\ADMIN\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

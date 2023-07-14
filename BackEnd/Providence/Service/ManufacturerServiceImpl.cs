@@ -63,7 +63,7 @@ public class ManufacturerServiceImpl : ManufacturerService
             mft_id = m.MftId,
             mft_name = m.MftName,
             mft_address = m.MftAddress,
-            address_id = m.AddressId,
+            //address_id = m.AddressId,
             mft_description = m.MftDescription
         }).SingleOrDefault();
     }
@@ -75,7 +75,7 @@ public class ManufacturerServiceImpl : ManufacturerService
             mft_id = m.MftId,
             mft_name = m.MftName,
             mft_address = m.MftAddress,
-            address_id = m.AddressId,
+            //address_id = m.AddressId,
             mft_description = m.MftDescription
         }).OrderByDescending(m => m.mft_id).ToList();
     }

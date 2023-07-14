@@ -3,23 +3,23 @@ using System.Collections.Generic;
 
 namespace Providence.Models;
 
-public partial class CartDetail
+public partial class ProductReview
 {
-    public int CartDetailId { get; set; }
-
-    public int? CartId { get; set; }
+    public int ProductReviewId { get; set; }
 
     public int? ProductId { get; set; }
 
-    public int? Quantity { get; set; }
+    public int? AccountId { get; set; }
 
-    public decimal? Price { get; set; }
+    public string? Content { get; set; }
+
+    public byte? Rating { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual Cart? Cart { get; set; }
+    public virtual Account? Account { get; set; }
 
     public virtual Product? Product { get; set; }
 }
