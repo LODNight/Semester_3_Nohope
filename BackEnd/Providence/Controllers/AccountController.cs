@@ -195,7 +195,7 @@ public class AccountController : Controller
                 //Send mail
                 var content = "Security Code: " + account.SecurityCode ;
                 content += "<br><hr><br>";
-                content += "<a href='http://localhost:5271/api/account/verify;email="+ account.Email+ "&securityCode="+ account.SecurityCode +"'>Click here to Verify Email</a>";
+                content += "<a href='http://localhost:5271/api/account/verify;email="+ account.Email+ "&securityCode=" + account.SecurityCode +"'>Click here to Verify Email</a>";
                 var mailHelper = new MailHelper(configuration);
                 mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
 

@@ -15,7 +15,7 @@ public partial class Coupon
 
     public string? Description { get; set; }
 
-    public DateTime? ExpiredDay { get; set; }
+    public DateTime? ExpiredAt { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
