@@ -43,7 +43,7 @@ export class CategoryService {
   }
 
   findAll(): Observable<Category[]> {
-    const url: string = `${this.baseUrlService.baseURL}/category`
+    const url: string = `${this.baseUrlService.baseURL}/category/findAll`
     return this.httpClient.get<Category[]>(url)
   }
 
@@ -53,12 +53,12 @@ export class CategoryService {
   }
 
   update(category: Category): Observable<boolean> {
-    const url: string = `${this.baseUrlService.baseURL}/category/update/${category.categoryId}`
-    return this.httpClient.post<boolean>(url, category);
+    const url: string = `${this.baseUrlService.baseURL}/category/edit`
+    return this.httpClient.put<boolean>(url, category);
   }
 
   delete(categoryId: number): Observable<boolean> {    
     const url: string = `${this.baseUrlService.baseURL}/category/delete/${categoryId}`
-    return this.httpClient.get<boolean>(url); 
+    return this.httpClient.delete<boolean>(url); 
   }
 }

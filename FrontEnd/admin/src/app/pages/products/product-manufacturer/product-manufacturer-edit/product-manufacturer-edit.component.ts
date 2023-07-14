@@ -8,11 +8,11 @@ import { CustomValidator } from "../../../../@core/validators/custom-validator";
 import { Category } from "../../../../@core/models/product/category";
 
 @Component({
-  selector: "ngx-product-category-edit",
-  templateUrl: "./product-category-edit.component.html",
-  styleUrls: ["./product-category-edit.component.scss"],
+  selector: "ngx-product-manufacturer-edit",
+  templateUrl: "./product-manufacturer-edit.component.html",
+  styleUrls: ["./product-manufacturer-edit.component.scss"],
 })
-export class ProductCategoryEditComponent implements OnInit {
+export class ProductManufacturerEditComponent implements OnInit {
   
   editCategoryFormGroup: FormGroup;
   constructor(

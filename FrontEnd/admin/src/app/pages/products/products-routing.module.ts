@@ -8,6 +8,9 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductCouponComponent } from './product-coupon/product-coupon.component';
+import { ProductManufacturerComponent } from './product-manufacturer/product-manufacturer.component';
+import { ProductManufacturerAddComponent } from './product-manufacturer/product-manufacturer-add/product-manufacturer-add.component';
+import { ProductManufacturerEditComponent } from './product-manufacturer/product-manufacturer-edit/product-manufacturer-edit.component';
 
 const routes: Routes = [{
   path: '',
@@ -34,6 +37,10 @@ const routes: Routes = [{
       component: ProductCategoryComponent,
     },
     {
+      path: 'manufacturer',
+      component: ProductManufacturerComponent,
+    },
+    {
       path: 'coupon',
       component: ProductCouponComponent,
     }
@@ -54,4 +61,5 @@ export const routedComponents = [
   ProductDetailComponent,
   ProductCategoryComponent,
   ProductCouponComponent,
+  ProductManufacturerComponent,
 ];

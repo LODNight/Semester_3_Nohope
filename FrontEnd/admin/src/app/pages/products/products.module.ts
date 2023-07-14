@@ -13,11 +13,15 @@ import { CustomCategoryActionComponent } from './product-category/custom/custom-
 import { CustomCategoryFilterActionsComponent } from './product-category/custom/custom-category-filter-actions.component';
 import { CustomCouponActionComponent } from './product-coupon/custom/custom-coupon-action.component';
 import { CustomCouponFilterActionsComponent } from './product-coupon/custom/custom-coupon-filter-actions.component';
-import { CustomCategoryImageComponent } from './product-category/custom/custom-category-image.component';
+import { CustomProductImageComponent } from './product-list/custom/custom-category-image.component';
 import { ProductCategoryAddComponent } from './product-category/product-category-add/product-category-add.component';
 import { ProductCategoryEditComponent } from './product-category/product-category-edit/product-category-edit.component';
 import { ProductCouponAddComponent } from './product-coupon/product-coupon-add/product-coupon-add.component';
 import { ProductCouponEditComponent } from './product-coupon/product-coupon-edit/product-coupon-edit.component';
+import { CustomManufacturerActionComponent } from './product-manufacturer/custom/custom-manufacturer-action.component';
+import { CustomManufacturerFilterActionsComponent } from './product-manufacturer/custom/custom-manufacturer-filter-actions.component';
+import { ProductManufacturerAddComponent } from './product-manufacturer/product-manufacturer-add/product-manufacturer-add.component';
+import { ProductManufacturerEditComponent } from './product-manufacturer/product-manufacturer-edit/product-manufacturer-edit.component';
 
 @NgModule({
   imports: [
@@ -47,18 +51,28 @@ import { ProductCouponEditComponent } from './product-coupon/product-coupon-edit
   declarations: [
     ...routedComponents,
     ImagesCarouselComponent,
+
     CustomProductActionComponent,
     CustomProductFilterActionsComponent,
+    CustomProductImageComponent,
+
     CustomCategoryActionComponent,
     CustomCategoryFilterActionsComponent,
-    CustomCategoryImageComponent,
+    
     CustomCouponActionComponent,
     CustomCouponFilterActionsComponent,
 
     ProductCategoryAddComponent,
     ProductCategoryEditComponent,
+
     ProductCouponAddComponent,
-    ProductCouponEditComponent
+    ProductCouponEditComponent,
+
+    ProductManufacturerAddComponent,
+    ProductManufacturerEditComponent,
+
+    CustomManufacturerActionComponent,
+    CustomManufacturerFilterActionsComponent
 
   ],
 })

@@ -87,7 +87,7 @@ export class CustomCustomerActionComponent implements ViewCell, OnInit{
         
         this.accountService.update(account).subscribe(
             data => {
-                if(data.result) {
+                if(data) {
                     this.utilsService.updateToastState(new ToastState('edit', 'account', 'success'))
                     this.accountService.notifyAccountChange()
                     this.windowRef.close();

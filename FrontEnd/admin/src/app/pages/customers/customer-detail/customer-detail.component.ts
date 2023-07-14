@@ -31,8 +31,8 @@ export class CustomerDetailComponent {
             this.account = data.account
             console.log(this.account);
             
-            this.avatar.nativeElement.src = this.utilsService.
-                  getImageFromBase64(this.account.image.imageUrl)
+            // this.avatar.nativeElement.src = this.utilsService.
+            //       getImageFromBase64(this.account.image.imageUrl)
           }
         )
       }

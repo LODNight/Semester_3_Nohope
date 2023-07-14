@@ -5,12 +5,9 @@ import { Router } from "@angular/router";
 import { NbWindowRef, NbWindowService } from "@nebular/theme";
 import { ViewCell } from "ng2-smart-table";
 import { ToastState, UtilsService } from "../../../../@core/services/utils.service";
-import { ProductShapeService } from "../../../../@core/services/product/product-shape.service";
-import { ProductShape } from "../../../../@core/models/product/product-shape.model";
 import { OrderStatusService } from "../../../../@core/services/order/order-status.service";
 import { OrderService } from "../../../../@core/services/order/order.service";
 import { OrderStatus } from "../../../../@core/models/order/order-status.model";
-import { Order } from "../../../../@core/models/order/order.model";
 
 @Component({
     selector: 'ngx-custom-action',
@@ -104,7 +101,7 @@ export class CustomOrderActionComponent implements ViewCell {
         let orderStatus: OrderStatus = this.editStatusFormGroup.value['orderStatus'] as OrderStatus
         this.orderService.updateOrderStatus(this.rowData.orderId, orderStatus).subscribe(
             data => {
-                if (data.result) {
+                if (data) {
                     this.utilsService.updateToastState(new ToastState('edit', 'order', 'success'))
                     this.orderService.notifyOrderChange()
                     this.windowRef.close();

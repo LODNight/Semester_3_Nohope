@@ -3,11 +3,11 @@ import { ViewCell } from "ng2-smart-table";
 
 @Component({
     template: `
-        <img [src]="renderValue" class='d-block mx-auto' alt="Category Image" style="height: 75px; width: auto"/>
+        <img [src]="renderValue" class='d-block mx-auto' alt="Product Image" style="height: 75px; width: auto"/>
     `,
 })
 
-export class CustomCategoryImageComponent implements ViewCell, OnInit {
+export class CustomProductImageComponent implements ViewCell, OnInit {
     renderValue: string;
 
     @Input() value: string | number;

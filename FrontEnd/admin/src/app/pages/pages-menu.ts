@@ -33,8 +33,8 @@ export const MENU_ITEMS_AUTHORIZED: NbMenuItem[] = [
         link: '/admin/products/coupon',
       },
       {
-        title: 'Product Style & Shape',
-        link: '/admin/products/style-n-shape',
+        title: 'Product Manufacturer',
+        link: '/admin/products/manufacturer',
       }
     ],
   },

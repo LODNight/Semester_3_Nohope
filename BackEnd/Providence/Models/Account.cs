@@ -24,7 +24,7 @@ public partial class Account
     public string? Avatar { get; set; }
 
     public int? RoleId { get; set; }
-
+   
     public bool? Status { get; set; }
 
     public string? SecurityCode { get; set; }

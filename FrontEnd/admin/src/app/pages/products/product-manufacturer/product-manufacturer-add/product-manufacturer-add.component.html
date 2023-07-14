@@ -1,0 +1,84 @@
+<nb-card [formGroup]="addMftFormGroup">
+    <nb-card-header>
+        Add A New Manufacturer
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-12">
+                <input type="text" nbInput fullWidth placeholder="Category Name" formControlName="name">
+                <div class="alert alert-danger mt-0 mb-3"
+                    *ngIf="addMftFormGroup.get('name').invalid && (addMftFormGroup.get('name').dirty || addMftFormGroup.get('name').touched)">
+                    <div *ngIf="addMftFormGroup.get('name').errors['required']">
+                        Manufacturer Name is required
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <nb-select fullWidth placeholder="Province" formControlName="province"
+                    (selectedChange)="loadDistricts($event)">
+                    <nb-select-label>
+                        Province: {{ addMftFormGroup.get('province').value['name'] }}
+                    </nb-select-label>
+                    <nb-option *ngFor="let province of provinces" [value]="province">{{province.name}}</nb-option>
+                </nb-select>
+                <div class="alert alert-danger mt-1"
+                    *ngIf="addMftFormGroup.get('province').invalid && (addMftFormGroup.get('province').dirty || addMftFormGroup.get('province').touched)">
+                    <div *ngIf="addMftFormGroup.get('province').errors['required']">
+                        Province is required
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <nb-select fullWidth placeholder="District" formControlName="district"
+                    (selectedChange)="loadWards($event)">
+                    <nb-select-label>
+                        District: {{ addMftFormGroup.get('district').value['name'] }}
+                    </nb-select-label>
+                    <nb-option *ngFor="let district of districts" [value]="district">{{district.name}}</nb-option>
+                </nb-select>
+                <div class="alert alert-danger mt-1"
+                    *ngIf="addMftFormGroup.get('district').invalid && (addMftFormGroup.get('district').dirty || addMftFormGroup.get('district').touched)">
+                    <div *ngIf="addMftFormGroup.get('district').errors['required']">
+                        District is required
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <nb-select fullWidth placeholder="Ward" formControlName="ward">
+                    <nb-select-label>
+                        Ward: {{ addMftFormGroup.get('ward').value['name'] }}
+                    </nb-select-label>
+                    <nb-option *ngFor="let ward of wards" [value]="ward">{{ward.name}}</nb-option>
+                </nb-select>
+                <div class="alert alert-danger mt-1"
+                    *ngIf="addMftFormGroup.get('ward').invalid && (addMftFormGroup.get('ward').dirty || addMftFormGroup.get('ward').touched)">
+                    <div *ngIf="addMftFormGroup.get('ward').errors['required']">
+                        Ward is required
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <input type="text" placeholder="Address" nbInput fullWidth formControlName="address" />
+                <div class="alert alert-danger mt-1"
+                    *ngIf="addMftFormGroup.get('address').invalid && (addMftFormGroup.get('address').dirty || addMftFormGroup.get('address').touched)">
+                    <div *ngIf="addMftFormGroup.get('address').errors['required']">
+                        Address is required
+                    </div>
+                </div>
+
+                <div class="alert alert-danger mt-1"
+                    *ngIf="addMftFormGroup.get('address').invalid && (addMftFormGroup.get('address').dirty || addMftFormGroup.get('address').touched)">
+                    <div *ngIf="addMftFormGroup.get('address').errors['maxlength']">
+                        Address must be under 50 characters
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="d-flex justify-content-between">
+            <button nbButton status="success" (click)="createCategory()">Create</button>
+        </div>
+    </nb-card-footer>
+</nb-card>

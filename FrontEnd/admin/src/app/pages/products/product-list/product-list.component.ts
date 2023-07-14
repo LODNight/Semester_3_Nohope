@@ -6,12 +6,14 @@ import { CustomProductActionComponent } from './custom/custom-product-action.com
 import { CustomProductFilterActionsComponent } from './custom/custom-product-filter-actions.component';
 import { ProductService } from '../../../@core/services/product/product.service';
 import { CategoryService } from '../../../@core/services/product/category.service';
-import { CustomCategoryImageComponent } from '../product-category/custom/custom-category-image.component';
-import { NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrService } from '@nebular/theme';
+import { NbToastrService } from '@nebular/theme';
 import { Product } from '../../../@core/models/product/product.model';
 import { forkJoin, Subject } from 'rxjs';
 import { UtilsService } from '../../../@core/services/utils.service';
 import { Category } from '../../../@core/models/product/category';
+import { CustomProductImageComponent } from './custom/custom-category-image.component';
+import { Manufacturer } from '../../../@core/models/product/manufacturer';
+import { ManufacturerService } from '../../../@core/services/product/manufacturer.service';
 
 @Component({
   selector: 'ngx-product-list',
@@ -24,6 +26,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   source: LocalDataSource = new LocalDataSource();
   // Setting for List layout
   categories: Category[];
+  manufacturers: Manufacturer[]
 
   settings = {
     actions: {
@@ -45,6 +48,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     private productService: ProductService,
     private router: Router,
     private categoryService: CategoryService,
+    private manufacturerService: ManufacturerService,
     private toastService: NbToastrService,
     private utilsService: UtilsService
   ) {
@@ -53,13 +57,13 @@ export class ProductListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     const categoryObservable = this.categoryService.findAll();
-
+    const manufacturerObservable = this.manufacturerService.findAll();
     
     // Combine the observables using forkJoin
-    forkJoin([categoryObservable]).subscribe(
-      ([categoryData]) => {
+    forkJoin([categoryObservable, manufacturerObservable]).subscribe(
+      ([categoryData, mftData]) => {
         this.categories = categoryData;
-
+        this.manufacturers = mftData
         // after run all of them, then load settings
         this.settings = {
           actions: {
@@ -80,7 +84,7 @@ export class ProductListComponent implements OnInit, AfterViewInit {
               type: 'custom',
               sort: false,
               filter: false,
-              renderComponent: CustomCategoryImageComponent
+              renderComponent: CustomProductImageComponent
             },
             productName: {
               title: 'Name',
@@ -95,6 +99,19 @@ export class ProductListComponent implements OnInit, AfterViewInit {
                   selectText: 'Category...',
                   list: this.categories.map(cate => {
                     return { value: cate.categoryName, title: cate.categoryName }
+                  }),
+                },
+              },
+            },
+            manufacturer: {
+              title: 'Manufacturer',
+              type: 'string',
+              filter: {
+                type: 'list',
+                config: {
+                  selectText: 'Manufacturer...',
+                  list: this.manufacturers.map(mft => {
+                    return { value: mft.mftName, title: mft.mftName }
                   }),
                 },
               },
@@ -153,10 +170,11 @@ export class ProductListComponent implements OnInit, AfterViewInit {
             productName: pro.productName,
             isHide: pro.hide,
             category: pro.category.categoryName,
-            image: (pro.images != undefined) ? this.utilsService.getImageFromBase64(pro.images[0].imageUrl) : 'assets/images/default-product.png',
-            quantitySold: pro.quantitySold,
-            totalLikes: pro.totalLikes,
-            rating: pro.rating
+            manufacturer: pro.manufacturer.mftName,
+            image: (!pro.images) ? this.utilsService.getImageFromBase64(pro.images[0].imageUrl) : 'assets/images/default-product.png',
+            quantitySold: pro?.quantitySold,
+            totalLikes: pro?.totalLikes,
+            rating: pro?.rating
           }
         })
         this.source.load(mappedProducts)

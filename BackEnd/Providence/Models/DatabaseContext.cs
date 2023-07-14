@@ -55,7 +55,7 @@ public partial class DatabaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=NHATTIN\\SQLEXPRESS;Database=Semester_3;user id=sa;password=123123;trusted_connection=true;encrypt=false");
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-P4M4QJ81\\NGUYENPHU;database=Semester_3;user id=sa;password=1;trusted_connection=true;encrypt=false");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

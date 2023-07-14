@@ -1,7 +1,7 @@
 import { Address } from "../address/address.model";
 
 export class Manufacturer {
-    mft_id: number;
+    mftId: number;
     mftName: string;
     mftAddress: Address
     mftDescription: string

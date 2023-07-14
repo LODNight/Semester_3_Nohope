@@ -3,19 +3,20 @@ import { Subject} from 'rxjs'
 import { Component, ViewChild, OnInit } from "@angular/core";
 import { LocalDataSource } from "ng2-smart-table";
 import { Router } from "@angular/router";
-import { CustomCategoryActionComponent } from "./custom/custom-category-action.component";
-import { CustomCategoryFilterActionsComponent } from "./custom/custom-category-filter-actions.component";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CustomValidator } from "../../../@core/validators/custom-validator";
 import { ToastState, UtilsService } from "../../../@core/services/utils.service";
 import { CategoryService } from '../../../@core/services/product/category.service';
+import { CustomManufacturerFilterActionsComponent } from './custom/custom-manufacturer-filter-actions.component';
+import { CustomManufacturerActionComponent } from './custom/custom-manufacturer-action.component';
+import { ManufacturerService } from '../../../@core/services/product/manufacturer.service';
 
 @Component({
-  selector: "ngx-product-category",
-  templateUrl: "./product-category.component.html",
-  styleUrls: ["./product-category.component.scss"],
+  selector: "ngx-product-manufacturer",
+  templateUrl: "./product-manufacturer.component.html",
+  styleUrls: ["./product-manufacturer.component.scss"],
 })
-export class ProductCategoryComponent implements OnInit {
+export class ProductManufacturerComponent implements OnInit {
   state: string = "add"; // default
   private unsubscribe = new Subject<void>();
   
@@ -32,12 +33,16 @@ export class ProductCategoryComponent implements OnInit {
     },
     mode: "external", // when add/edit -> navigate to another url
     columns: {
-      categoryId: {
+      mftId: {
         title: "ID",
         type: "number",
       },
-      categoryName: {
+      mftName: {
         title: "Name",
+        type: "string",
+      },
+      mftAddress: {
+        title: "Address",
         type: "string",
       },
       actions: {
@@ -46,9 +51,9 @@ export class ProductCategoryComponent implements OnInit {
         sort: false,
         filter: {
           type: 'custom',
-          component: CustomCategoryFilterActionsComponent
+          component: CustomManufacturerFilterActionsComponent
         },
-        renderComponent: CustomCategoryActionComponent
+        renderComponent: CustomManufacturerActionComponent
       }
     },
     pager: {
@@ -58,38 +63,34 @@ export class ProductCategoryComponent implements OnInit {
   };
 
   constructor(
-    private categoryService: CategoryService,
-    private formBuilder: FormBuilder,
-    private utilsService: UtilsService,
-    private router: Router
+    private manufacturerService: ManufacturerService,
+    private utilsService: UtilsService
   ) {
   }
   
   ngOnInit() {
-    this.categoryService.categoryChange$
+    this.manufacturerService.manufacturerChange$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(() => {
-        this.loadCategories();
+        this.loadManufacturers();
       });
-    this.categoryService.state$.subscribe((state) => {
+    this.manufacturerService.state$.subscribe((state) => {
       this.state = state;
     })
-    this.loadCategories()
+    this.loadManufacturers()
   }
 
-  loadCategories() {
-    this.categoryService.findAll().subscribe(
+  loadManufacturers() {
+    this.manufacturerService.findAll().subscribe(
       data => {
-          const mappedCategories: any[] = data.map(cate => {
+          const mappedMfts: any[] = data.map(mft => {
             return {
-              categoryId: cate.categoryId,
-              categoryName: cate.categoryName,
-              children: [
-                
-              ]
+              mftId: mft.mftId,
+              mftName: mft.mftName,
+              mftAddress: this.utilsService.parseAddressToStr(mft.mftAddress)
             }
           })
-          this.source.load(mappedCategories )
+          this.source.load(mappedMfts)
       })
   }
 

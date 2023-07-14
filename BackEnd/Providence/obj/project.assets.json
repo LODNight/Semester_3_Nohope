@@ -3749,19 +3749,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ACER\\.nuget\\packages\\": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Chau_folder\\NetCore\\Semester_3_API\\BackEnd_Semester_3\\Providence\\Providence.csproj",
+      "projectUniqueName": "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj",
       "projectName": "Providence",
-      "projectPath": "D:\\Chau_folder\\NetCore\\Semester_3_API\\BackEnd_Semester_3\\Providence\\Providence.csproj",
-      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "D:\\Chau_folder\\NetCore\\Semester_3_API\\BackEnd_Semester_3\\Providence\\obj\\",
+      "projectPath": "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\Programming Life\\Angular\\project.angular\\Semester_3_Nohope\\BackEnd\\Providence\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3843,7 +3843,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

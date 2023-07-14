@@ -21,7 +21,6 @@ import { Address } from '../../../@core/models/address/address.model';
 import { Product } from '../../../@core/models/product/product.model';
 import { CustomValidator, isCouponExisting, isEmailNotExisting, isProductidNotExisting } from '../../../@core/validators/custom-validator';
 import { Order } from '../../../@core/models/order/order.model';
-import { ModelResponse } from '../../../@core/models/response/ModelResponse';
 import { AddressService } from '../../../@core/services/account/address.service';
 import { ProductCouponService } from '../../../@core/services/product/product-coupon.service';
 import { Router } from '@angular/router';
@@ -134,7 +133,7 @@ export class OrderAddComponent implements OnInit, AfterViewInit {
   
   selectCustomer(account: Account) {
     this.chosenAccount = account;
-    this.accountService.findById(this.chosenAccount.id).subscribe(
+    this.accountService.findById(this.chosenAccount.accountId).subscribe(
       data => {
         this.accountDetail = data
         this.setUpAccountAddress()
@@ -268,7 +267,7 @@ export class OrderAddComponent implements OnInit, AfterViewInit {
   }
 
 
-  productCompleter$: Observable<Product[] | ModelResponse>
+  productCompleter$: Observable<Product[]>
   productCompleter(productFormIndex: number) {
     this.productCompleter$ = this.products.at(productFormIndex).get('id').valueChanges.pipe(
       startWith(''),
@@ -302,32 +301,6 @@ export class OrderAddComponent implements OnInit, AfterViewInit {
   selectProduct(product: Product, productFormIndex: number) {
     let productForm = this.products.controls[productFormIndex];
     productForm.get('id').setValue(product.productId)
-
-    // load sizes
-    this.orderService.findSizesFromProductId(product.productId).subscribe(
-      data => {productForm.get('sizes').setValue(data)}
-    )
-
-    // load color from size 
-    const sizeControl = productForm.get('size')
-    sizeControl.valueChanges.subscribe(
-      () => {
-        this.orderService.findColorFromSize(product.productId, sizeControl.value).subscribe(
-          data => {productForm.get('colors').setValue(data)}
-        )
-
-      }
-    )
-
-    // load price
-    const colorControl = productForm.get('color')
-    colorControl.valueChanges.subscribe(
-      () => {
-        this.orderService.findPrice(product.productId, sizeControl.value, colorControl.value).subscribe(
-          data => {productForm.get('price').setValue(data)}
-        )
-      }
-    )
 
     const quantityControl = productForm.get('quantity')
     quantityControl.valueChanges.subscribe(

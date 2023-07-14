@@ -77,6 +77,6 @@ public class CategoryServiceImpl : CategoryService
             parentId = c.ParentId,
             createdAt = c.CreatedAt,
             updatedAt = c.UpdatedAt
-        }).OrderByDescending(c => c.categoryId).ToList();
+        });
     }
 }

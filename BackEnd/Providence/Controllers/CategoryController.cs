@@ -5,7 +5,8 @@ using System.Diagnostics;
 using static Azure.Core.HttpHeader;
 
 namespace Providence.Controllers;
-[Route("api/category")]
+[Route("api/[Controller]")]
+[ApiController]
 public class CategoryController : Controller
 {
     private CategoryService categoryService;
