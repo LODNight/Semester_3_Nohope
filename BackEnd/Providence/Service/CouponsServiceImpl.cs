@@ -50,7 +50,7 @@ public class CouponsServiceImpl : CouponsService
             coupontypename = coupon.CouponType.NameType,
             discount = coupon.Discount,
             discription = coupon.Description,
-            expiredDay = coupon.ExpiredDay,
+            expiredDay = coupon.ExpiredAt,
             createdAt = coupon.CreatedAt,
         }).ToList();
     }
@@ -66,7 +66,7 @@ public class CouponsServiceImpl : CouponsService
             coupontypename = coupon.CouponType.NameType,
             discount = coupon.Discount,
             discription = coupon.Description,
-            expiredDay = coupon.ExpiredDay,
+            expiredDay = coupon.ExpiredAt,
             createdAt = coupon.CreatedAt,
         }).ToList();
     }
