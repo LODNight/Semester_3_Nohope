@@ -5,7 +5,7 @@ namespace Providence.Models;
 
 public partial class CouponsType
 {
-    public int CouponsTypeId { get; set; }
+    public int CouponTypeId { get; set; }
 
     public string? NameType { get; set; }
 

@@ -25,5 +25,8 @@ public interface AccountService
     public dynamic findbyStatus(bool status);
 
     // Check Email
-    public bool CheckMail(string mail);
+    public bool CheckMail(string username);
+    public dynamic VerifyCode(string account);
+    public bool Active(Verify verify);
+
 }

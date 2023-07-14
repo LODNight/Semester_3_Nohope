@@ -193,7 +193,9 @@ public class AccountController : Controller
             if (accountService.register(account))
             {
                 //Send mail
-                var content = "Security Code: " + account.SecurityCode;
+                var content = "Security Code: " + account.SecurityCode ;
+                content += "<br><hr><br>";
+                content += "<a href='http://localhost:5271/api/account/verify;email="+ account.Email+ "&securityCode="+ account.SecurityCode +"'>Click here to Verify Email</a>";
                 var mailHelper = new MailHelper(configuration);
                 mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
 
@@ -216,47 +218,11 @@ public class AccountController : Controller
     }
     
     // Create New Account
-    [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("securitycode")]
-    public IActionResult Register([FromBody] Account account)
+    [HttpPut("verify")]
+    public IActionResult VerifyCode(Verify verify)
     {
-        try
-        {
-            if (accountService.CheckMail(account.Email))
-            {
-                return BadRequest("Email have Exist");
-            }
-
-            account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
-            account.Status = false;
-            account.SecurityCode = RandomHelper.RandomString(4);
-            // Mail
-
-
-            if (accountService.register(account))
-            {
-                //Send mail
-                var content = "Security Code: " + account.SecurityCode;
-                var mailHelper = new MailHelper(configuration);
-                mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
-
-                return Ok(account.Email);
-
-            }
-            else
-            {
-                return BadRequest("Wrong");
-            }
-
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return BadRequest();
-        }
-
-        
+        return Ok(accountService.Active(verify));
     }
 
 

@@ -1,6 +1,5 @@
 ﻿
 
-using Azure.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Providence.Models;
@@ -60,7 +59,7 @@ public class AccountServiceImpl : AccountService
     {
         try
         {
-            db.Entry(account).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(account).State = EntityState.Modified;
             return db.SaveChanges() > 0;
         }
         catch
@@ -74,7 +73,7 @@ public class AccountServiceImpl : AccountService
     {
         try
         {
-            db.Entry(account).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(account).State = EntityState.Modified;
             return db.SaveChanges() > 0;
         }
         catch
@@ -217,5 +216,38 @@ public class AccountServiceImpl : AccountService
     public bool CheckMail(string email)
     {
         return db.Accounts.Count(p => p.Email == email) > 0;
+    }
+
+    public dynamic VerifyCode(string account)
+    {
+        try
+        {
+            db.Entry(account).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            return db.SaveChanges() > 0;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public bool Active(Verify verify)
+    {
+        try
+        {
+            var account = db.Accounts.FirstOrDefault(a=>a.Email == verify.Email && a.SecurityCode == verify.SecurityCode);
+            if (account == null)
+            {
+                return false;
+            }
+            account.Status = true;
+            db.Accounts.Update(account);
+            return db.SaveChanges() > 0;
+        }
+        catch
+        {
+            return false;
+
+        }
     }
 }
