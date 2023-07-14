@@ -64,13 +64,18 @@ public partial class DatabaseContext : DbContext
     public virtual DbSet<Wishlist> Wishlists { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+<<<<<<< HEAD
         => optionsBuilder.UseSqlServer("Server=LAPTOP-P4M4QJ81\\NGUYENPHU;Database=Semester_3;user id=sa;password=1111;trusted_connection=true;encrypt=false");
+=======
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=NHATTIN\\SQLEXPRESS;Database=Semester_3;user id=sa;password=123123;trusted_connection=true;encrypt=false");
+>>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.AccountId).HasName("PK__Account__46A222CD66C3061E");
+            entity.HasKey(e => e.AccountId).HasName("PK__Account__46A222CD92ACAE4D");
 
             entity.ToTable("Account");
 
@@ -129,7 +134,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<AccountCoupon>(entity =>
         {
-            entity.HasKey(e => new { e.CouponId, e.AccountId }).HasName("PK__AccountC__9CA541A542BEDACF");
+            entity.HasKey(e => new { e.CouponId, e.AccountId }).HasName("PK__AccountC__9CA541A5F505C248");
 
             entity.ToTable("AccountCoupon");
 
@@ -153,7 +158,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Address>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__address__CAA247C8F45EBC8D");
+            entity.HasKey(e => e.AddressId).HasName("PK__address__CAA247C84253F1AD");
 
             entity.ToTable("address");
 
@@ -226,7 +231,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Blog>(entity =>
         {
-            entity.HasKey(e => e.BlogId).HasName("PK__Blogs__2975AA281A854C90");
+            entity.HasKey(e => e.BlogId).HasName("PK__Blogs__2975AA28FB9027B4");
 
             entity.Property(e => e.BlogId).HasColumnName("blog_id");
             entity.Property(e => e.BlogImage)
@@ -256,7 +261,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<BlogReview>(entity =>
         {
-            entity.HasKey(e => e.BlogReviewId).HasName("PK__BlogRevi__2539138E6062B40F");
+            entity.HasKey(e => e.BlogReviewId).HasName("PK__BlogRevi__2539138EC13D5A94");
 
             entity.ToTable("BlogReview");
 
@@ -285,7 +290,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Cart>(entity =>
         {
-            entity.HasKey(e => e.CartId).HasName("PK__Cart__2EF52A2700C24EA6");
+            entity.HasKey(e => e.CartId).HasName("PK__Cart__2EF52A276F35D128");
 
             entity.ToTable("Cart");
 
@@ -306,7 +311,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<CartDetail>(entity =>
         {
-            entity.HasKey(e => e.CartDetailId).HasName("PK__CartDeta__0F08F5293AAE37F9");
+            entity.HasKey(e => e.CartDetailId).HasName("PK__CartDeta__0F08F529AEB07D05");
 
             entity.ToTable("CartDetail");
 
@@ -336,7 +341,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Category__D54EE9B46EDC4F24");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Category__D54EE9B4BCBF92D6");
 
             entity.ToTable("Category");
 
@@ -349,14 +354,14 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Coupon>(entity =>
         {
-            entity.HasKey(e => e.CouponId).HasName("PK__Coupons__58CF6389B9C56098");
+            entity.HasKey(e => e.CouponId).HasName("PK__Coupons__58CF63897A08E626");
 
             entity.Property(e => e.CouponId).HasColumnName("coupon_id");
             entity.Property(e => e.CouponName)
                 .HasMaxLength(200)
                 .IsUnicode(false)
                 .HasColumnName("coupon_name");
-            entity.Property(e => e.CouponsTypeId).HasColumnName("coupons_type_id");
+            entity.Property(e => e.CouponTypeId).HasColumnName("coupon_type_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -365,22 +370,28 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.Discount).HasColumnName("discount");
+<<<<<<< HEAD
             entity.Property(e => e.ExpiredAt)
                 .HasColumnType("datetime")
                 .HasColumnName("expired_at");
+=======
+            entity.Property(e => e.ExpiredDay)
+                .HasColumnType("datetime")
+                .HasColumnName("expired_day");
+>>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
 
-            entity.HasOne(d => d.CouponsType).WithMany(p => p.Coupons)
-                .HasForeignKey(d => d.CouponsTypeId)
-                .HasConstraintName("FK__Coupons__coupons__5AEE82B9");
+            entity.HasOne(d => d.CouponType).WithMany(p => p.Coupons)
+                .HasForeignKey(d => d.CouponTypeId)
+                .HasConstraintName("FK__Coupons__coupon___5AEE82B9");
         });
 
         modelBuilder.Entity<CouponsType>(entity =>
         {
-            entity.HasKey(e => e.CouponsTypeId).HasName("PK__CouponsT__17349FCBE6B31378");
+            entity.HasKey(e => e.CouponTypeId).HasName("PK__CouponsT__AD2AFC0A5AA76F74");
 
             entity.ToTable("CouponsType");
 
-            entity.Property(e => e.CouponsTypeId).HasColumnName("coupons_type_id");
+            entity.Property(e => e.CouponTypeId).HasColumnName("coupon_type_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
@@ -445,7 +456,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Manufacturer>(entity =>
         {
-            entity.HasKey(e => e.MftId).HasName("PK__Manufact__B4D5DD988765DDCA");
+            entity.HasKey(e => e.MftId).HasName("PK__Manufact__B4D5DD98B417CBBA");
 
             entity.ToTable("Manufacturer");
 
@@ -471,7 +482,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__46596229005FE870");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__4659622991020620");
 
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.AccountId).HasColumnName("account_id");
@@ -508,7 +519,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__3C5A408009990481");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__3C5A408088A0EA1B");
 
             entity.ToTable("OrderDetail");
 
@@ -538,7 +549,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<OrderStatus>(entity =>
         {
-            entity.HasKey(e => e.OrderStatusId).HasName("PK__OrderSta__A499CF23D5EF5E64");
+            entity.HasKey(e => e.OrderStatusId).HasName("PK__OrderSta__A499CF233C35A8C2");
 
             entity.ToTable("OrderStatus");
 
@@ -562,7 +573,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<PaymentMethod>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__PaymentM__ED1FC9EA34081212");
+            entity.HasKey(e => e.PaymentId).HasName("PK__PaymentM__ED1FC9EA6D94B631");
 
             entity.ToTable("PaymentMethod");
 
@@ -582,7 +593,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Product__47027DF5FEEF5255");
+            entity.HasKey(e => e.ProductId).HasName("PK__Product__47027DF5219F5645");
 
             entity.ToTable("Product");
 
@@ -627,7 +638,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<ProductImage>(entity =>
         {
-            entity.HasKey(e => e.ImageId).HasName("PK__ProductI__DC9AC955F525B225");
+            entity.HasKey(e => e.ImageId).HasName("PK__ProductI__DC9AC955385A00D4");
 
             entity.Property(e => e.ImageId).HasColumnName("image_id");
             entity.Property(e => e.ImageUrl)
@@ -643,7 +654,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<ProductReview>(entity =>
         {
-            entity.HasKey(e => e.ProductReviewId).HasName("PK__ProductR__8440EB03CA701814");
+            entity.HasKey(e => e.ProductReviewId).HasName("PK__ProductR__8440EB032CDFA8DD");
 
             entity.ToTable("ProductReview");
 
@@ -713,7 +724,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Roles__760965CC2B3576EB");
+            entity.HasKey(e => e.RoleId).HasName("PK__Roles__760965CC226B60A5");
 
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.RoleName)
@@ -773,7 +784,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Wishlist>(entity =>
         {
-            entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__6151514EBF6D7D7A");
+            entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__6151514E9FCCAF03");
 
             entity.ToTable("Wishlist");
 

@@ -92,6 +92,10 @@ public class CouponsController : Controller
     {
         try
         {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
             return Ok(new
             {
 

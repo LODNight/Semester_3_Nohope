@@ -193,7 +193,9 @@ public class AccountController : Controller
             if (accountService.register(account))
             {
                 //Send mail
-                var content = "Security Code: " + account.SecurityCode;
+                var content = "Security Code: " + account.SecurityCode ;
+                content += "<br><hr><br>";
+                content += "<a href='http://localhost:5271/api/account/verify;email="+ account.Email+ "&securityCode="+ account.SecurityCode +"'>Click here to Verify Email</a>";
                 var mailHelper = new MailHelper(configuration);
                 mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
 
@@ -205,6 +207,7 @@ public class AccountController : Controller
                 return BadRequest("Wrong");
             }
 
+<<<<<<< HEAD
         }
         catch (Exception ex)
         {
@@ -249,6 +252,8 @@ public class AccountController : Controller
                 return BadRequest("Wrong");
             }
 
+=======
+>>>>>>> 1cfeb420416562a3e8825dbb3f49819c01314827
         }
         catch (Exception ex)
         {
@@ -257,6 +262,14 @@ public class AccountController : Controller
         }
 
         
+    }
+    
+    // Create New Account
+    [Produces("application/json")]
+    [HttpPut("verify")]
+    public IActionResult VerifyCode(Verify verify)
+    {
+        return Ok(accountService.Active(verify));
     }
 
 
