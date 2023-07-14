@@ -56,10 +56,7 @@ public class CategoryController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = categoryService.Create(category)
-            });
+            return Ok(categoryService.Create(category));
         }
         catch (Exception ex)
         {
@@ -74,10 +71,7 @@ public class CategoryController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = categoryService.Edit(category)
-            });
+            return Ok(categoryService.Edit(category));
         }
         catch (Exception ex)
         {
@@ -116,17 +110,11 @@ public class CategoryController : Controller
 
                         if (categoryService.Delete(id))
                         {
-                            return Ok(new
-                            {
-                                status = true
-                            });
+                            return Ok(true);
                         }
                         else
                         {
-                            return Ok(new
-                            {
-                                status = false
-                            });
+                            return Ok(false);
                         }
                     }
                 }

@@ -53,10 +53,7 @@ public class CartController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = cartService.Create(cart)
-            });
+            return Ok(cartService.Create(cart));
         }
         catch (Exception ex)
         {
@@ -71,10 +68,7 @@ public class CartController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = cartService.Edit(cart)
-            });
+            return Ok(cartService.Edit(cart));
         }
         catch (Exception ex)
         {
@@ -89,10 +83,7 @@ public class CartController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = cartService.Delete(id)
-            });
+            return Ok(cartService.Delete(id));
         }
         catch (Exception ex)
         {

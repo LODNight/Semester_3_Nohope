@@ -6,34 +6,30 @@ using Providence;
 using Providence.Converters;
 using Providence.Models;
 using Providence.Service;
+using Providence.Service.Implement;
+using Providence.Service.Interface;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
 
-//builder.Services.AddAuthentication(x =>
-//{
-//    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-//}).AddJwtBearer(x =>
-//{
-//    x.TokenValidationParameters = new TokenValidationParameters
-//    {
-
-//    }
-//});
-
+//
 builder.Services.AddControllers().AddJsonOptions(option =>
 {
     option.JsonSerializerOptions.Converters.Add(new DateConverter());
 });
 
 
-var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
-builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionString));
+//var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+//builder.Services.AddDbContext<DatabaseContext>(option => option.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
-builder.Services.AddScoped<AccountService, AccountServiceImpl>();
+builder.Services.AddScoped<DatabaseContext>();
+
+
+builder.Services.AddScoped<IServiceCRUD<Account>, AccountCRUD>();
+
+//builder.Services.AddScoped<AccountService, AccountServiceImpl>();
 builder.Services.AddScoped<BlogService, BlogServiceImpl>();
 builder.Services.AddScoped<CouponsService, CouponsServiceImpl>();
 builder.Services.AddScoped<CategoryService, CategoryServiceImpl>();
@@ -45,8 +41,12 @@ builder.Services.AddScoped<CartService, CartServiceImpl>();
 builder.Services.AddScoped<AddressService, AddressServiceImpl>();
 builder.Services.AddScoped<ManufacturerService, ManufacturerServiceImpl>();
 
+
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
 
 app.UseCors(builder => builder
                 .AllowAnyHeader()

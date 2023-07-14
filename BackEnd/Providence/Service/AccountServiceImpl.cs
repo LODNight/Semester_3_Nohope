@@ -31,7 +31,7 @@ public class AccountServiceImpl : AccountService
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return false;   
+            return false;
         }
     }
 
@@ -85,7 +85,7 @@ public class AccountServiceImpl : AccountService
     // For Update If dont change password
     public Account findByIdNoTracking(int id)
     {
-        return db.Accounts.AsNoTracking().SingleOrDefault(a => a.AccountId == id);
+        return db?.Accounts.AsNoTracking().SingleOrDefault(a => a.AccountId == id);
     }
 
     // Delete 
@@ -116,13 +116,15 @@ public class AccountServiceImpl : AccountService
             firstname = acc.Firstname,
             lastname = acc.Lastname,
             email = acc.Email,
+            password = acc.Password,
             phoneNumber = acc.Phone,
             gender = acc.Gender,
-            address = acc.Address,
+            address = acc.Address.RoadName,
             avatar = acc.Avatar,
             roleid = acc.RoleId,
             rolename = acc.Role.RoleName,
             status = acc.Status,
+            securitycode = acc.SecurityCode,
             createdAt = acc.CreatedAt,
             updatedAt = acc.UpdatedAt,
         }).ToList();
@@ -152,25 +154,25 @@ public class AccountServiceImpl : AccountService
     public dynamic findbyName(string keyword)
     {
         return db.Accounts.Where(
-            p => p.Firstname == keyword || 
-            p.Lastname == keyword || 
-            (p.Firstname + ' ' +  p.Lastname) == keyword)
+            p => p.Firstname == keyword ||
+            p.Lastname == keyword ||
+            p.Firstname + ' ' + p.Lastname == keyword)
             .Select(acc => new
-        {
-            id = acc.AccountId,
-            firstname = acc.Firstname,
-            lastname = acc.Lastname,
-            email = acc.Email,
-            phone = acc.Phone,
-            gender = acc.Gender,
-            address = acc.Address,
-            avatar = acc.Avatar,
-            roleid = acc.RoleId,
-            rolename = acc.Role.RoleName,
-            status = acc.Status,
-            createdAt = acc.CreatedAt,
-            updatedAt = acc.UpdatedAt,
-        }).ToList();
+            {
+                id = acc.AccountId,
+                firstname = acc.Firstname,
+                lastname = acc.Lastname,
+                email = acc.Email,
+                phone = acc.Phone,
+                gender = acc.Gender,
+                address = acc.Address,
+                avatar = acc.Avatar,
+                roleid = acc.RoleId,
+                rolename = acc.Role.RoleName,
+                status = acc.Status,
+                createdAt = acc.CreatedAt,
+                updatedAt = acc.UpdatedAt,
+            }).ToList();
     }
 
     public dynamic findbyStatus(bool status)
@@ -222,7 +224,7 @@ public class AccountServiceImpl : AccountService
     {
         try
         {
-            db.Entry(account).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            db.Entry(account).State = EntityState.Modified;
             return db.SaveChanges() > 0;
         }
         catch
@@ -235,7 +237,7 @@ public class AccountServiceImpl : AccountService
     {
         try
         {
-            var account = db.Accounts.FirstOrDefault(a=>a.Email == verify.Email && a.SecurityCode == verify.SecurityCode);
+            var account = db.Accounts.FirstOrDefault(a => a.Email == verify.Email && a.SecurityCode == verify.SecurityCode);
             if (account == null)
             {
                 return false;

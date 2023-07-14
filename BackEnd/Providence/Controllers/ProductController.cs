@@ -86,10 +86,7 @@ public class ProductController : Controller
 
                     if (rowsAffected > 0)
                     {
-                        return Ok(new
-                        {
-                            status = true
-                        });
+                        return Ok(true);
                     }
                     else
                     {
@@ -126,10 +123,7 @@ public class ProductController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = productService.Create(product)
-            });
+            return Ok(productService.Create(product));
         }
         catch (Exception ex)
         {
@@ -144,10 +138,7 @@ public class ProductController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = productService.Edit(product)
-            });
+            return Ok(productService.Edit(product));
         }
         catch (Exception ex)
         {
@@ -162,10 +153,7 @@ public class ProductController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = productService.Delete(id)
-            });
+            return Ok(productService.Delete(id));
         }
         catch (Exception ex)
         {

@@ -66,10 +66,7 @@ public class OrderController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = orderService.create(order)
-            });
+            return Ok(orderService.create(order));
         }
         catch (Exception ex)
         {
@@ -87,10 +84,7 @@ public class OrderController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = orderDetailService.create(orderDetail)
-            });
+            return Ok(orderDetailService.create(orderDetail));
         }
         catch (Exception ex)
         {
@@ -114,10 +108,7 @@ public class OrderController : Controller
         {
             order.UpdatedAt = DateTime.Now;
 
-            return Ok(new
-            {
-                status = orderService.update(order)
-            });
+            return Ok(orderService.update(order));
 
         }
         catch (Exception ex)
@@ -138,10 +129,7 @@ public class OrderController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = orderService.Delete(id)
-            });
+            return Ok(orderService.Delete(id));
         }
         catch (Exception ex)
         {

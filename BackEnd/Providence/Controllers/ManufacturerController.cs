@@ -52,10 +52,7 @@ public class ManufacturerController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = manufacturerService.Create(manufacturer)
-            });
+            return Ok(manufacturerService.Create(manufacturer));
         }
         catch (Exception ex)
         {
@@ -70,10 +67,7 @@ public class ManufacturerController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = manufacturerService.Edit(manufacturer)
-            });
+            return Ok(manufacturerService.Edit(manufacturer));
         }
         catch (Exception ex)
         {
@@ -88,10 +82,7 @@ public class ManufacturerController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = manufacturerService.Delete(id)
-            });
+            return Ok(manufacturerService.Delete(id));
         }
         catch (Exception ex)
         {

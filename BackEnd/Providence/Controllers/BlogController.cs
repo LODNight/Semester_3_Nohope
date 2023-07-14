@@ -45,10 +45,7 @@ public class BlogController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = blogService.create(blog)
-            });
+            return Ok(blogService.create(blog));
         }
         catch (Exception ex)
         {
@@ -71,10 +68,7 @@ public class BlogController : Controller
         {
             blog.UpdatedAt = DateTime.Now;
 
-            return Ok(new
-            {
-                status = blogService.update(blog)
-            });
+            return Ok(blogService.update(blog));
 
         }
         catch (Exception ex)
@@ -95,10 +89,7 @@ public class BlogController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = blogService.Delete(id)
-            });
+            return Ok(blogService.Delete(id));
         }
         catch (Exception ex)
         {

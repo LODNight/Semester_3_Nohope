@@ -67,10 +67,7 @@ public class CouponsController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = couponsService.create(coupon)
-            });
+            return Ok(couponsService.create(coupon));
         }
         catch (Exception ex)
         {
@@ -93,11 +90,7 @@ public class CouponsController : Controller
         try
         {
 
-            return Ok(new
-            {
-
-                status = couponsService.update(coupon)
-            });
+            return Ok(couponsService.update(coupon));
 
         }
         catch (Exception ex)
@@ -118,10 +111,7 @@ public class CouponsController : Controller
     {
         try
         {
-            return Ok(new
-            {
-                status = couponsService.Delete(id)
-            });
+            return Ok(couponsService.Delete(id));
         }
         catch (Exception ex)
         {
