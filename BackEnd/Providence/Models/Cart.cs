@@ -14,4 +14,6 @@ public partial class Cart
     public DateTime? UpdatedAt { get; set; }
 
     public virtual Account? Account { get; set; }
+
+    public virtual ICollection<CartDetail> CartDetails { get; set; } = new List<CartDetail>();
 }

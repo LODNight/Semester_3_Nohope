@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Chau_folder\\NetCore\\Semester_3_API\\BackEnd_Semester_3\\Providence\\Providence.csproj": {}
+    "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj": {}
   },
   "projects": {
-    "D:\\Chau_folder\\NetCore\\Semester_3_API\\BackEnd_Semester_3\\Providence\\Providence.csproj": {
+    "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Chau_folder\\NetCore\\Semester_3_API\\BackEnd_Semester_3\\Providence\\Providence.csproj",
+        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj",
         "projectName": "Providence",
-        "projectPath": "D:\\Chau_folder\\NetCore\\Semester_3_API\\BackEnd_Semester_3\\Providence\\Providence.csproj",
-        "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "D:\\Chau_folder\\NetCore\\Semester_3_API\\BackEnd_Semester_3\\Providence\\obj\\",
+        "projectPath": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj",
+        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,6 +43,10 @@
             "BCrypt.Net-Core": {
               "target": "Package",
               "version": "[1.6.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.9, )"
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
@@ -79,6 +83,10 @@
             "PagedList.Core.Mvc": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.32.0, )"
             }
           },
           "imports": [
@@ -100,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

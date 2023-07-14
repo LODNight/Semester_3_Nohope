@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Providence.Models;
 using Providence.Service;
 using System.Diagnostics;
@@ -10,11 +11,13 @@ public class CategoryController : Controller
 {
     private CategoryService categoryService;
     private IWebHostEnvironment webHostEnvironment;
+    private IConfiguration configuration;
 
-    public CategoryController(CategoryService categoryService, IWebHostEnvironment webHostEnvironment)
+    public CategoryController(CategoryService categoryService, IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
     {
         this.categoryService = categoryService;
         this.webHostEnvironment = webHostEnvironment;
+        this.configuration = configuration;
     }
 
     [Produces("application/json")]
@@ -90,10 +93,45 @@ public class CategoryController : Controller
     {
         try
         {
-            return Ok(new
+            if (categoryService.Delete(id)) //true nếu cate này k phải là cha
             {
-                status = categoryService.Delete(id)
-            });
+                return Ok(new
+                {
+                    status = true
+                });
+            }
+            else //false nếu cate này là cha
+            {
+                string connectionString = configuration.GetConnectionString("DefaultConnection");
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string query = "UPDATE Category SET parent_id = NULL WHERE parent_id = @id;";
+
+                    using (SqlCommand command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", id);
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+
+                        if (categoryService.Delete(id))
+                        {
+                            return Ok(new
+                            {
+                                status = true
+                            });
+                        }
+                        else
+                        {
+                            return Ok(new
+                            {
+                                status = false
+                            });
+                        }
+                    }
+                }
+            }
         }
         catch (Exception ex)
         {

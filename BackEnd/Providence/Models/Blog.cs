@@ -21,5 +21,5 @@ public partial class Blog
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public virtual ICollection<BlogReview> BlogReviews { get; set; } = new List<BlogReview>();
 }

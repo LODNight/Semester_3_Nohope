@@ -13,6 +13,8 @@ public partial class Order
 
     public int? OrderStatusId { get; set; }
 
+    public int? PaymentId { get; set; }
+
     public int? CouponId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
@@ -26,4 +28,6 @@ public partial class Order
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual OrderStatus? OrderStatus { get; set; }
+
+    public virtual PaymentMethod? Payment { get; set; }
 }

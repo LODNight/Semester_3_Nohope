@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.SqlServer.Server;
 using Providence.Helper;
 using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
+using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -14,11 +16,20 @@ public class AccountController : Controller
 {
     private AccountService accountService;
     private IConfiguration configuration;
+    //private readonly IJwtService _jwtService;
+
 
     public AccountController(AccountService accountService, IConfiguration configuration)
     {
         this.accountService = accountService;
         this.configuration = configuration;
+    }
+
+    [HttpGet("protected-resource")]
+    [Authorize(Roles = "admin")]
+    public IActionResult GetProtectedResource()
+    {
+        return Ok("This is a protected resource for admin only.");
     }
 
 
