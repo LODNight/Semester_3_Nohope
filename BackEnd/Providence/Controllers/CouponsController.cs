@@ -92,7 +92,6 @@ public class CouponsController : Controller
     {
         try
         {
-            coupon.UpdatedAt = DateTime.Now;
 
             return Ok(new
             {
