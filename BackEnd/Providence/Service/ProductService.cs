@@ -9,4 +9,6 @@ public interface ProductService
     public bool Edit(Product product);
     public bool Delete(int id);
     public dynamic find(int id);
+    public dynamic searchByKeyword(string keyword);
+    public dynamic findDetailById(int id);
 }
