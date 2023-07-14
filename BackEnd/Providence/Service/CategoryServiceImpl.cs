@@ -62,9 +62,6 @@ public class CategoryServiceImpl : CategoryService
         {
             categoryId = c.CategoryId,
             categoryName = c.CategoryName,
-            parentId = c.ParentId,
-            createdAt = c.CreatedAt,
-            updatedAt = c.UpdatedAt
         }).SingleOrDefault();
     }
 
@@ -74,9 +71,6 @@ public class CategoryServiceImpl : CategoryService
         {
             categoryId = c.CategoryId,
             categoryName = c.CategoryName,
-            parentId = c.ParentId,
-            createdAt = c.CreatedAt,
-            updatedAt = c.UpdatedAt
-        });
+        }).OrderByDescending(c => c.categoryId).ToList();
     }
 }

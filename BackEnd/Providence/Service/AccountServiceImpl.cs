@@ -41,7 +41,6 @@ public class AccountServiceImpl : AccountService
     {
         try
         {
-            //status ddaau ? account deo co status lun
             var account = db.Accounts.SingleOrDefault(a => a.Email == email);
             if (account != null)
             {
@@ -95,7 +94,6 @@ public class AccountServiceImpl : AccountService
     {
         try
         {
-            // =)))) 
             db.Accounts.Remove(db.Accounts.Find(id));
             return db.SaveChanges() > 0;
         }
@@ -128,7 +126,7 @@ public class AccountServiceImpl : AccountService
             status = acc.Status,
             createdAt = acc.CreatedAt,
             updatedAt = acc.UpdatedAt,
-        });
+        }).ToList();
     }
 
     // Find Email
@@ -214,5 +212,10 @@ public class AccountServiceImpl : AccountService
             createdAt = acc.CreatedAt,
             updatedAt = acc.UpdatedAt,
         }).ToList();
+    }
+
+    public bool CheckMail(string email)
+    {
+        return db.Accounts.Count(p => p.Email == email) > 0;
     }
 }

@@ -6,8 +6,7 @@ using System.Diagnostics;
 using static Azure.Core.HttpHeader;
 
 namespace Providence.Controllers;
-[Route("api/[Controller]")]
-[ApiController]
+[Route("api/category")]
 public class CategoryController : Controller
 {
     private CategoryService categoryService;
@@ -75,7 +74,6 @@ public class CategoryController : Controller
     {
         try
         {
-            category.UpdatedAt = DateTime.Now;
             return Ok(new
             {
                 status = categoryService.Edit(category)
