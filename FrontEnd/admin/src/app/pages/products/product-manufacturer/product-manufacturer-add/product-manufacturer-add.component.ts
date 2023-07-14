@@ -29,10 +29,11 @@ export class ProductManufacturerAddComponent {
   ) {
     this.addMftFormGroup = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
+      description: ['', [Validators.required, Validators.maxLength(100)]],
       province: [, [Validators.required]],
       district: [, [Validators.required]],
       ward: [, [Validators.required]],
-      address: [, [Validators.required], Validators.maxLength(50)],
+      address: [, [Validators.required]],
     })
   }
 

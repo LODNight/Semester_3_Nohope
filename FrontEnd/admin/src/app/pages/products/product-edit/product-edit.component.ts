@@ -11,6 +11,8 @@ import { ToastState, UtilsService } from '../../../@core/services/utils.service'
 import { forkJoin } from 'rxjs';
 import { CategoryService } from '../../../@core/services/product/category.service';
 import { Category } from '../../../@core/models/product/category';
+import { Manufacturer } from '../../../@core/models/product/manufacturer';
+import { ManufacturerService } from '../../../@core/services/product/manufacturer.service';
 
 @Component({
   selector: 'ngx-product-edit',
@@ -19,13 +21,14 @@ import { Category } from '../../../@core/models/product/category';
 })
 export class ProductEditComponent implements OnInit {
   @ViewChild(ImagesCarouselComponent) carousel: ImagesCarouselComponent;
-  @ViewChildren(NbAccordionItemComponent) accordions: QueryList<NbAccordionItemComponent>;
   Editor = ClassicEditor;
   editorConfig: any = { placeholder: 'Description' };
 
   edittingProduct: Product;
   edittingProductId: string;
+
   categories: Category[];
+  manufacturers: Manufacturer[]
 
   editProductFormGroup: FormGroup
   images: string[] = []
@@ -36,8 +39,13 @@ export class ProductEditComponent implements OnInit {
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
     private utilsService: UtilsService,
-    private router: Router
-  ) {
+    private router: Router,
+    private mftService: ManufacturerService,
+  ) { }
+
+  get product() { return this.editProductFormGroup.controls["product"] as FormGroup }
+
+  ngOnInit() {
     this.settingFormGroup()
     this.activatedRoute.params.subscribe(
       params => {
@@ -49,50 +57,47 @@ export class ProductEditComponent implements OnInit {
         )
       }
     )
-  }
 
-  get product() { return this.editProductFormGroup.controls["product"] as FormGroup }
-  get variants() { return this.editProductFormGroup.controls["variants"] as FormArray }
-
-  ngOnInit() {
     const category$ = this.categoryService.findAll();
-
-    forkJoin([category$]).subscribe(
-      ([categoryData]) => {
+    const mft$ = this.mftService.findAll()
+    forkJoin([category$, mft$]).subscribe(
+      ([categoryData, mftData]) => {
         this.categories = categoryData;
+        this.manufacturers = mftData
         this.fillFormValues();
       },
-      error => {
-        console.error(error);
-      }
+      error => console.error(error)
     );
-  }
-
-  fillFormValues(): void {
-    // setting basic information
-    this.product.get('id').setValue(this.edittingProduct.productId);
-    this.product.get('name').setValue(this.edittingProduct.productName)
-    this.product.get('category').setValue(this.edittingProduct.category.categoryName)
-    this.product.get('description').setValue(this.edittingProduct.description)
-    this.product.get('images').setValue(this.edittingProduct.images)
-
-    // let images: string[] = this.edittingProduct.images.map((img: Image ) => {
-    //   return this.utilsService.getImageFromBase64(img.imageUrl);
-    // })
-    // this.carousel.show(images);
   }
 
   settingFormGroup(): void {
     this.editProductFormGroup = this.formBuilder.group({
       product: this.formBuilder.group({
         id: [],
-        name: ['', [CustomValidator.notBlank, Validators.maxLength(200)]],
+        name: ['', [Validators.required]],
         category: [''],
-        description: ['', [CustomValidator.notBlank, Validators.maxLength(1000)]],
-        images: [this.images] // Initialize with the array of URLs, e.g., this.urls is the array obtained from selectFile method
+        manufacturer: [''],
+        price: ['', [Validators.required]],
+        quantity: ['', [Validators.required]],
+        detail: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        expireDate: [''],
+        images: [this.images]
       }),
-      variants: this.formBuilder.array([])
     })
+  }
+
+  fillFormValues(): void {
+    // setting basic information
+    this.product.get('id').setValue(this.edittingProduct.productId);
+    this.product.get('name').setValue(this.edittingProduct.productName)
+    this.product.get('category').setValue(this.edittingProduct?.category)
+    this.product.get('manufacturer').setValue(this.edittingProduct?.manufacturer)
+    this.product.get('quantity').setValue(this.edittingProduct.quantity)
+    this.product.get('price').setValue(this.edittingProduct.price)
+    this.product.get('description').setValue(this.edittingProduct.description)
+    this.product.get('detail').setValue(this.edittingProduct.detail)
+    this.product.get('images').setValue(this.edittingProduct.images)
   }
 
   selectFiles(event: any) {
@@ -133,12 +138,13 @@ export class ProductEditComponent implements OnInit {
     let editedProduct: any = new Product();
     editedProduct.productId = this.product.get('id').value;
     editedProduct.productName = this.product.get('name').value;
+    editedProduct.categoryId = this.product.get('category').value?.categoryId;
+    editedProduct.manufacturerId = this.product.get('manufacturer').value?.mftId;
+    editedProduct.quantity = this.product.get('quantity').value
+    editedProduct.price = this.product.get('price').value
     editedProduct.description = this.product.get('description').value;
-    editedProduct.isHide = false;
-    editedProduct.categoryId = this.categories.find(cate => cate.categoryName == this.product.get('category').value).categoryId;
+    editedProduct.detail = this.product.get('detail').value;
     editedProduct.images = this.product.get('images').value
-    editedProduct.createdAt = new Date();
-    editedProduct.updatedAt = new Date();
     return editedProduct
   }
 

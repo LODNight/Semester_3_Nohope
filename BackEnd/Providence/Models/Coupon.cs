@@ -7,7 +7,7 @@ public partial class Coupon
 {
     public int CouponId { get; set; }
 
-    public int? CouponsTypeId { get; set; }
+    public int? CouponTypeId { get; set; }
 
     public string? CouponName { get; set; }
 
@@ -17,7 +17,7 @@ public partial class Coupon
 
     public DateTime? CreatedAt { get; set; }
 
-    public DateTime? UpdatedAt { get; set; }
+    public DateTime? ExpiredAt { get; set; }
 
     public virtual ICollection<AccountCoupon> AccountCoupons { get; set; } = new List<AccountCoupon>();
 

@@ -14,16 +14,16 @@ import { Coupon } from "../../../../@core/models/coupon/coupon.model";
   styleUrls: ["./product-coupon-add.component.scss"],
 })
 export class ProductCouponAddComponent implements OnInit{
-  selectedDiscountTypeAddForm;
   addCouponFormGroup: FormGroup;
-  
 
   constructor(
     private couponService: ProductCouponService,
     private formBuilder: FormBuilder,
     private utilsService: UtilsService,
     private router: Router
-  ) {
+  ) { }
+  
+  ngOnInit() {
     this.addCouponFormGroup = this.formBuilder.group({
       code: ['', [CustomValidator.notBlank, Validators.maxLength(20)]],
       description: ['', [CustomValidator.notBlank, Validators.maxLength(50)]],
@@ -33,25 +33,41 @@ export class ProductCouponAddComponent implements OnInit{
       expiredDate: [, Validators.required]
     })
   }
-  
-  ngOnInit() {
-    let x
-  }
 
   submitAddCoupon() {
-    console.log(this.addCouponFormGroup);
-    
     if(this.addCouponFormGroup.invalid) {
       this.addCouponFormGroup.markAllAsTouched();
       this.utilsService.updateToastState(new ToastState('add', 'coupon', 'danger'))
       return;
     }
 
+    let insertCoupon: Coupon = this.mapFormValue() 
+    console.log(insertCoupon);
+    
+    this.couponService.insert(insertCoupon).subscribe(
+      data => {
+        if (data) {
+          this.utilsService.updateToastState(new ToastState('add', 'coupon', 'success'))
+          this.couponService.notifyCouponChange()
+          this.addCouponFormGroup.reset()
+        } else {
+        this.utilsService.updateToastState(new ToastState('add', 'coupon', 'danger'))
+
+        }
+      },
+      error => {
+        console.log(error)
+        this.utilsService.updateToastState(new ToastState('add', 'coupon', 'danger'))
+      }
+    )
+  }
+  
+  mapFormValue(): Coupon {
     let coupon: any = new Coupon();
-    coupon.code = this.addCouponFormGroup.get('code').value
+    coupon.couponName = this.addCouponFormGroup.get('code').value
     coupon.discount = this.addCouponFormGroup.get('discountValue').value
     coupon.description = this.addCouponFormGroup.get('description').value
-    coupon.couponTypeId = this.addCouponFormGroup.get('discountType').value == 'Fixed' ? 1 : 2
+    coupon.couponsTypeId = this.addCouponFormGroup.get('discountType').value == 'Fixed' ? 1 : 2
     coupon.createdAt = new Date(this.addCouponFormGroup.get('startedDate').value)
       .toLocaleDateString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' })
       .split('/').reverse().join('-')
@@ -59,20 +75,6 @@ export class ProductCouponAddComponent implements OnInit{
       .toLocaleDateString('vi-VN', { year: 'numeric', month: '2-digit', day: '2-digit' })
       .split('/').reverse().join('-')
 
-    console.log(coupon);
-    
-    this.couponService.insert(coupon).subscribe(
-      data => {
-        if (data) {
-          this.utilsService.updateToastState(new ToastState('add', 'coupon', 'success'))
-          this.couponService.notifyCouponChange()
-          this.addCouponFormGroup.reset()
-        }
-      },
-      error => {
-        console.log(error.error.message)
-        this.utilsService.updateToastState(new ToastState('add', 'coupon', 'danger'))
-      }
-    )
+      return coupon
   }
 }

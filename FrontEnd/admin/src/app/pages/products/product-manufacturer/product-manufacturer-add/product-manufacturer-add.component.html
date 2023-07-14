@@ -13,11 +13,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-lg-6 col-sm-12 mt-3">
                 <nb-select fullWidth placeholder="Province" formControlName="province"
                     (selectedChange)="loadDistricts($event)">
                     <nb-select-label>
-                        Province: {{ addMftFormGroup.get('province').value['name'] }}
+                        Province: {{ addMftFormGroup.get('province').value?.name }}
                     </nb-select-label>
                     <nb-option *ngFor="let province of provinces" [value]="province">{{province.name}}</nb-option>
                 </nb-select>
@@ -28,11 +28,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-lg-6 col-sm-12 mt-3">
                 <nb-select fullWidth placeholder="District" formControlName="district"
                     (selectedChange)="loadWards($event)">
                     <nb-select-label>
-                        District: {{ addMftFormGroup.get('district').value['name'] }}
+                        District: {{ addMftFormGroup.get('district').value?.name }}
                     </nb-select-label>
                     <nb-option *ngFor="let district of districts" [value]="district">{{district.name}}</nb-option>
                 </nb-select>
@@ -43,10 +43,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-lg-6 col-sm-12 mt-3">
                 <nb-select fullWidth placeholder="Ward" formControlName="ward">
                     <nb-select-label>
-                        Ward: {{ addMftFormGroup.get('ward').value['name'] }}
+                        Ward: {{ addMftFormGroup.get('ward').value?.name }}
                     </nb-select-label>
                     <nb-option *ngFor="let ward of wards" [value]="ward">{{ward.name}}</nb-option>
                 </nb-select>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-lg-6 col-sm-12 mt-3">
                 <input type="text" placeholder="Address" nbInput fullWidth formControlName="address" />
                 <div class="alert alert-danger mt-1"
                     *ngIf="addMftFormGroup.get('address').invalid && (addMftFormGroup.get('address').dirty || addMftFormGroup.get('address').touched)">
@@ -65,11 +65,14 @@
                         Address is required
                     </div>
                 </div>
-
-                <div class="alert alert-danger mt-1"
-                    *ngIf="addMftFormGroup.get('address').invalid && (addMftFormGroup.get('address').dirty || addMftFormGroup.get('address').touched)">
-                    <div *ngIf="addMftFormGroup.get('address').errors['maxlength']">
-                        Address must be under 50 characters
+            </div>
+            <div class="col-12 mt-3">
+                <textarea nbInput fullWidth formControlName="description" 
+                    placeholder="Description" rows="5"></textarea>
+                <div class="alert alert-danger mt-0 mb-3"
+                    *ngIf="addMftFormGroup.get('description').invalid && (addMftFormGroup.get('description').dirty || addMftFormGroup.get('description').touched)">
+                    <div *ngIf="addMftFormGroup.get('description').errors['required']">
+                        Description is required
                     </div>
                 </div>
             </div>

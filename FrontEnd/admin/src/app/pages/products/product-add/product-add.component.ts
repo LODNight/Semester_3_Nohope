@@ -10,28 +10,30 @@ import { ToastState, UtilsService } from '../../../@core/services/utils.service'
 import { Router } from '@angular/router';
 import { CategoryService } from '../../../@core/services/product/category.service';
 import { Category } from '../../../@core/models/product/category';
+import { Manufacturer } from '../../../@core/models/product/manufacturer';
+import { ManufacturerService } from '../../../@core/services/product/manufacturer.service';
 
 @Component({
   selector: 'ngx-product-add',
   templateUrl: './product-add.component.html',
   styleUrls: ['./product-add.component.scss']
 })
-export class ProductAddComponent implements OnInit, AfterViewInit {
+export class ProductAddComponent implements OnInit {
   @ViewChild(ImagesCarouselComponent) carousel: ImagesCarouselComponent;
-  @ViewChildren(NbAccordionItemComponent) accordions: QueryList<NbAccordionItemComponent>;
   Editor = ClassicEditor;
   editorConfig: any = { placeholder: 'Description' };
 
   categories: Category[];
+  manufacturers: Manufacturer[]
 
   // form chosen values
   addProductFormGroup: FormGroup
-  descriptionContent: string;
   images: string[] = []
 
   constructor(
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,
+    private mftService: ManufacturerService,
     private productService: ProductService,
     private utilsService: UtilsService,
     private router: Router
@@ -40,28 +42,27 @@ export class ProductAddComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.categoryService.findAll().subscribe(data => {this.categories = data})
-    this.settingFormGroup()
-  }
+    this.mftService.findAll().subscribe(data => {this.manufacturers = data})
 
-  ngAfterViewInit(): void {
-    this.accordions.first.toggle()
+    this.settingFormGroup()
   }
 
   settingFormGroup(): void {
     this.addProductFormGroup = this.formBuilder.group({
       product: this.formBuilder.group({
-        name: ['', [CustomValidator.notBlank, Validators.maxLength(200)]],
+        name: ['', [Validators.required]],
         category: [''],
-        price: [''],
-        quantity: [''],
-        detail: [''],
-        expireDate: [''],
         manufacturer: [''],
-        description: ['', [CustomValidator.notBlank, Validators.maxLength(1000)]],
+        price: ['', [Validators.required]],
+        quantity: ['', [Validators.required]],
+        detail: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        expireDate: [''],
         images: [this.images]
       }),
     })
   }
+  get product() { return this.addProductFormGroup.controls["product"] as FormGroup }
 
   selectFiles(event: any) {
     if (event.target.files) {
@@ -70,15 +71,11 @@ export class ProductAddComponent implements OnInit, AfterViewInit {
         reader.onload = (event: any) => {
           this.images.push(event.target.result);
         };
-
         reader.readAsDataURL(event.target.files[i]);
       }
     }
-
     this.carousel.show(this.images);
   }
-
-  get product() { return this.addProductFormGroup.controls["product"] as FormGroup }
 
   onSubmit() {
     if (this.addProductFormGroup.invalid) {
@@ -87,7 +84,7 @@ export class ProductAddComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    const insertProduct: Product = this.mapFormValue()
+    const insertProduct: Product = this.mapFormValue()  
     console.log(insertProduct);
     this.productService.insert(insertProduct).subscribe(data => {
 
@@ -99,9 +96,15 @@ export class ProductAddComponent implements OnInit, AfterViewInit {
   mapFormValue(): Product {
     let insertProduct: any = new Product();
     insertProduct.productName = this.product.get('name').value;
+    insertProduct.quantity = this.product.get('quantity').value;
+    insertProduct.price = this.product.get('price').value;
     insertProduct.description = this.product.get('description').value;
+    insertProduct.detail = this.product.get('detail').value;
+
+    insertProduct.categoryId = this.product.get('category').value['categoryName'];
+    insertProduct.manufacturerId = this.product.get('manufacturer').value['mftName'];
     insertProduct.isHide = false;
-    insertProduct.categoryId = this.categories.find(cate => cate.categoryName = this.product.get('category').value).categoryId;
+    
     insertProduct.images = this.product.get('images').value
     insertProduct.createdAt = new Date();
     insertProduct.updatedAt = new Date();

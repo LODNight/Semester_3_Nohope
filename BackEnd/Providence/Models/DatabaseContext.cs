@@ -64,8 +64,7 @@ public partial class DatabaseContext : DbContext
     public virtual DbSet<Wishlist> Wishlists { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-P4M4QJ81\\NGUYENPHU;database=Semester_3;user id=sa;password=1111;trusted_connection=true;encrypt=false");
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-P4M4QJ81\\NGUYENPHU;Database=Semester_3;user id=sa;password=1111;trusted_connection=true;encrypt=false");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -366,9 +365,9 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("text")
                 .HasColumnName("description");
             entity.Property(e => e.Discount).HasColumnName("discount");
-            entity.Property(e => e.UpdatedAt)
+            entity.Property(e => e.ExpiredAt)
                 .HasColumnType("datetime")
-                .HasColumnName("updated_at");
+                .HasColumnName("expired_at");
 
             entity.HasOne(d => d.CouponsType).WithMany(p => p.Coupons)
                 .HasForeignKey(d => d.CouponsTypeId)

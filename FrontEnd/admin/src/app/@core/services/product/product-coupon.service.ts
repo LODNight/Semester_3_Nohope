@@ -36,34 +36,31 @@ export class ProductCouponService {
     this.couponChangeSubject.next();
   }
 
-  baseUrl = "http://127.0.0.1:8000/api/";
-  
   constructor(
     private baseUrlService: BaseURLService,
     private httpClient: HttpClient
-  ) { 
-  }
+  ) { }
 
   findAll(): Observable<Coupon[]> {
-    const url: string = `${this.baseUrlService.baseURL}/coupon`
+    const url: string = `${this.baseUrlService.baseURL}/coupons/findAll`
     return this.httpClient.get<Coupon[]>(url)
   }
 
   insert(coupon: Coupon): Observable<boolean> {
-    const url: string = `${this.baseUrlService.baseURL}/coupon/create`
+    const url: string = `${this.baseUrlService.baseURL}/coupons/create`
     return this.httpClient.post<boolean>(url, coupon);
   }
 
   update(coupon: Coupon): Observable<boolean> {
-    const url: string = `${this.baseUrlService.baseURL}/coupon/update/${coupon.couponId}`
+    const url: string = `${this.baseUrlService.baseURL}/coupons/edit`
     console.log(url);
     
-    return this.httpClient.post<boolean>(url, coupon);
+    return this.httpClient.put<boolean>(url, coupon);
   }
 
   delete(couponId: number): Observable<boolean> {    
-    const url: string = `${this.baseUrlService.baseURL}/coupon/delete/${couponId}`
-    return this.httpClient.get<boolean>(url); 
+    const url: string = `${this.baseUrlService.baseURL}/coupons/delete/${couponId}`
+    return this.httpClient.delete<boolean>(url); 
   }
 
   findCouponTypeById(id: number): CouponsType {

@@ -1,68 +1,103 @@
-<form [formGroup]="editProductFormGroup" (ngSubmit)="onSubmit()">
+<form [formGroup]="editProductFormGroup" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
     <nb-card fullWidth>
         <nb-card-header>
             <div class="row">
                 <div class="col d-flex align-items-center justify-content-between">
                     <h6>
-                        Edit Product
+                        Add A Product
                     </h6>
-                    <button nbButton status="success" size="large">SAVE</button>
+                    <button nbButton status="success" size="large" type="submit">PUBLISH</button>
                 </div>
             </div>
         </nb-card-header>
     </nb-card>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
             <nb-card formGroupName="product">
                 <nb-card-header>Basic Information</nb-card-header>
                 <nb-card-body>
-                    <input type="hidden" formControlName="id">
-                    <input type="text" nbInput fullWidth placeholder="Product Name" formControlName="name" maxlength="200">
-                    <div class="alert alert-danger mt-1" 
-                        *ngIf="product.get('name').invalid && (product.get('name').dirty || product.get('name').touched)">
-                        <div *ngIf="product.get('name').errors['notblank']">
-                            Product Name is required
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <input type="text" nbInput fullWidth placeholder="Product Name" formControlName="name" maxlength="200">
+                            <div class="alert alert-danger mt-1" 
+                                *ngIf="product.get('name').invalid && (product.get('name').dirty || product.get('name').touched)">
+                                <div *ngIf="product.get('name').errors['required']">
+                                    Product Name is required
+                                </div>
+                            </div>
                         </div>
-
-                        <div *ngIf="product.get('name').errors['maxlength']">
-                            Product Name must not exceed 200 characters
+                        <div class="col-lg-6 col-sm-12 mt-3">
+                            <nb-select fullWidth placeholder="Category" formControlName="category">
+                                <nb-select-label>
+                                    Category: {{ product.get('category').value }}
+                                </nb-select-label>
+                                <nb-option *ngFor="let cate of categories" value="{{cate.categoryName }}">{{cate.categoryName}}</nb-option>
+                            </nb-select>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 mt-3">
+                            <nb-select fullWidth placeholder="Manufacturer" formControlName="manufacturer">
+                                <nb-select-label>
+                                    Manufacturer: {{ product.get('manufacturer').value }}
+                                </nb-select-label>
+                                <nb-option *ngFor="let mft of manufacturers" [value]="mft">{{mft.mftName}}</nb-option>
+                            </nb-select>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 mt-3">
+                            <input type="number" nbInput fullWidth placeholder="Quantity" formControlName="quantity">
+                            <div class="alert alert-danger mt-1" 
+                                *ngIf="product.get('quantity').invalid && (product.get('quantity').dirty || product.get('quantity').touched)">
+                                <div *ngIf="product.get('quantity').errors['required']">
+                                    Quantity is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 mt-3">
+                            <input type="number" nbInput fullWidth placeholder="Price" formControlName="price">
+                            <div class="alert alert-danger mt-1" 
+                                *ngIf="product.get('price').invalid && (product.get('price').dirty || product.get('price').touched)">
+                                <div *ngIf="product.get('price').errors['required']">
+                                    Price is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <textarea rows="6" nbInput fullWidth formControlName="description" placeholder="Short Description"></textarea>
+                            <div class="alert alert-danger mt-1" 
+                                *ngIf="product.get('description').invalid && (product.get('description').dirty || product.get('description').touched)">
+                                <div *ngIf="product.get('description').errors['required']">
+                                    Short Description is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <ckeditor class="ckeditor" [editor]="Editor" [config]="editorConfig" formControlName="detail" maxlength="500"></ckeditor>
+                            <div class="alert alert-danger mt-1" 
+                                *ngIf="product.get('detail').invalid && (product.get('detail').dirty || product.get('detail').touched)">
+                                <div *ngIf="product.get('detail').errors['required']">
+                                    Product Description is required
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" mutliple class="custom-file-input" multiple
+                                        accept="image/png, image/jpeg" (change)="selectFiles($event)">
+                                    <label class="custom-file-label">Choose images</label>
+                                </div>
+                            </div>
+                            <ngx-images-carousel></ngx-images-carousel>
                         </div>
                     </div>
-
-                    <nb-select fullWidth placeholder="Category" formControlName="category">
-                        <nb-select-label>
-                            Category: {{ product.get('category').value }}
-                        </nb-select-label>
-                        <nb-option *ngFor="let cate of categories" value="{{cate.categoryName }}">{{cate.categoryName}}</nb-option>
-                    </nb-select>
-
-                    <ckeditor class="ckeditor" [editor]="Editor" [config]="editorConfig" formControlName="description" maxlength="500"></ckeditor>
-                    <div class="alert alert-danger mt-1" 
-                        *ngIf="product.get('description').invalid && (product.get('description').dirty || product.get('description').touched)">
-                        <div *ngIf="product.get('description').errors['notblank']">
-                            Product description is required
-                        </div>
-
-                        <div *ngIf="product.get('description').errors['maxlength']">
-                            Product description must not exceed 1000 characters
-                        </div>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Upload</span>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" mutliple class="custom-file-input" multiple
-                                accept="image/png, image/jpeg" (change)="selectFiles($event)">
-                            <label class="custom-file-label">Choose images</label>
-                        </div>
-                    </div>
-    
-                    <ngx-images-carousel></ngx-images-carousel>
                 </nb-card-body>
             </nb-card>
         </div>
+        <div class="col-lg-2"></div>
+
     </div>
 </form>
 

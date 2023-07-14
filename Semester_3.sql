@@ -118,11 +118,16 @@ GO
 CREATE TABLE CouponsType(
 	coupons_type_id INT PRIMARY KEY IDENTITY,
 	name_type VARCHAR(200) , -- Có 2 dạng nếu là [fixed] thì là -100, nếu là [Persent] thì -100%
-	isUsed BIT DEFAULT 1,
-	created_at DATETIME  DEFAULT GETDATE(),
-	updated_at DATETIME  DEFAULT NULL
+	created_at DATETIME DEFAULT GETDATE(),
+	updated_at DATETIME DEFAULT NULL
 );
 GO
+
+INSERT INTO CouponsType (name_type)
+VALUES ('Fixed'), ('Percent')
+GO
+
+
 
 CREATE TABLE Coupons (
 	coupon_id INT PRIMARY KEY IDENTITY,
@@ -131,7 +136,7 @@ CREATE TABLE Coupons (
 	discount INT ,
 	[description] TEXT ,
  	created_at DATETIME  DEFAULT GETDATE(),
-	updated_at DATETIME  DEFAULT NULL,
+	expired_at DATETIME  DEFAULT NULL,
 	FOREIGN KEY (coupons_type_id) REFERENCES CouponsType(coupons_type_id)
 );
 GO
@@ -139,6 +144,7 @@ GO
 CREATE TABLE AccountCoupon(
 	coupon_id INT ,
 	account_id INT ,
+	isUsed BIT DEFAULT 1,
 	PRIMARY KEY (coupon_id, account_id),
 	FOREIGN KEY (coupon_id) REFERENCES Coupons(coupon_id),
 	FOREIGN KEY (account_id) REFERENCES Account(account_id)
@@ -266,5 +272,7 @@ CREATE TABLE Review (
 	FOREIGN KEY (blog_id) REFERENCES Blogs(blog_id),
 );
 GO
+
+
 
 
