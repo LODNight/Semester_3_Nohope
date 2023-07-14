@@ -21,7 +21,7 @@ public partial class Coupon
 
     public virtual ICollection<AccountCoupon> AccountCoupons { get; set; } = new List<AccountCoupon>();
 
-    public virtual CouponsType? CouponType { get; set; }
+    public virtual CouponType? CouponType { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

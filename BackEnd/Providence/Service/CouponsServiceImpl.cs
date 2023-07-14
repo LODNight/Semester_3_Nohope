@@ -47,10 +47,10 @@ public class CouponsServiceImpl : CouponsService
             id = coupon.CouponId,
             couponname = coupon.CouponName,
             coupontypeid = coupon.CouponTypeId,
-            coupontypename = coupon.CouponType.NameType,
+            coupontypename = coupon.CouponType.TypeName,
             discount = coupon.Discount,
             discription = coupon.Description,
-            expiredDay = coupon.ExpiredAt,
+            expiredAt = coupon.ExpiredAt,
             createdAt = coupon.CreatedAt,
         }).ToList();
     }
@@ -63,10 +63,10 @@ public class CouponsServiceImpl : CouponsService
             id = coupon.CouponId,
             couponname = coupon.CouponName,
             coupontypeid = coupon.CouponTypeId,
-            coupontypename = coupon.CouponType.NameType,
+            coupontypename = coupon.CouponType.TypeName,
             discount = coupon.Discount,
             discription = coupon.Description,
-            expiredDay = coupon.ExpiredAt,
+            expiredAt = coupon.ExpiredAt,
             createdAt = coupon.CreatedAt,
         }).ToList();
     }

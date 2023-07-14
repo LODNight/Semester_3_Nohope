@@ -9,7 +9,7 @@ public partial class AccountCoupon
 
     public int AccountId { get; set; }
 
-    public string? IsUsed { get; set; }
+    public bool? IsUsed { get; set; }
 
     public virtual Account Account { get; set; } = null!;
 

@@ -9,7 +9,7 @@ public partial class Address
 
     public string? RoadName { get; set; }
 
-    public string? WardsCode { get; set; }
+    public string? WardCode { get; set; }
 
     public string? DistrictCode { get; set; }
 
@@ -23,5 +23,5 @@ public partial class Address
 
     public virtual Province? ProvinceCodeNavigation { get; set; }
 
-    public virtual Ward? WardsCodeNavigation { get; set; }
+    public virtual Ward? WardCodeNavigation { get; set; }
 }
