@@ -94,4 +94,32 @@ public class ProductServiceImpl : ProductService
             updatedAt = p.UpdatedAt
         }).OrderByDescending(p => p.product_id).ToList();
     }
+
+    public dynamic searchByKeyword(string keyword)
+    {
+        return db.Products.Where(product => product.ProductName.Contains(keyword)).Select(p => new
+        {
+            product_id = p.ProductId,
+            product_name = p.ProductName,
+            price = p.Price,
+            categoryId = p.CategoryId,
+            description = p.Description,
+            quantity = p.Quantity,
+            detail = p.Detail,
+            exprireDate = p.ExpireDate,
+            manufacturerId = p.ManufacturerId,
+            hide = p.Hide,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt
+        }).ToList();
+    }
+
+    public dynamic findDetailById(int id)
+    {
+        return db.Products.Where(p => p.ProductId == id).Select(p => new
+        {
+            product_id = p.ProductId,
+            detail = p.Detail
+        }).SingleOrDefault();
+    }
 }

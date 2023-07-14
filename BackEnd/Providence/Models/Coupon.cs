@@ -19,9 +19,9 @@ public partial class Coupon
 
     public DateTime? UpdatedAt { get; set; }
 
+    public virtual ICollection<AccountCoupon> AccountCoupons { get; set; } = new List<AccountCoupon>();
+
     public virtual CouponsType? CouponsType { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
-
-    public virtual ICollection<Account> Accounts { get; set; } = new List<Account>();
 }

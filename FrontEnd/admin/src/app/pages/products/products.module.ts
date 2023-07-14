@@ -8,13 +8,16 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomProductActionComponent } from './product-list/custom/custom-product-action.component';
 import { CustomProductFilterActionsComponent } from './product-list/custom/custom-product-filter-actions.component';
-import { CustomProductFilterSoldComponent } from './product-list/custom/custom-product-filter-sold.component';
 import { ImagesCarouselComponent } from './images-carousel.component';
 import { CustomCategoryActionComponent } from './product-category/custom/custom-category-action.component';
 import { CustomCategoryFilterActionsComponent } from './product-category/custom/custom-category-filter-actions.component';
 import { CustomCouponActionComponent } from './product-coupon/custom/custom-coupon-action.component';
 import { CustomCouponFilterActionsComponent } from './product-coupon/custom/custom-coupon-filter-actions.component';
 import { CustomCategoryImageComponent } from './product-category/custom/custom-category-image.component';
+import { ProductCategoryAddComponent } from './product-category/product-category-add/product-category-add.component';
+import { ProductCategoryEditComponent } from './product-category/product-category-edit/product-category-edit.component';
+import { ProductCouponAddComponent } from './product-coupon/product-coupon-add/product-coupon-add.component';
+import { ProductCouponEditComponent } from './product-coupon/product-coupon-edit/product-coupon-edit.component';
 
 @NgModule({
   imports: [
@@ -43,15 +46,20 @@ import { CustomCategoryImageComponent } from './product-category/custom/custom-c
   ],
   declarations: [
     ...routedComponents,
+    ImagesCarouselComponent,
     CustomProductActionComponent,
     CustomProductFilterActionsComponent,
-    CustomProductFilterSoldComponent,
-    ImagesCarouselComponent,
     CustomCategoryActionComponent,
     CustomCategoryFilterActionsComponent,
     CustomCategoryImageComponent,
     CustomCouponActionComponent,
     CustomCouponFilterActionsComponent,
+
+    ProductCategoryAddComponent,
+    ProductCategoryEditComponent,
+    ProductCouponAddComponent,
+    ProductCouponEditComponent
+
   ],
 })
 export class ProductsModule { }

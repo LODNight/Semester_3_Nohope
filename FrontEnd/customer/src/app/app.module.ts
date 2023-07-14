@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,19 +14,20 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
-import { ElementsModule } from './pages/elements/elements.module';
-import { PagesModule } from './pages/others/pages.module';
+import { ThemeModule } from './@theme/theme.module';
+import { OthersModule } from './pages/others/others.module';
 import { HomeModule } from './pages/home/home.module';
 
 // reducers
-import { appReducers, metaReducers } from './core/reducers/app.reducer';
-import { wishlistReducer } from './core/reducers/wishlist.reducer';
-import { compareReducer } from './core/reducers/compare.reducer';
-import { cartReducer } from './core/reducers/cart.reducer';
+import { appReducers, metaReducers } from './@core/reducers/app.reducer';
+import { wishlistReducer } from './@core/reducers/wishlist.reducer';
+import { compareReducer } from './@core/reducers/compare.reducer';
+import { cartReducer } from './@core/reducers/cart.reducer';
 
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './shared/layout/layout.component';
+import { LayoutComponent } from './@theme/layout/layout.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -35,22 +35,27 @@ import { LayoutComponent } from './shared/layout/layout.component';
     LayoutComponent,
   ],
   imports: [
+    ThemeModule,
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
-    RouterModule,
     HttpClientModule,
     OwlModule,
-    ElementsModule,
-    PagesModule,
-    SharedModule,
+    OthersModule,
     HomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 2000,
       progressBar: false,
       enableHtml: true,
+    }),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: translateHttpLoaderFactory,
+        deps: [HttpClient]
+      }
     }),
     StoreModule.forRoot(appReducers, { metaReducers }),
     StoreModule.forFeature('cart', cartReducer),
@@ -61,8 +66,13 @@ import { LayoutComponent } from './shared/layout/layout.component';
     StoreDevtoolsModule.instrument(),
   ],
 
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 
 export class AppModule { }
+
+export function translateHttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+}

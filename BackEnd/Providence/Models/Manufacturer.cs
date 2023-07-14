@@ -11,7 +11,11 @@ public partial class Manufacturer
 
     public string? MftAddress { get; set; }
 
+    public int? AddressId { get; set; }
+
     public string? MftDescription { get; set; }
+
+    public virtual Address? Address { get; set; }
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

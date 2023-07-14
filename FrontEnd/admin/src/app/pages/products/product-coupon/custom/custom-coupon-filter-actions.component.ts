@@ -1,6 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { DefaultFilter } from 'ng2-smart-table';
-import { ProductCategoryService } from '../../../../@core/services/product/product-category.service';
 import { ProductCouponService } from '../../../../@core/services/product/product-coupon.service';
 
 @Component({

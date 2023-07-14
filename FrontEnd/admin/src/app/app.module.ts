@@ -6,12 +6,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {
+  NbCardModule,
   NbChatModule,
   NbDatepickerModule,
   NbDialogModule,
@@ -22,6 +23,7 @@ import {
 } from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
 import { CommonModule } from '@angular/common';
+import { AuthInterceptor } from './@core/services/auth-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,10 +45,19 @@ import { CommonModule } from '@angular/common';
     CoreModule.forRoot(), // @core
     ThemeModule.forRoot(), // @theme
     NbToastrModule.forRoot(),
-    PagesModule
-    
+    PagesModule,
+    NbWindowModule.forRoot(),
+    NbCardModule,
   ],
   bootstrap: [AppComponent],
+  providers: [
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true
+    // }
+  ]
 })
 export class AppModule {
 }
+

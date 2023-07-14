@@ -1,0 +1,61 @@
+<footer class="footer footer-dark">
+    <div class="footer-middle">
+        <div [class]="containerClass">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget widget-about">
+                        <img src="assets/images/logo-footer.png" class="footer-logo" alt="Footer Logo" width="104" height="24">
+                        <p>{{"FOOTER.SHORT_DESCRIPTION" | translate}}</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget">
+                        <h4 class="widget-title">{{"FOOTER.USEFUL_LINKS" | translate}}</h4>
+
+                        <ul class="widget-list">
+                            <li><a routerLink="pages/about">{{"HEADER.ABOUT_US" | translate}}</a></li>
+                            <li><a routerLink="pages/contact">{{"HEADER.CONTACT" | translate}}</a></li>
+                            <li><a routerLink="product/category">{{"HEADER.CATEGORY" | translate}}</a></li>
+                            <li><a routerLink="product/shop/list">{{"HEADER.PRODUCT" | translate}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget">
+                        <h4 class="widget-title">{{"FOOTER.CUSTOMER_SERVICE" | translate}}</h4>
+
+                        <ul class="widget-list">
+                            <li><a href="javascript:;">{{"FOOTER.GUARANTEE" | translate}}</a></li>
+                            <li><a href="javascript:;">{{"FOOTER.RETURNS" | translate}}</a></li>
+                            <li><a href="javascript:;">{{"FOOTER.SHIPPING" | translate}}</a></li>
+                            <li><a href="javascript:;">{{"FOOTER.TERMS_CONDITIONS" | translate}}</a></li>
+                            <li><a href="javascript:;">{{"FOOTER.PRIVACY_POLICY" | translate}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget">
+                        <h4 class="widget-title">{{"FOOTER.MY_ACCOUNT" | translate}}</h4>
+
+                        <ul class="widget-list">
+                            <li><a routerLink="/shop/cart">{{"FOOTER.VIEW_CART" | translate}}</a></li>
+                            <li><a routerLink="/shop/wishlist">{{"FOOTER.MY_WISHLIST" | translate}}</a></li>
+                            <li><a href="javascript:;">{{"FOOTER.TRACK_MY_ORDER" | translate}}</a></li>
+                            <li><a href="javascript:;">{{"FOOTER.HELP" | translate}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="align-items-center" [ngClass]="containerClass">
+            <p class="footer-copyright">Copyright © {{ year }} AFK TEAM.</p>
+        </div>
+    </div>
+    <div class="mb-10" *ngIf="isBottomSticky"></div>
+</footer>

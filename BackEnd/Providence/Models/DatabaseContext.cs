@@ -17,7 +17,15 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<Account> Accounts { get; set; }
 
+    public virtual DbSet<AccountCoupon> AccountCoupons { get; set; }
+
+    public virtual DbSet<Address> Addresses { get; set; }
+
+    public virtual DbSet<AdministrativeUnit> AdministrativeUnits { get; set; }
+
     public virtual DbSet<Blog> Blogs { get; set; }
+
+    public virtual DbSet<BlogReview> BlogReviews { get; set; }
 
     public virtual DbSet<Cart> Carts { get; set; }
 
@@ -29,9 +37,7 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<CouponsType> CouponsTypes { get; set; }
 
-    public virtual DbSet<Invoice> Invoices { get; set; }
-
-    public virtual DbSet<InvoiceStatus> InvoiceStatuses { get; set; }
+    public virtual DbSet<District> Districts { get; set; }
 
     public virtual DbSet<Manufacturer> Manufacturers { get; set; }
 
@@ -47,9 +53,13 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<ProductImage> ProductImages { get; set; }
 
-    public virtual DbSet<Review> Reviews { get; set; }
+    public virtual DbSet<ProductReview> ProductReviews { get; set; }
+
+    public virtual DbSet<Province> Provinces { get; set; }
 
     public virtual DbSet<Role> Roles { get; set; }
+
+    public virtual DbSet<Ward> Wards { get; set; }
 
     public virtual DbSet<Wishlist> Wishlists { get; set; }
 
@@ -61,15 +71,12 @@ public partial class DatabaseContext : DbContext
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.AccountId).HasName("PK__Account__46A222CDA2D301E4");
+            entity.HasKey(e => e.AccountId).HasName("PK__Account__46A222CD66C3061E");
 
             entity.ToTable("Account");
 
             entity.Property(e => e.AccountId).HasColumnName("account_id");
-            entity.Property(e => e.Address)
-                .HasMaxLength(250)
-                .IsUnicode(false)
-                .HasColumnName("address");
+            entity.Property(e => e.AddressId).HasColumnName("address_id");
             entity.Property(e => e.Avatar)
                 .HasMaxLength(500)
                 .IsUnicode(false)
@@ -112,14 +119,115 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
 
+            entity.HasOne(d => d.Address).WithMany(p => p.Accounts)
+                .HasForeignKey(d => d.AddressId)
+                .HasConstraintName("FK__Account__address__3B75D760");
+
             entity.HasOne(d => d.Role).WithMany(p => p.Accounts)
                 .HasForeignKey(d => d.RoleId)
-                .HasConstraintName("FK__Account__role_id__29572725");
+                .HasConstraintName("FK__Account__role_id__3A81B327");
+        });
+
+        modelBuilder.Entity<AccountCoupon>(entity =>
+        {
+            entity.HasKey(e => new { e.CouponId, e.AccountId }).HasName("PK__AccountC__9CA541A542BEDACF");
+
+            entity.ToTable("AccountCoupon");
+
+            entity.Property(e => e.CouponId).HasColumnName("coupon_id");
+            entity.Property(e => e.AccountId).HasColumnName("account_id");
+            entity.Property(e => e.IsUsed)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("isUsed");
+
+            entity.HasOne(d => d.Account).WithMany(p => p.AccountCoupons)
+                .HasForeignKey(d => d.AccountId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__AccountCo__accou__5EBF139D");
+
+            entity.HasOne(d => d.Coupon).WithMany(p => p.AccountCoupons)
+                .HasForeignKey(d => d.CouponId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__AccountCo__coupo__5DCAEF64");
+        });
+
+        modelBuilder.Entity<Address>(entity =>
+        {
+            entity.HasKey(e => e.AddressId).HasName("PK__address__CAA247C8F45EBC8D");
+
+            entity.ToTable("address");
+
+            entity.Property(e => e.AddressId).HasColumnName("address_id");
+            entity.Property(e => e.DistrictCode)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("district_code");
+            entity.Property(e => e.ProvinceCode)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("province_code");
+            entity.Property(e => e.RoadName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("road_name");
+            entity.Property(e => e.WardsCode)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("wards_code");
+
+            entity.HasOne(d => d.DistrictCodeNavigation).WithMany(p => p.Addresses)
+                .HasForeignKey(d => d.DistrictCode)
+                .HasConstraintName("FK__address__distric__31EC6D26");
+
+            entity.HasOne(d => d.ProvinceCodeNavigation).WithMany(p => p.Addresses)
+                .HasForeignKey(d => d.ProvinceCode)
+                .HasConstraintName("FK__address__provinc__32E0915F");
+
+            entity.HasOne(d => d.WardsCodeNavigation).WithMany(p => p.Addresses)
+                .HasForeignKey(d => d.WardsCode)
+                .HasConstraintName("FK__address__wards_c__30F848ED");
+        });
+
+        modelBuilder.Entity<AdministrativeUnit>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("administrative_units_pkey");
+
+            entity.ToTable("administrative_units");
+
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("id");
+            entity.Property(e => e.AccountId).HasColumnName("account_id");
+            entity.Property(e => e.CodeName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("code_name");
+            entity.Property(e => e.CodeNameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("code_name_en");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("full_name");
+            entity.Property(e => e.FullNameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("full_name_en");
+            entity.Property(e => e.ShortName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("short_name");
+            entity.Property(e => e.ShortNameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("short_name_en");
         });
 
         modelBuilder.Entity<Blog>(entity =>
         {
-            entity.HasKey(e => e.BlogId).HasName("PK__Blogs__2975AA2826CA5B73");
+            entity.HasKey(e => e.BlogId).HasName("PK__Blogs__2975AA281A854C90");
 
             entity.Property(e => e.BlogId).HasColumnName("blog_id");
             entity.Property(e => e.BlogImage)
@@ -147,9 +255,38 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("updated_at");
         });
 
+        modelBuilder.Entity<BlogReview>(entity =>
+        {
+            entity.HasKey(e => e.BlogReviewId).HasName("PK__BlogRevi__2539138E6062B40F");
+
+            entity.ToTable("BlogReview");
+
+            entity.Property(e => e.BlogReviewId).HasColumnName("blog_review_id");
+            entity.Property(e => e.AccountId).HasColumnName("account_id");
+            entity.Property(e => e.BlogId).HasColumnName("blog_id");
+            entity.Property(e => e.Content)
+                .HasColumnType("text")
+                .HasColumnName("content");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("updated_at");
+
+            entity.HasOne(d => d.Account).WithMany(p => p.BlogReviews)
+                .HasForeignKey(d => d.AccountId)
+                .HasConstraintName("FK__BlogRevie__accou__08B54D69");
+
+            entity.HasOne(d => d.Blog).WithMany(p => p.BlogReviews)
+                .HasForeignKey(d => d.BlogId)
+                .HasConstraintName("FK__BlogRevie__blog___09A971A2");
+        });
+
         modelBuilder.Entity<Cart>(entity =>
         {
-            entity.HasKey(e => e.CartId).HasName("PK__Cart__2EF52A27E83C9152");
+            entity.HasKey(e => e.CartId).HasName("PK__Cart__2EF52A2700C24EA6");
 
             entity.ToTable("Cart");
 
@@ -165,15 +302,16 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.Carts)
                 .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__Cart__account_id__6383C8BA");
+                .HasConstraintName("FK__Cart__account_id__74AE54BC");
         });
 
         modelBuilder.Entity<CartDetail>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("CartDetail");
+            entity.HasKey(e => e.CartDetailId).HasName("PK__CartDeta__0F08F5293AAE37F9");
 
+            entity.ToTable("CartDetail");
+
+            entity.Property(e => e.CartDetailId).HasColumnName("cart_detail_id");
             entity.Property(e => e.CartId).HasColumnName("cart_id");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -188,18 +326,18 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
 
-            entity.HasOne(d => d.Cart).WithMany()
+            entity.HasOne(d => d.Cart).WithMany(p => p.CartDetails)
                 .HasForeignKey(d => d.CartId)
-                .HasConstraintName("FK__CartDetai__cart___6754599E");
+                .HasConstraintName("FK__CartDetai__cart___797309D9");
 
-            entity.HasOne(d => d.Product).WithMany()
+            entity.HasOne(d => d.Product).WithMany(p => p.CartDetails)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__CartDetai__produ__68487DD7");
+                .HasConstraintName("FK__CartDetai__produ__7A672E12");
         });
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Category__D54EE9B477DCADD5");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Category__D54EE9B46EDC4F24");
 
             entity.ToTable("Category");
 
@@ -208,23 +346,11 @@ public partial class DatabaseContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("category_name");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("created_at");
-            entity.Property(e => e.ParentId).HasColumnName("parent_id");
-            entity.Property(e => e.UpdatedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("updated_at");
-
-            entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent)
-                .HasForeignKey(d => d.ParentId)
-                .HasConstraintName("FK__Category__parent__2E1BDC42");
         });
 
         modelBuilder.Entity<Coupon>(entity =>
         {
-            entity.HasKey(e => e.CouponId).HasName("PK__Coupons__58CF638928364065");
+            entity.HasKey(e => e.CouponId).HasName("PK__Coupons__58CF6389B9C56098");
 
             entity.Property(e => e.CouponId).HasColumnName("coupon_id");
             entity.Property(e => e.CouponName)
@@ -246,31 +372,12 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.CouponsType).WithMany(p => p.Coupons)
                 .HasForeignKey(d => d.CouponsTypeId)
-                .HasConstraintName("FK__Coupons__coupons__4AB81AF0");
-
-            entity.HasMany(d => d.Accounts).WithMany(p => p.Coupons)
-                .UsingEntity<Dictionary<string, object>>(
-                    "AccountCoupon",
-                    r => r.HasOne<Account>().WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__AccountCo__accou__4E88ABD4"),
-                    l => l.HasOne<Coupon>().WithMany()
-                        .HasForeignKey("CouponId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__AccountCo__coupo__4D94879B"),
-                    j =>
-                    {
-                        j.HasKey("CouponId", "AccountId").HasName("PK__AccountC__9CA541A5D811CDD5");
-                        j.ToTable("AccountCoupon");
-                        j.IndexerProperty<int>("CouponId").HasColumnName("coupon_id");
-                        j.IndexerProperty<int>("AccountId").HasColumnName("account_id");
-                    });
+                .HasConstraintName("FK__Coupons__coupons__5AEE82B9");
         });
 
         modelBuilder.Entity<CouponsType>(entity =>
         {
-            entity.HasKey(e => e.CouponsTypeId).HasName("PK__CouponsT__17349FCBB535A9B5");
+            entity.HasKey(e => e.CouponsTypeId).HasName("PK__CouponsT__17349FCBE6B31378");
 
             entity.ToTable("CouponsType");
 
@@ -288,61 +395,63 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("updated_at");
         });
 
-        modelBuilder.Entity<Invoice>(entity =>
+        modelBuilder.Entity<District>(entity =>
         {
-            entity.HasKey(e => e.CartId).HasName("PK__Invoice__2EF52A27E99FC7E8");
+            entity.HasKey(e => e.Code).HasName("districts_pkey");
 
-            entity.ToTable("Invoice");
+            entity.ToTable("districts");
 
-            entity.Property(e => e.CartId).HasColumnName("cart_id");
-            entity.Property(e => e.AccountId).HasColumnName("account_id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("created_at");
-            entity.Property(e => e.InvoiceStatusId).HasColumnName("invoice_status_id");
-            entity.Property(e => e.PaymentId).HasColumnName("payment_id");
-            entity.Property(e => e.UpdatedAt)
-                .HasColumnType("datetime")
-                .HasColumnName("updated_at");
+            entity.HasIndex(e => e.ProvinceCode, "idx_districts_province");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.Invoices)
-                .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__Invoice__account__6EF57B66");
+            entity.HasIndex(e => e.AdministrativeUnitId, "idx_districts_unit");
 
-            entity.HasOne(d => d.InvoiceStatus).WithMany(p => p.Invoices)
-                .HasForeignKey(d => d.InvoiceStatusId)
-                .HasConstraintName("FK__Invoice__invoice__70DDC3D8");
-
-            entity.HasOne(d => d.Payment).WithMany(p => p.Invoices)
-                .HasForeignKey(d => d.PaymentId)
-                .HasConstraintName("FK__Invoice__payment__6FE99F9F");
-        });
-
-        modelBuilder.Entity<InvoiceStatus>(entity =>
-        {
-            entity.HasKey(e => e.InvoiceStatusId).HasName("PK__InvoiceS__BD7593E1E193A4EC");
-
-            entity.ToTable("InvoiceStatus");
-
-            entity.Property(e => e.InvoiceStatusId).HasColumnName("invoice_status_id");
-            entity.Property(e => e.StatusDescription)
-                .HasMaxLength(250)
+            entity.Property(e => e.Code)
+                .HasMaxLength(20)
                 .IsUnicode(false)
-                .HasColumnName("status_description");
-            entity.Property(e => e.StatusName)
-                .HasMaxLength(50)
+                .HasColumnName("code");
+            entity.Property(e => e.AdministrativeUnitId).HasColumnName("administrative_unit_id");
+            entity.Property(e => e.CodeName)
+                .HasMaxLength(255)
                 .IsUnicode(false)
-                .HasColumnName("status_name");
+                .HasColumnName("code_name");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("full_name");
+            entity.Property(e => e.FullNameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("full_name_en");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("name");
+            entity.Property(e => e.NameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("name_en");
+            entity.Property(e => e.ProvinceCode)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("province_code");
+
+            entity.HasOne(d => d.AdministrativeUnit).WithMany(p => p.Districts)
+                .HasForeignKey(d => d.AdministrativeUnitId)
+                .HasConstraintName("districts_administrative_unit_id_fkey");
+
+            entity.HasOne(d => d.ProvinceCodeNavigation).WithMany(p => p.Districts)
+                .HasForeignKey(d => d.ProvinceCode)
+                .HasConstraintName("districts_province_code_fkey");
         });
 
         modelBuilder.Entity<Manufacturer>(entity =>
         {
-            entity.HasKey(e => e.MftId).HasName("PK__Manufact__B4D5DD98972F1FD5");
+            entity.HasKey(e => e.MftId).HasName("PK__Manufact__B4D5DD988765DDCA");
 
             entity.ToTable("Manufacturer");
 
             entity.Property(e => e.MftId).HasColumnName("mft_id");
+            entity.Property(e => e.AddressId).HasColumnName("address_id");
             entity.Property(e => e.MftAddress)
                 .HasMaxLength(250)
                 .IsUnicode(false)
@@ -355,11 +464,15 @@ public partial class DatabaseContext : DbContext
                 .HasMaxLength(250)
                 .IsUnicode(false)
                 .HasColumnName("mft_name");
+
+            entity.HasOne(d => d.Address).WithMany(p => p.Manufacturers)
+                .HasForeignKey(d => d.AddressId)
+                .HasConstraintName("FK__Manufactu__addre__403A8C7D");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__465962295318304B");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__46596229005FE870");
 
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.AccountId).HasColumnName("account_id");
@@ -369,6 +482,7 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.OrderStatusId).HasColumnName("order_status_id");
+            entity.Property(e => e.PaymentId).HasColumnName("payment_id");
             entity.Property(e => e.TotalPrice)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("total_price");
@@ -378,20 +492,24 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__Orders__account___571DF1D5");
+                .HasConstraintName("FK__Orders__account___6754599E");
 
             entity.HasOne(d => d.Coupon).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CouponId)
-                .HasConstraintName("FK__Orders__coupon_i__59063A47");
+                .HasConstraintName("FK__Orders__coupon_i__693CA210");
 
             entity.HasOne(d => d.OrderStatus).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.OrderStatusId)
-                .HasConstraintName("FK__Orders__order_st__5812160E");
+                .HasConstraintName("FK__Orders__order_st__68487DD7");
+
+            entity.HasOne(d => d.Payment).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.PaymentId)
+                .HasConstraintName("FK__Orders__payment___6A30C649");
         });
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__3C5A40804DF8A45D");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__3C5A408009990481");
 
             entity.ToTable("OrderDetail");
 
@@ -412,16 +530,16 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("FK__OrderDeta__order__5DCAEF64");
+                .HasConstraintName("FK__OrderDeta__order__6EF57B66");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__OrderDeta__produ__5EBF139D");
+                .HasConstraintName("FK__OrderDeta__produ__6FE99F9F");
         });
 
         modelBuilder.Entity<OrderStatus>(entity =>
         {
-            entity.HasKey(e => e.OrderStatusId).HasName("PK__OrderSta__A499CF2366A77520");
+            entity.HasKey(e => e.OrderStatusId).HasName("PK__OrderSta__A499CF23D5EF5E64");
 
             entity.ToTable("OrderStatus");
 
@@ -445,7 +563,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<PaymentMethod>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__PaymentM__ED1FC9EA2F594531");
+            entity.HasKey(e => e.PaymentId).HasName("PK__PaymentM__ED1FC9EA34081212");
 
             entity.ToTable("PaymentMethod");
 
@@ -465,7 +583,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Product__47027DF55C1E4C36");
+            entity.HasKey(e => e.ProductId).HasName("PK__Product__47027DF5FEEF5255");
 
             entity.ToTable("Product");
 
@@ -501,16 +619,16 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK__Product__categor__34C8D9D1");
+                .HasConstraintName("FK__Product__categor__44FF419A");
 
             entity.HasOne(d => d.Manufacturer).WithMany(p => p.Products)
                 .HasForeignKey(d => d.ManufacturerId)
-                .HasConstraintName("FK__Product__manufac__35BCFE0A");
+                .HasConstraintName("FK__Product__manufac__45F365D3");
         });
 
         modelBuilder.Entity<ProductImage>(entity =>
         {
-            entity.HasKey(e => e.ImageId).HasName("PK__ProductI__DC9AC955A82DF9BB");
+            entity.HasKey(e => e.ImageId).HasName("PK__ProductI__DC9AC955F525B225");
 
             entity.Property(e => e.ImageId).HasColumnName("image_id");
             entity.Property(e => e.ImageUrl)
@@ -521,18 +639,17 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Product).WithMany(p => p.ProductImages)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__ProductIm__produ__38996AB5");
+                .HasConstraintName("FK__ProductIm__produ__48CFD27E");
         });
 
-        modelBuilder.Entity<Review>(entity =>
+        modelBuilder.Entity<ProductReview>(entity =>
         {
-            entity.HasKey(e => e.ReviewProductId).HasName("PK__Review__6E0E8F7DDF81A9DF");
+            entity.HasKey(e => e.ProductReviewId).HasName("PK__ProductR__8440EB03CA701814");
 
-            entity.ToTable("Review");
+            entity.ToTable("ProductReview");
 
-            entity.Property(e => e.ReviewProductId).HasColumnName("review_product_id");
+            entity.Property(e => e.ProductReviewId).HasColumnName("product_review_id");
             entity.Property(e => e.AccountId).HasColumnName("account_id");
-            entity.Property(e => e.BlogId).HasColumnName("blog_id");
             entity.Property(e => e.Content)
                 .HasColumnType("text")
                 .HasColumnName("content");
@@ -546,22 +663,58 @@ public partial class DatabaseContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
 
-            entity.HasOne(d => d.Account).WithMany(p => p.Reviews)
+            entity.HasOne(d => d.Account).WithMany(p => p.ProductReviews)
                 .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__Review__account___797309D9");
+                .HasConstraintName("FK__ProductRe__accou__02FC7413");
 
-            entity.HasOne(d => d.Blog).WithMany(p => p.Reviews)
-                .HasForeignKey(d => d.BlogId)
-                .HasConstraintName("FK__Review__blog_id__7B5B524B");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.Reviews)
+            entity.HasOne(d => d.Product).WithMany(p => p.ProductReviews)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Review__product___7A672E12");
+                .HasConstraintName("FK__ProductRe__produ__03F0984C");
+        });
+
+        modelBuilder.Entity<Province>(entity =>
+        {
+            entity.HasKey(e => e.Code).HasName("provinces_pkey");
+
+            entity.ToTable("provinces");
+
+            entity.HasIndex(e => e.AdministrativeUnitId, "idx_provinces_unit");
+
+            entity.Property(e => e.Code)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("code");
+            entity.Property(e => e.AdministrativeRegionId).HasColumnName("administrative_region_id");
+            entity.Property(e => e.AdministrativeUnitId).HasColumnName("administrative_unit_id");
+            entity.Property(e => e.CodeName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("code_name");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("full_name");
+            entity.Property(e => e.FullNameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("full_name_en");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("name");
+            entity.Property(e => e.NameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("name_en");
+
+            entity.HasOne(d => d.AdministrativeUnit).WithMany(p => p.Provinces)
+                .HasForeignKey(d => d.AdministrativeUnitId)
+                .HasConstraintName("provinces_administrative_unit_id_fkey");
         });
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Roles__760965CCA8401C3E");
+            entity.HasKey(e => e.RoleId).HasName("PK__Roles__760965CC2B3576EB");
 
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.RoleName)
@@ -570,9 +723,58 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("role_name");
         });
 
+        modelBuilder.Entity<Ward>(entity =>
+        {
+            entity.HasKey(e => e.Code).HasName("wards_pkey");
+
+            entity.ToTable("wards");
+
+            entity.HasIndex(e => e.DistrictCode, "idx_wards_district");
+
+            entity.HasIndex(e => e.AdministrativeUnitId, "idx_wards_unit");
+
+            entity.Property(e => e.Code)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("code");
+            entity.Property(e => e.AdministrativeUnitId).HasColumnName("administrative_unit_id");
+            entity.Property(e => e.CodeName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("code_name");
+            entity.Property(e => e.DistrictCode)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasColumnName("district_code");
+            entity.Property(e => e.FullName)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("full_name");
+            entity.Property(e => e.FullNameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("full_name_en");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("name");
+            entity.Property(e => e.NameEn)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("name_en");
+
+            entity.HasOne(d => d.AdministrativeUnit).WithMany(p => p.Wards)
+                .HasForeignKey(d => d.AdministrativeUnitId)
+                .HasConstraintName("wards_administrative_unit_id_fkey");
+
+            entity.HasOne(d => d.DistrictCodeNavigation).WithMany(p => p.Wards)
+                .HasForeignKey(d => d.DistrictCode)
+                .HasConstraintName("wards_district_code_fkey");
+        });
+
         modelBuilder.Entity<Wishlist>(entity =>
         {
-            entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__6151514E1ACA7C06");
+            entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__6151514EBF6D7D7A");
 
             entity.ToTable("Wishlist");
 
@@ -589,11 +791,11 @@ public partial class DatabaseContext : DbContext
 
             entity.HasOne(d => d.Account).WithMany(p => p.Wishlists)
                 .HasForeignKey(d => d.AccountId)
-                .HasConstraintName("FK__Wishlist__accoun__412EB0B6");
+                .HasConstraintName("FK__Wishlist__accoun__5165187F");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Wishlists)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Wishlist__produc__4222D4EF");
+                .HasConstraintName("FK__Wishlist__produc__52593CB8");
         });
 
         OnModelCreatingPartial(modelBuilder);

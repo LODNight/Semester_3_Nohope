@@ -36,7 +36,7 @@ const routes: Routes = [{
     {
       path: 'coupon',
       component: ProductCouponComponent,
-    },
+    }
   ],
 }];
 
@@ -53,5 +53,5 @@ export const routedComponents = [
   ProductEditComponent,
   ProductDetailComponent,
   ProductCategoryComponent,
-  ProductCouponComponent
+  ProductCouponComponent,
 ];

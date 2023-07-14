@@ -14,10 +14,11 @@ import { CustomersModule } from './customers/customers.module';
     PagesRoutingModule,
     ThemeModule, // @theme
     NbMenuModule,
+    
     DashboardModule,
     ProductsModule,
-    OrdersModule,
-    CustomersModule
+    // OrdersModule,
+    // CustomersModule,
   ],
   declarations: [
     PagesComponent,

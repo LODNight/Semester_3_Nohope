@@ -1,6 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { DefaultFilter } from 'ng2-smart-table';
-import { ProductCategoryService } from '../../../../@core/services/product/product-category.service';
+import { CategoryService } from '../../../../@core/services/product/category.service';
 
 @Component({
     template: `
@@ -12,7 +12,7 @@ import { ProductCategoryService } from '../../../../@core/services/product/produ
 })
 export class CustomCategoryFilterActionsComponent extends DefaultFilter implements OnInit, OnChanges {
 
-    constructor(private categoryService: ProductCategoryService) {
+    constructor(private categoryService: CategoryService) {
         super()
     }
 
