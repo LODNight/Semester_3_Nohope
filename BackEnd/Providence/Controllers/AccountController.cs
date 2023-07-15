@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.SqlServer.Server;
 using Providence.Helper;
+using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
 using Providence.Service.Implement;
+using Providence.Service.Interface;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
@@ -15,14 +17,18 @@ using System.Security.Claims;
 using System.Text;
 
 namespace Providence.Controllers;
-[Route("api/admin/account")]
+[Route("api/[controller]")]
 public class AccountController : Controller
 {
     private readonly IServiceCRUD<Account> _serviceCRUD;
+    private readonly IAccountService accountService;
+    private IConfiguration configuration;
 
-    public AccountController(IServiceCRUD<Account> serviceCRUD)
+    public AccountController(IServiceCRUD<Account> serviceCRUD, IAccountService accountService, IConfiguration configuration)
     {
         _serviceCRUD = serviceCRUD;
+        this.accountService = accountService;
+        this.configuration = configuration;
     }
 
     [Produces("application/json")]
@@ -38,6 +44,23 @@ public class AccountController : Controller
             return BadRequest();
         }
     }
+    
+    // Show Active When false
+    [Produces("application/json")]
+    [HttpGet("ShowAccountActive")]
+    public IActionResult ShowAccountActive()
+    {
+        try
+        {
+            return Ok(accountService.ShowAccountActive());
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+
 
     [Consumes("application/json")]
     [Produces("application/json")]
@@ -55,19 +78,44 @@ public class AccountController : Controller
     }
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("Create")]
+    [HttpPost("Register")]
     public IActionResult Create([FromBody] Account account)
 
     {
         try
         {
+            if (accountService.CheckMail(account?.Email))
+            {
+                return BadRequest("Email already exists");
+            }
+
+            account.Password = BCrypt.Net.BCrypt.HashPassword(account.Password);
+            account.Status = false;
+            account.SecurityCode = RandomHelper.RandomString(4);
+
             account.CreatedAt = DateTime.Now;
             account.UpdatedAt = DateTime.Now;
 
-            return Ok(_serviceCRUD.Create(account));
+            if (accountService.Register(account))
+            {
+                var content = "Security Code: " + account.SecurityCode;
+                content += "<br><hr><br>";
+                var verifyUrl = $"http://localhost:5271/api/account/verify?email={account.Email}&securityCode={account.SecurityCode}";
+                content += $"<a href='{verifyUrl}'>Click here to Verify Email</a>";
+
+                var mailHelper = new MailHelper(configuration);
+                mailHelper.Send(configuration["Gmail:Username"], account.Email, "Verify", content);
+
+                return Ok(account.Email);
+            }
+            else
+            {
+                return BadRequest("Failed to register account");
+            }
         }
-        catch
+        catch (Exception ex)
         {
+            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
@@ -95,6 +143,20 @@ public class AccountController : Controller
         {
             account.UpdatedAt = DateTime.Now;
             return Ok(_serviceCRUD.Update(account));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+    
+    [Consumes("application/json")]
+    [HttpPut("ChangePass")]
+    public IActionResult ChangePass([FromBody] ChangePass changePass)
+    {
+        try
+        {
+            return Ok(accountService.ChangePass(changePass));
         }
         catch
         {

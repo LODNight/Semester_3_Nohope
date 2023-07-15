@@ -1,4 +1,6 @@
-﻿using Providence.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Providence.Models;
 using Providence.Service.Interface;
 
 namespace Providence.Service.Implement.OutCRUD;
@@ -9,11 +11,106 @@ public class AccountService : IAccountService
     private IConfiguration configuration;
     private IWebHostEnvironment webHostEnvironment;
 
-    public Service(DatabaseContext databaseContext, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+    public AccountService(DatabaseContext databaseContext, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
     {
         _databaseContext = databaseContext;
         this.configuration = configuration;
         this.webHostEnvironment = webHostEnvironment;
     }
-    public dynamic ShowAccount() => 
+
+    
+
+    public bool ChangePass([FromBody] ChangePass changePass)
+    {
+        var account = _databaseContext.Accounts.FirstOrDefault(p => p.Email == changePass.Email);
+        if (account != null)
+        {
+            if(!BCrypt.Net.BCrypt.Verify(changePass.CurrentPass, account.Password))
+            {
+                return false;
+
+            }
+            var hashedNewPass = BCrypt.Net.BCrypt.HashPassword(changePass.NewPass);
+            account.Password = hashedNewPass;
+            return _databaseContext.SaveChanges() > 0;
+
+        }
+        return false;
+    }
+
+    // Show Account
+    public dynamic ShowAccountActive() => _databaseContext.Accounts.Where(p => p.Status == true).Select(acc => new
+    {
+        accountId = acc.AccountId,
+        firstname = acc.Firstname,
+        lastname = acc.Lastname,
+        email = acc.Email,
+        password = acc.Password,
+        avatar = configuration["BaseUrl"] + "/images/" + acc.Avatar,
+        roleid = acc.RoleId,
+        rolename = acc.Role.RoleName,
+        status = acc.Status,
+        securitycode = acc.SecurityCode,
+        createdAt = acc.CreatedAt,
+        updatedAt = acc.UpdatedAt,
+    }).ToList();
+
+    public bool CheckMail(string email)
+    {
+        return _databaseContext.Accounts.Count(p => p.Email == email) > 0;
+    }
+
+    public dynamic VerifyCode(string account)
+    {
+        try
+        {
+            var accountEntity = db.Accounts.FirstOrDefault(a => a.Email == account);
+            if (accountEntity != null)
+            {
+                accountEntity.Status = true;
+                db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public bool Active(Verify verify)
+    {
+        try
+        {
+            var account = _databaseContext.Accounts.FirstOrDefault(a => a.Email == verify.Email && a.SecurityCode == verify.SecurityCode);
+            if (account == null)
+            {
+                return false;
+            }
+            account.Status = true;
+            _databaseContext.Accounts.Update(account);
+            return _databaseContext.SaveChanges() > 0;
+        }
+        catch
+        {
+            return false;
+
+        }
+        try
+        {
+            var account = db.Accounts.FirstOrDefault(a => a.Email == verify.Email && a.SecurityCode == verify.SecurityCode);
+            if (account == null)
+            {
+                return false;
+            }
+            account.Status = true;
+            db.SaveChanges();
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }

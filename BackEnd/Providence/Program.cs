@@ -31,6 +31,7 @@ builder.Services.AddScoped<IServiceCRUD<ProductReview>, ProductReviewCRUD>();
 
 // Account
 builder.Services.AddScoped<IServiceCRUD<Account>, AccountCRUD>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IServiceCRUD<AccountCoupon>, AccountCouponCRUD>();
 
 builder.Services.AddScoped<IServiceCRUD<AdministrativeUnit>, AdministrativeUnitCRUD>();

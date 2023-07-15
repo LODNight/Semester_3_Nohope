@@ -10,10 +10,12 @@ namespace Providence.Service.Implement
     public class AccountCRUD : IServiceCRUD<Account>
     {
         private readonly DatabaseContext _databaseContext;
+        private IConfiguration configuration;
 
-        public AccountCRUD(DatabaseContext databaseContext)
+        public AccountCRUD(DatabaseContext databaseContext, IConfiguration configuration)
         {
             _databaseContext = databaseContext;
+            this.configuration = configuration;
         }
 
         public bool Create(Account account)
@@ -57,7 +59,7 @@ namespace Providence.Service.Implement
             phoneNumber = acc.Phone,
             gender = acc.Gender,
             address = acc.Address.RoadName,
-            avatar = acc.Avatar,
+            avatar = configuration["BaseUrl"] + "/images/" + acc.Avatar,
             roleid = acc.RoleId,
             rolename = acc.Role.RoleName,
             status = acc.Status,
@@ -76,7 +78,7 @@ namespace Providence.Service.Implement
             phoneNumber = acc.Phone,
             gender = acc.Gender,
             address = acc.Address.RoadName,
-            avatar = acc.Avatar,
+            avatar = configuration["BaseUrl"] + "/images/" + acc.Avatar,
             roleid = acc.RoleId,
             rolename = acc.Role.RoleName,
             status = acc.Status,

@@ -17,8 +17,8 @@ namespace Providence.Controllers;
 public class ProductController : Controller
 {
     private readonly IServiceCRUD<Product> _serviceCRUD;
-    private IWebHostEnvironment webHostEnvironment;
     private readonly IProductService _productService;
+    private IWebHostEnvironment webHostEnvironment;
     private readonly IConfiguration configuration;
     public ProductController(IServiceCRUD<Product> serviceCRUD, IProductService productService, IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
     {
