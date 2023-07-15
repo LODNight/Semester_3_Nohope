@@ -23,7 +23,7 @@ builder.Services.AddScoped<DatabaseContext>();
 builder.Services.AddScoped<IServiceCRUD<Blog>, BlogCRUD>();
 //Product
 builder.Services.AddScoped<IServiceCRUD<Product>, ProductCRUD>();
-//builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService, ProdupctService>();
 
 builder.Services.AddScoped<IServiceCRUD<AdministrativeUnit>, AdministrativeUnitCRUD>();
 builder.Services.AddScoped<IServiceCRUD<BlogReview>, BlogReviewCRUD>();

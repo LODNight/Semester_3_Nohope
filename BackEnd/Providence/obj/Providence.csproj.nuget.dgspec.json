@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj": {}
+    "D:\\Project_Code\\Project_Semester_3\\src\\code\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj": {
+    "D:\\Project_Code\\Project_Semester_3\\src\\code\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj",
+        "projectUniqueName": "D:\\Project_Code\\Project_Semester_3\\src\\code\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj",
         "projectName": "Providence",
-        "projectPath": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\Providence.csproj",
+        "projectPath": "D:\\Project_Code\\Project_Semester_3\\src\\code\\Semester_3_Nohope\\BackEnd\\Providence\\Providence.csproj",
         "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\obj\\",
+        "outputPath": "D:\\Project_Code\\Project_Semester_3\\src\\code\\Semester_3_Nohope\\BackEnd\\Providence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",

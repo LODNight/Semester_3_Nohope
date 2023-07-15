@@ -1,10 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
+using Providence.Helper;
 using Providence.Models;
+using Providence.Service;
 using Providence.Service.Implement;
 using Providence.Service.Implement.OutCRUD;
 using Providence.Service.Interface;
 using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Providence.Controllers;
 [Route("api/[controller]")]
@@ -12,11 +17,15 @@ namespace Providence.Controllers;
 public class ProductController : Controller
 {
     private readonly IServiceCRUD<Product> _serviceCRUD;
-    //private readonly ProductService _productService;
-    public ProductController(IServiceCRUD<Product> serviceCRUD)
+    private IWebHostEnvironment webHostEnvironment;
+    private readonly IProductService _productService;
+    private readonly IConfiguration configuration;
+    public ProductController(IServiceCRUD<Product> serviceCRUD, IProductService productService, IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
     {
         _serviceCRUD = serviceCRUD;
-        //_productService = productService;
+        _productService = productService;
+        this.webHostEnvironment = webHostEnvironment;
+        this.configuration = configuration;
     }
 
 
@@ -49,19 +58,19 @@ public class ProductController : Controller
         }
     }
 
-    //[Produces("application/json")]
-    //[HttpGet("ProductINPQ")]
-    //public IActionResult ProductINPQ()
-    //{
-    //    try
-    //    {
-    //        return Ok(_productService.ReadINPQ());
-    //    }
-    //    catch
-    //    {
-    //        return BadRequest();
-    //    }
-    //}
+    [Produces("application/json")]
+    [HttpGet("ProductINPQ")]
+    public IActionResult ProductINPQ()
+    {
+        try
+        {
+            return Ok(_productService.ReadINPQ());
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
 
     [Consumes("application/json")]
     [Produces("application/json")]
@@ -96,6 +105,9 @@ public class ProductController : Controller
         }
     }
 
+
+    // PUT
+
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("Update")]
@@ -111,4 +123,37 @@ public class ProductController : Controller
             return BadRequest();
         }
     }
+    
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPut("Hide")]
+    public IActionResult Hide(int id)
+    {
+        try
+        {
+            
+            return Ok(_productService.HideProduct(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [Consumes("multipart/form-data")]
+    [Produces("application/json")]
+    [HttpPost("AddProduct")]
+    public IActionResult UploadFiles(IFormFile[] files, IFormCollection formData)
+    {
+        try
+        {
+            var productFile = JsonConvert.DeserializeObject<Product>(formData["images"]);
+            return Ok(_productService.AddProduct(files,productFile));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
 }

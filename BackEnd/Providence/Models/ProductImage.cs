@@ -6,7 +6,7 @@ namespace Providence.Models;
 public partial class ProductImage
 {
     public int ImageId { get; set; }
-
+    
     public string? ImageUrl { get; set; }
 
     public int? ProductId { get; set; }

@@ -396,3 +396,4 @@ C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\runtimes\
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\lenovo\Desktop\BackEnd_Semester_3\Providence\bin\Debug\net7.0\Providence.staticwebassets.runtime.json

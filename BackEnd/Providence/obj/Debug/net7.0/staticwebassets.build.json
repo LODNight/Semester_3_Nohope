@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "OqlysUVksHtADrZDl5dZ1QXP1w++DXW5LAhD7h102j0=",
+  "Hash": "Rw5KZuZJqOLgHxDIzaFAUufUgolrGvD31k3UOuZB6zM=",
   "Source": "Providence",
   "BasePath": "_content/Providence",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Providence\\wwwroot",
+      "Source": "Providence",
+      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\wwwroot\\",
+      "BasePath": "_content/Providence",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\wwwroot\\images\\noimage.png",
+      "SourceId": "Providence",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\wwwroot\\",
+      "BasePath": "_content/Providence",
+      "RelativePath": "images/noimage.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\noimage.png"
+    }
+  ]
 }
