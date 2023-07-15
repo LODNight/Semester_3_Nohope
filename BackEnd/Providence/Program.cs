@@ -26,7 +26,7 @@ builder.Services.AddScoped<IServiceCRUD<Blog>, BlogCRUD>();
 builder.Services.AddScoped<IServiceCRUD<BlogReview>, BlogReviewCRUD>();
 // Product
 builder.Services.AddScoped<IServiceCRUD<Product>, ProductCRUD>();
-builder.Services.AddScoped<IProductService, ProdupctService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IServiceCRUD<ProductReview>, ProductReviewCRUD>();
 
 // Account
