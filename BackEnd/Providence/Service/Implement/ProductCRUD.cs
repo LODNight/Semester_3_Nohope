@@ -10,10 +10,12 @@ namespace Providence.Service.Implement
     public class ProductCRUD : IServiceCRUD<Product>
     {
         private readonly DatabaseContext _databaseContext;
+        private IConfiguration configuration;
 
-        public ProductCRUD(DatabaseContext databaseContext)
+        public ProductCRUD(DatabaseContext databaseContext, IConfiguration configuration)
         {
             _databaseContext = databaseContext;
+            this.configuration = configuration;
         }
 
         public bool Create(Product entity)
@@ -47,9 +49,45 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.Products.FirstOrDefault(p => p.ProductId == id);
+        public dynamic Get(int id) => _databaseContext.Products.Where(p => p.ProductId == id).Select(product => new
+        {
+            id = product.ProductId,
+            name = product.ProductName,
+            price = product.Price,
+            category = product.Category.CategoryName,
+            quantity = product.Quantity,
+            detail = product.Detail,
+            expiredAt = product.ExpireDate,
+            description = product.Description,
+            photo = configuration["BaseUrl"] + "/images/" + product.ProductImages.First().ImageUrl,
+            status = product.Hide,
+            mftId = product.Manufacturer.MftId,
+            mftName = product.Manufacturer.MftName,
+            mftAddress = product.Manufacturer.Address,
+            mftDescription = product.Manufacturer.MftDescription,
+            created = product.CreatedAt,
+            updated = product.UpdatedAt,
+        }).FirstOrDefault()!;
 
-        public dynamic Read() => _databaseContext.Products.ToList();
+        public dynamic Read() => _databaseContext.Products.Select(product => new
+        {
+            id = product.ProductId,
+            name = product.ProductName,
+            price = product.Price,
+            category = product.Category.CategoryName,
+            quantity = product.Quantity,
+            detail = product.Detail,
+            expiredAt = product.ExpireDate,
+            description = product.Description,
+            photo = configuration["BaseUrl"] + "/images/" + product.ProductImages.First().ImageUrl,
+            status = product.Hide,
+            mftId = product.Manufacturer.MftId,
+            mftName = product.Manufacturer.MftName,
+            mftAddress = product.Manufacturer.Address,
+            mftDescription = product.Manufacturer.MftDescription,
+            created = product.CreatedAt,
+            updated = product.UpdatedAt,
+        }).ToList();
 
         public bool Update(Product entity)
         {

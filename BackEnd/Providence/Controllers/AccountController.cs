@@ -5,7 +5,7 @@ using Microsoft.SqlServer.Server;
 using Providence.Helper;
 using Providence.Models;
 using Providence.Service;
-using Providence.Service.Interface;
+using Providence.Service.Implement;
 using System.Data;
 using System.Diagnostics;
 using System.Globalization;
@@ -15,7 +15,7 @@ using System.Security.Claims;
 using System.Text;
 
 namespace Providence.Controllers;
-[Route("api/account")]
+[Route("api/admin/account")]
 public class AccountController : Controller
 {
     private readonly IServiceCRUD<Account> _serviceCRUD;
@@ -63,6 +63,7 @@ public class AccountController : Controller
         {
             account.CreatedAt = DateTime.Now;
             account.UpdatedAt = DateTime.Now;
+
             return Ok(_serviceCRUD.Create(account));
         }
         catch

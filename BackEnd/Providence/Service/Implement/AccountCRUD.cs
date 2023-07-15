@@ -16,11 +16,11 @@ namespace Providence.Service.Implement
             _databaseContext = databaseContext;
         }
 
-        public bool Create(Account entity)
+        public bool Create(Account account)
         {
             try
             {
-                _databaseContext.Accounts.Add(entity);
+                _databaseContext.Accounts.Add(account);
                 return _databaseContext.SaveChanges() > 0;
             }
             catch (Exception)
@@ -33,10 +33,10 @@ namespace Providence.Service.Implement
         {
             try
             {
-                var accountEntity = _databaseContext.Accounts.FirstOrDefault(a => a.AccountId == id);
-                if (accountEntity != null)
+                var account = _databaseContext.Accounts.FirstOrDefault(p => p.AccountId == id);
+                if (account != null)
                 {
-                    _databaseContext.Accounts.Remove(accountEntity);
+                    _databaseContext.Accounts.Remove(account);
                     return _databaseContext.SaveChanges() > 0;
                 }
                 return false;
@@ -47,7 +47,7 @@ namespace Providence.Service.Implement
             }
         }
 
-       public dynamic Get(int id) => _databaseContext.Accounts.Where(acc => acc.AccountId == id).Select(acc => new
+        public dynamic Get(int id) => _databaseContext.Accounts.Where(acc => acc.AccountId == id).Select(acc => new
         {
             accountId = acc.AccountId,
             firstname = acc.Firstname,
@@ -85,11 +85,11 @@ namespace Providence.Service.Implement
             updatedAt = acc.UpdatedAt,
         }).ToList();
 
-        public bool Update(Account entity)
+        public bool Update(Account account)
         {
             try
             {
-                _databaseContext.Accounts.Update(entity);
+                _databaseContext.Accounts.Update(account);
                 return _databaseContext.SaveChanges() > 0;
             }
             catch (Exception)

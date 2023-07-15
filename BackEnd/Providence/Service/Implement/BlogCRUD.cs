@@ -1,67 +1,62 @@
-﻿using Microsoft.Extensions.Logging;
-using Providence.Models;
+﻿using Providence.Models;
 using Providence.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace Providence.Service.Implement
+namespace Providence.Service.Implement;
+
+public class BlogCRUD : IServiceCRUD<Blog>
 {
-    public class BlogCRUD : IServiceCRUD<Blog>
+    private readonly DatabaseContext _databaseContext;
+
+    public BlogCRUD(DatabaseContext databaseContext)
     {
-        private readonly DatabaseContext _databaseContext;
+        _databaseContext = databaseContext;
+    }
 
-        public BlogCRUD(DatabaseContext databaseContext)
+    public bool Create(Blog entity)
+    {
+        try
         {
-            _databaseContext = databaseContext;
+            _databaseContext.Blogs.Add(entity);
+            return _databaseContext.SaveChanges() > 0;
         }
-
-        public bool Create(Blog entity)
+        catch (Exception)
         {
-            try
+            return false;
+        }
+    }
+
+    public bool Delete(int id)
+    {
+        try
+        {
+            var blogEntity = _databaseContext.Blogs.FirstOrDefault(b => b.BlogId == id);
+            if (blogEntity != null)
             {
-                _databaseContext.Blogs.Add(entity);
+                _databaseContext.Blogs.Remove(blogEntity);
                 return _databaseContext.SaveChanges() > 0;
             }
-            catch (Exception)
-            {
-                return false;
-            }
+            return false;
         }
-
-        public bool Delete(int id)
+        catch (Exception)
         {
-            try
-            {
-                var blogEntity = _databaseContext.Blogs.FirstOrDefault(b => b.BlogId == id);
-                if (blogEntity != null)
-                {
-                    _databaseContext.Blogs.Remove(blogEntity);
-                    return _databaseContext.SaveChanges() > 0;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            return false;
         }
+    }
 
-        public dynamic Get(int id) => _databaseContext.Blogs.FirstOrDefault(b => b.BlogId == id);
+    public dynamic Get(int id) => _databaseContext.Blogs.FirstOrDefault(b => b.BlogId == id);
 
-        public dynamic Read() => _databaseContext.Blogs.ToList();
+    public dynamic Read() => _databaseContext.Blogs.ToList();
 
-        public bool Update(Blog entity)
+    public bool Update(Blog entity)
+    {
+        try
         {
-            try
-            {
-                _databaseContext.Blogs.Update(entity);
-                return _databaseContext.SaveChanges() > 0;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            _databaseContext.Blogs.Update(entity);
+            return _databaseContext.SaveChanges() > 0;
+        }
+        catch (Exception)
+        {
+            return false;
         }
     }
 }

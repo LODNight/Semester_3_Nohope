@@ -33,7 +33,7 @@ namespace Providence.Service.Implement
         {
             try
             {
-                var districtEntity = _databaseContext.Districts.FirstOrDefault(d => d.Code == id);
+                var districtEntity = _databaseContext.Districts.FirstOrDefault(d => Int32.Parse(d.Code) == id);
                 if (districtEntity != null)
                 {
                     _databaseContext.Districts.Remove(districtEntity);
@@ -47,7 +47,7 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.Districts.FirstOrDefault(d => d.Code == id);
+        public dynamic Get(int id) => _databaseContext.Districts.FirstOrDefault(d => Int32.Parse(d.Code) == id);
 
         public dynamic Read() => _databaseContext.Districts.ToList();
 
