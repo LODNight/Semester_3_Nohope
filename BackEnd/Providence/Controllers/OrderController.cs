@@ -2,139 +2,101 @@
 using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
+using Providence.Service.Implement;
+using Providence.Service.Interface;
 using System.Diagnostics;
 
 namespace Providence.Controllers;
-[Route("api/order")]
+[Route("api/[controller]")]
 public class OrderController : Controller
 {
-    private OrderService orderService;
-    private OrderDetailService orderDetailService;
+    private readonly IServiceCRUD<Order> _serviceCRUD;
+    private readonly IOrderService orderService;
 
-    public OrderController(OrderService orderService, OrderDetailService orderDetailService)
+    public OrderController(IServiceCRUD<Order> serviceCRUD, IOrderService orderService)
     {
+        _serviceCRUD = serviceCRUD;
         this.orderService = orderService;
-        this.orderDetailService = orderDetailService;
     }
-    // ===============================
-    // ============== GET GET
-    // ===============================
 
-    // Find All
     [Produces("application/json")]
-    [HttpGet("findAll")]
-    public IActionResult FindAll()
+    [HttpGet("Read")]
+    public IActionResult Read()
     {
         try
         {
-            return Ok(orderService.findAll());
+            return Ok(_serviceCRUD.Read());
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
 
-    // =============================
-    // ========== Order Detail
 
-    // Find Order Detail
-    [Produces("application/json")]
-    [HttpGet("findOrderDetail/{id}")]
-    public IActionResult FindOrderDetail(int id)
-    {
-        try
-        {
-            return Ok(orderDetailService.findOrderDetail(id));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return BadRequest();
-        }
-    }
-
-    // ===============================
-    // ============== POST
-    // ===============================
-    // Create New Order
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("create")]
+    [HttpGet("Get")]
+    public IActionResult Get(int id)
+    {
+        try
+        {
+            return Ok(_serviceCRUD.Get(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPost("Create")]
     public IActionResult Create([FromBody] Order order)
+
     {
         try
         {
-            return Ok(orderService.create(order));
+            order.CreatedAt = DateTime.Now;
+            order.UpdatedAt = DateTime.Now;
+
+
+            return Ok(_serviceCRUD.Create(order));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
 
-    // =============================
-    // ========== Order Detail
-    [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("createDetail")]
-    public IActionResult CreateOrderDetail([FromBody] OrderDetail orderDetail)
+    [HttpDelete("Delete")]
+    public IActionResult Delete(int id)
     {
         try
         {
-            return Ok(orderDetailService.create(orderDetail));
+            return Ok(_serviceCRUD.Delete(id));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
 
-
-    // ===============================
-    // ============== PUT
-    // ===============================
-
-    // Update Information Order
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("update")]
+    [HttpPut("Update")]
     public IActionResult Update([FromBody] Order order)
     {
         try
         {
             order.UpdatedAt = DateTime.Now;
-
-            return Ok(orderService.update(order));
-
+            return Ok(_serviceCRUD.Update(order));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
-    
-    // ===============================
-    // ============== DELETE
-    // ===============================
 
-    [Consumes("application/json")]
-    [Produces("application/json")]
-    [HttpDelete("delete/{id}")]
-    public IActionResult Delete(int id)
-    {
-        try
-        {
-            return Ok(orderService.Delete(id));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return BadRequest();
-        }
-    }
 }

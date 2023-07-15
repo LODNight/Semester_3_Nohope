@@ -47,9 +47,29 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.CartDetails.FirstOrDefault(cd => cd.CartDetailId == id);
+        public dynamic Get(int id) => _databaseContext.CartDetails.Where(cd => cd.CartDetailId == id).Select(p => new
+        {
+            cartDetailId = p.CartDetailId,
+            cartId = p.CartId,
+            productId = p.ProductId,
+            productName = p.Product.ProductName,
+            quantity = p.Quantity,
+            price = p.Price,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt,
+        }).FirstOrDefault()!;
 
-        public dynamic Read() => _databaseContext.CartDetails.ToList();
+        public dynamic Read() => _databaseContext.CartDetails.Select(p => new
+        {
+            cartDetailId = p.CartDetailId,
+            cartId = p.CartId,
+            productId = p.ProductId,
+            productName = p.Product.ProductName,
+            quantity = p.Quantity,
+            price = p.Price,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt,
+        }).ToList();
 
         public bool Update(CartDetail entity)
         {

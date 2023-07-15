@@ -47,9 +47,21 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.PaymentMethods.FirstOrDefault(pm => pm.PaymentId == id);
+        public dynamic Get(int id) => _databaseContext.PaymentMethods.Where(pm => pm.PaymentId == id).Select(p => new
+        {
+            paymentId = p.PaymentId,
+            paymentName = p.PaymentName,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt,
+        }).FirstOrDefault()!;
 
-        public dynamic Read() => _databaseContext.PaymentMethods.ToList();
+        public dynamic Read() => _databaseContext.PaymentMethods.Select(p => new
+        {
+            paymentId = p.PaymentId,
+            paymentName = p.PaymentName,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt,
+        }).ToList();
 
         public bool Update(PaymentMethod entity)
         {

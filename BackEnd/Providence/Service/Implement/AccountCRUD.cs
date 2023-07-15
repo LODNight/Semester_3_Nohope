@@ -91,13 +91,37 @@ namespace Providence.Service.Implement
         {
             try
             {
-                _databaseContext.Accounts.Update(account);
+                // Tìm kiếm tài khoản theo AccountId
+                var existingAccount = _databaseContext.Accounts.FirstOrDefault(a => a.AccountId == account.AccountId);
+                if (existingAccount == null)
+                {
+                    return false; // Không tìm thấy tài khoản
+                }
+
+                // Không cho phép thay đổi email, status và created at
+                account.Email = existingAccount.Email;
+                account.Password = existingAccount.Password;
+                account.Status = existingAccount.Status;
+                account.CreatedAt = existingAccount.CreatedAt;
+
+                // Cập nhật các thuộc tính khác
+                _databaseContext.Entry(existingAccount).CurrentValues.SetValues(account);
                 return _databaseContext.SaveChanges() > 0;
             }
             catch (Exception)
             {
                 return false;
             }
+
+            //try
+            //{
+            //    _databaseContext.Accounts.Update(account);
+            //    return _databaseContext.SaveChanges() > 0;
+            //}
+            //catch (Exception)
+            //{
+            //    return false;
+            //}
         }
     }
 }

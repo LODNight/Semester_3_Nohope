@@ -1,23 +1,24 @@
-﻿using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
 using Providence.Service.Implement;
 using Providence.Service.Interface;
 using System.Diagnostics;
+
 namespace Providence.Controllers;
 [Route("api/[controller]")]
-public class CartController : Controller
+public class OrderDetailController : Controller
 {
-    private readonly IServiceCRUD<Cart> _serviceCRUD;
-    private readonly ICartService cartService;
+    private readonly IServiceCRUD<OrderDetail> _serviceCRUD;
+    private readonly IOrderDetailService orderDetailService;
     private IConfiguration configuration;
 
-    public CartController(IServiceCRUD<Cart> serviceCRUD, IConfiguration configuration, ICartService cartService)
+    public OrderDetailController(IServiceCRUD<OrderDetail> serviceCRUD, IConfiguration configuration, IOrderDetailService orderDetailService)
     {
         _serviceCRUD = serviceCRUD;
         this.configuration = configuration;
-        this.cartService = cartService;
+        this.orderDetailService = orderDetailService;
     }
 
     [Produces("application/json")]
@@ -53,16 +54,16 @@ public class CartController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("Create")]
-    public IActionResult Create([FromBody] Cart cart)
+    public IActionResult Create([FromBody] OrderDetail orderDetail)
 
     {
         try
         {
-            cart.CreatedAt = DateTime.Now;
-            cart.UpdatedAt = DateTime.Now;
+            orderDetail.CreatedAt = DateTime.Now;
+            orderDetail.UpdatedAt = DateTime.Now;
 
 
-            return Ok(_serviceCRUD.Create(cart));
+            return Ok(_serviceCRUD.Create(orderDetail));
         }
         catch
         {
@@ -87,12 +88,12 @@ public class CartController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("Update")]
-    public IActionResult Update([FromBody] Cart cart)
+    public IActionResult Update([FromBody] OrderDetail orderDetail)
     {
         try
         {
-            cart.UpdatedAt = DateTime.Now;
-            return Ok(_serviceCRUD.Update(cart));
+            orderDetail.UpdatedAt = DateTime.Now;
+            return Ok(_serviceCRUD.Update(orderDetail));
         }
         catch
         {

@@ -7,17 +7,15 @@ using Providence.Service.Interface;
 using System.Diagnostics;
 namespace Providence.Controllers;
 [Route("api/[controller]")]
-public class CartController : Controller
+public class CartDetailController : Controller
 {
-    private readonly IServiceCRUD<Cart> _serviceCRUD;
-    private readonly ICartService cartService;
-    private IConfiguration configuration;
+    private readonly IServiceCRUD<CartDetail> _serviceCRUD;
+    private readonly ICartDetailService cartDetailService;
 
-    public CartController(IServiceCRUD<Cart> serviceCRUD, IConfiguration configuration, ICartService cartService)
+    public CartDetailController(IServiceCRUD<CartDetail> serviceCRUD, ICartDetailService cartDetailService)
     {
         _serviceCRUD = serviceCRUD;
-        this.configuration = configuration;
-        this.cartService = cartService;
+        this.cartDetailService = cartDetailService;
     }
 
     [Produces("application/json")]
@@ -53,16 +51,16 @@ public class CartController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("Create")]
-    public IActionResult Create([FromBody] Cart cart)
+    public IActionResult Create([FromBody] CartDetail cartDetail)
 
     {
         try
         {
-            cart.CreatedAt = DateTime.Now;
-            cart.UpdatedAt = DateTime.Now;
+            cartDetail.CreatedAt = DateTime.Now;
+            cartDetail.UpdatedAt = DateTime.Now;
 
 
-            return Ok(_serviceCRUD.Create(cart));
+            return Ok(_serviceCRUD.Create(cartDetail));
         }
         catch
         {
@@ -87,12 +85,12 @@ public class CartController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("Update")]
-    public IActionResult Update([FromBody] Cart cart)
+    public IActionResult Update([FromBody] CartDetail cartDetail)
     {
         try
         {
-            cart.UpdatedAt = DateTime.Now;
-            return Ok(_serviceCRUD.Update(cart));
+            cartDetail.UpdatedAt = DateTime.Now;
+            return Ok(_serviceCRUD.Update(cartDetail));
         }
         catch
         {

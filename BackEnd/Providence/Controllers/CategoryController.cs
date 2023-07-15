@@ -2,128 +2,95 @@
 using Microsoft.Data.SqlClient;
 using Providence.Models;
 using Providence.Service;
+using Providence.Service.Implement;
+using Providence.Service.Interface;
 using System.Diagnostics;
 using static Azure.Core.HttpHeader;
-
 namespace Providence.Controllers;
-[Route("api/category")]
+[Route("api/[controller]")]
 public class CategoryController : Controller
 {
-    private CategoryService categoryService;
-    private IWebHostEnvironment webHostEnvironment;
+    private readonly IServiceCRUD<Category> _serviceCRUD;
     private IConfiguration configuration;
 
-    public CategoryController(CategoryService categoryService, IWebHostEnvironment webHostEnvironment, IConfiguration configuration)
+    public CategoryController(IServiceCRUD<Category> serviceCRUD)
     {
-        this.categoryService = categoryService;
-        this.webHostEnvironment = webHostEnvironment;
-        this.configuration = configuration;
+        _serviceCRUD = serviceCRUD;
     }
 
     [Produces("application/json")]
-    [HttpGet("findAll")]
-    public IActionResult findAll()
+    [HttpGet("Read")]
+    public IActionResult Read()
     {
         try
         {
-            return Ok(categoryService.findAll());
+            return Ok(_serviceCRUD.Read());
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex);
             return BadRequest();
         }
     }
 
+
+    [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find/{id}")]
-    public IActionResult Find(int id)
+    [HttpGet("Get")]
+    public IActionResult Get(int id)
     {
         try
         {
-            return Ok(categoryService.find(id));
+            return Ok(_serviceCRUD.Get(id));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex);
             return BadRequest();
         }
     }
 
+    [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("create")]
+    [HttpPost("Create")]
     public IActionResult Create([FromBody] Category category)
+
     {
         try
         {
-            return Ok(categoryService.Create(category));
+            return Ok(_serviceCRUD.Create(category));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
 
     [Produces("application/json")]
-    [HttpPut("edit")]
-    public IActionResult Edit([FromBody] Category category)
-    {
-        try
-        {
-            return Ok(categoryService.Edit(category));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return BadRequest();
-        }
-    }
-
-    [Produces("application/json")]
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("Delete")]
     public IActionResult Delete(int id)
     {
         try
         {
-            if (categoryService.Delete(id)) //true nếu cate này k phải là cha
-            {
-                return Ok(new
-                {
-                    status = true
-                });
-            }
-            else //false nếu cate này là cha
-            {
-                string connectionString = configuration.GetConnectionString("DefaultConnection");
-                using (SqlConnection connection = new SqlConnection(connectionString))
-                {
-                    string query = "UPDATE Category SET parent_id = NULL WHERE parent_id = @id;";
-
-                    using (SqlCommand command = new SqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@id", id);
-
-                        connection.Open();
-                        command.ExecuteNonQuery();
-                        connection.Close();
-
-                        if (categoryService.Delete(id))
-                        {
-                            return Ok(true);
-                        }
-                        else
-                        {
-                            return Ok(false);
-                        }
-                    }
-                }
-            }
+            return Ok(_serviceCRUD.Delete(id));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
+
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPut("Update")]
+    public IActionResult Update([FromBody] Category category)
+    {
+        try
+        {
+            return Ok(_serviceCRUD.Update(category));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
 }

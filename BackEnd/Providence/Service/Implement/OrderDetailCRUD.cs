@@ -47,9 +47,31 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.OrderDetails.FirstOrDefault(od => od.OrderDetailId == id);
+        public dynamic Get(int id) => _databaseContext.OrderDetails.Where(od => od.OrderDetailId == id).Select(p => new
+        {
+            orderDetailId = p.OrderDetailId,
+            orderId = p.OrderId,
+            accountName = p.Order.Account.Firstname + ' ' + p.Order.Account.Lastname,
+            productName = p.Product.ProductName,
+            quantity = p.Quantity,
+            price = p.Price,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt,
+        }).FirstOrDefault()!;
 
-        public dynamic Read() => _databaseContext.OrderDetails.ToList();
+        public dynamic Read() => _databaseContext.OrderDetails.Select(p => new
+        {
+            orderDetailId = p.OrderDetailId,
+            orderId = p.OrderId,
+            accountName = p.Order.Account.Firstname + ' ' + p.Order.Account.Lastname,
+            productName = p.Product.ProductName,
+            quantity = p.Quantity,
+            price = p.Price,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt,
+
+
+        }).ToList();
 
         public bool Update(OrderDetail entity)
         {

@@ -1,23 +1,21 @@
-﻿using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Providence.Models;
 using Providence.Service;
 using Providence.Service.Implement;
 using Providence.Service.Interface;
 using System.Diagnostics;
+using static Azure.Core.HttpHeader;
 namespace Providence.Controllers;
 [Route("api/[controller]")]
-public class CartController : Controller
+public class WardController : Controller
 {
-    private readonly IServiceCRUD<Cart> _serviceCRUD;
-    private readonly ICartService cartService;
+    private readonly IServiceCRUD<Ward> _serviceCRUD;
     private IConfiguration configuration;
 
-    public CartController(IServiceCRUD<Cart> serviceCRUD, IConfiguration configuration, ICartService cartService)
+    public WardController(IServiceCRUD<Ward> serviceCRUD)
     {
         _serviceCRUD = serviceCRUD;
-        this.configuration = configuration;
-        this.cartService = cartService;
     }
 
     [Produces("application/json")]
@@ -53,16 +51,12 @@ public class CartController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("Create")]
-    public IActionResult Create([FromBody] Cart cart)
+    public IActionResult Create([FromBody] Ward ward)
 
     {
         try
         {
-            cart.CreatedAt = DateTime.Now;
-            cart.UpdatedAt = DateTime.Now;
-
-
-            return Ok(_serviceCRUD.Create(cart));
+            return Ok(_serviceCRUD.Create(ward));
         }
         catch
         {
@@ -87,12 +81,11 @@ public class CartController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("Update")]
-    public IActionResult Update([FromBody] Cart cart)
+    public IActionResult Update([FromBody] Ward ward)
     {
         try
         {
-            cart.UpdatedAt = DateTime.Now;
-            return Ok(_serviceCRUD.Update(cart));
+            return Ok(_serviceCRUD.Update(ward));
         }
         catch
         {

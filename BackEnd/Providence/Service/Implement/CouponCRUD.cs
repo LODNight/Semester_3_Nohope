@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using Providence.Models;
-using Providence.Service.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Providence.Models;
+using static Azure.Core.HttpHeader;
 
 namespace Providence.Service.Implement
 {
@@ -47,16 +43,46 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.Coupons.FirstOrDefault(c => c.CouponId == id);
+        public dynamic Get(int id) => _databaseContext.Coupons.Where(c => c.CouponId == id).Select(p => new
+        {
+            couponId = p.CouponId,
+            couponName = p.CouponName,
+            discount = p.Discount,
+            description = p.Description,
+            expiredAt = p.ExpiredAt,
+            createdAt = p.CreatedAt,
+            couponTypeId = p.CouponTypeId,
+            couponTypeName = p.CouponType.TypeName,
+        }).FirstOrDefault();
 
-        public dynamic Read() => _databaseContext.Coupons.ToList();
+        public dynamic Read() => _databaseContext.Coupons.Select(p => new
+        {
+            couponId = p.CouponId,
+            couponName = p.CouponName,
+            discount = p.Discount,
+            description = p.Description,
+            expiredAt = p.ExpiredAt,
+            createdAt = p.CreatedAt,
+            couponTypeId = p.CouponTypeId,
+            couponTypeName = p.CouponType.TypeName,
+        }).ToList();
 
-        public bool Update(Coupon entity)
+        public bool Update(Coupon coupon)
         {
             try
             {
-                _databaseContext.Coupons.Update(entity);
+                // Save Created At
+                var existingCoupon = _databaseContext.Coupons.FirstOrDefault(a => a.CouponId == coupon.CouponId);
+                if (existingCoupon == null)
+                {
+                    return false; 
+                }
+              coupon.CreatedAt = existingCoupon.CreatedAt;
+
+                // Cập nhật các thuộc tính khác
+                _databaseContext.Entry(existingCoupon).CurrentValues.SetValues(coupon);
                 return _databaseContext.SaveChanges() > 0;
+
             }
             catch (Exception)
             {

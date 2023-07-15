@@ -1,15 +1,18 @@
 ﻿using Providence.Models;
 using Providence.Service.Interface;
+using static Azure.Core.HttpHeader;
 
 namespace Providence.Service.Implement;
 
 public class BlogCRUD : IServiceCRUD<Blog>
 {
     private readonly DatabaseContext _databaseContext;
+    private IConfiguration configuration;
 
-    public BlogCRUD(DatabaseContext databaseContext)
+    public BlogCRUD(DatabaseContext databaseContext, IConfiguration configuration)
     {
         _databaseContext = databaseContext;
+        this.configuration = configuration;
     }
 
     public bool Create(Blog entity)
@@ -43,15 +46,44 @@ public class BlogCRUD : IServiceCRUD<Blog>
         }
     }
 
-    public dynamic Get(int id) => _databaseContext.Blogs.FirstOrDefault(b => b.BlogId == id);
+    public dynamic Get(int id) => _databaseContext.Blogs.Where(p => p.BlogId == id).Select(p => new
+    {
+        blogId = p.BlogId,
+        blogName = p.BlogName,
+        blogImage = configuration["BaseUrl"] + "/images/" + p.BlogImage,
+        shortDescription = p.ShortDescription,
+        longDescription = p.LongDescription,
+        hide = p.Hide,
+        createdAt = p.CreatedAt,
+        updatedAt = p.UpdatedAt,
+    }).FirstOrDefault()!;
 
-    public dynamic Read() => _databaseContext.Blogs.ToList();
+    public dynamic Read() => _databaseContext.Blogs.Select(p => new   
+    {
+        blogId = p.BlogId,
+        blogName = p.BlogName,
+        blogImage = configuration["BaseUrl"] + "/images/" + p.BlogImage,
+        shortDescription = p.ShortDescription,
+        longDescription = p.LongDescription,
+        hide = p.Hide,
+        createdAt = p.CreatedAt,
+        updatedAt = p.UpdatedAt,
+    }).ToList();
 
-    public bool Update(Blog entity)
+    public bool Update(Blog blog)
     {
         try
         {
-            _databaseContext.Blogs.Update(entity);
+            // Save Created At
+            var existingBlog = _databaseContext.Blogs.FirstOrDefault(a => a.BlogId == blog.BlogId);
+            if (existingBlog == null)
+            {
+                return false;
+            }
+            blog.CreatedAt = existingBlog.CreatedAt;
+
+            // Cập nhật các thuộc tính khác
+            _databaseContext.Entry(existingBlog).CurrentValues.SetValues(blog);
             return _databaseContext.SaveChanges() > 0;
         }
         catch (Exception)

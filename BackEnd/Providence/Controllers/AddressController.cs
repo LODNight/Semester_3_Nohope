@@ -5,7 +5,7 @@ using Providence.Service.Implement;
 using System.Diagnostics;
 
 namespace Providence.Controllers;
-[Route("api/admin/address")]
+[Route("api/[controller]")]
 public class AddressController : Controller
 {
     private readonly IServiceCRUD<Address> _serviceCRUD;

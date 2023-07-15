@@ -49,7 +49,16 @@ namespace Providence.Service.Implement
 
         public dynamic Get(int id) => _databaseContext.Wishlists.FirstOrDefault(w => w.WishlistId == id);
 
-        public dynamic Read() => _databaseContext.Wishlists.ToList();
+        public dynamic Read() => _databaseContext.Wishlists.Select(p => new
+        {
+            wishlistId = p.WishlistId,
+            accountId = p.AccountId,
+            accountName = p.Account.Firstname + ' ' + p.Account.Lastname,
+            productId = p.ProductId,
+            productName = p.Product.ProductName,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt,
+        }).ToList();
 
         public bool Update(Wishlist entity)
         {

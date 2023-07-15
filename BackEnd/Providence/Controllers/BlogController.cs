@@ -1,100 +1,122 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Providence.Helper;
 using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
+using Providence.Service.Implement;
+using Providence.Service.Implement.OutCRUD;
+using Providence.Service.Interface;
 using System.Diagnostics;
 
 namespace Providence.Controllers;
-[Route("api/blog")]
+[Route("api/[controller]")]
 public class BlogController : Controller
 {
-    private BlogService blogService;
+    private readonly IServiceCRUD<Blog> _serviceCRUD;
+    private readonly IBlogService blogService;
+    private IConfiguration configuration;
 
-    public BlogController(BlogService blogService)
+    public BlogController(IServiceCRUD<Blog> serviceCRUD, IConfiguration configuration, IBlogService blogService)
     {
+        _serviceCRUD = serviceCRUD;
+        this.configuration = configuration;
         this.blogService = blogService;
     }
-    // ===============================
-    // ============== GET GET
-    // ===============================
 
-    // Find All
     [Produces("application/json")]
-    [HttpGet("findAll")]
-    public IActionResult FindAll()
+    [HttpGet("Read")]
+    public IActionResult Read()
     {
         try
         {
-            return Ok(blogService.findAll());
+            return Ok(_serviceCRUD.Read());
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
 
-    // ===============================
-    // ============== POST
-    // ===============================
-    // Create New blog
+
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("create")]
+    [HttpGet("Get")]
+    public IActionResult Get(int id)
+    {
+        try
+        {
+            return Ok(_serviceCRUD.Get(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPost("Create")]
     public IActionResult Create([FromBody] Blog blog)
+
     {
         try
         {
-            return Ok(blogService.create(blog));
+            blog.CreatedAt = DateTime.Now;
+            blog.UpdatedAt = DateTime.Now;
+
+
+            return Ok(_serviceCRUD.Create(blog));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
 
-    // ===============================
-    // ============== PUT
-    // ===============================
+    [Produces("application/json")]
+    [HttpDelete("Delete")]
+    public IActionResult Delete(int id)
+    {
+        try
+        {
+            return Ok(_serviceCRUD.Delete(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
 
-    // Update Information blog
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("update")]
+    [HttpPut("Update")]
     public IActionResult Update([FromBody] Blog blog)
     {
         try
         {
             blog.UpdatedAt = DateTime.Now;
-
-            return Ok(blogService.update(blog));
-
+            return Ok(_serviceCRUD.Update(blog));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
-    
-    // ===============================
-    // ============== DELETE
-    // ===============================
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpDelete("delete/{id}")]
-    public IActionResult Delete(int id)
+    [HttpPut("Hide")]
+    public IActionResult Hide(int id)
     {
         try
         {
-            return Ok(blogService.Delete(id));
+
+            return Ok(blogService.Hide(id));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
+
 }

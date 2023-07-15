@@ -47,9 +47,17 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.Roles.FirstOrDefault(r => r.RoleId == id);
+        public dynamic Get(int id) => _databaseContext.Roles.Where(c => c.RoleId == id).Select(p => new
+        {
+            roleId = p.RoleId,
+            roleName = p.RoleName,
+        }).FirstOrDefault()!;
 
-        public dynamic Read() => _databaseContext.Roles.ToList();
+        public dynamic Read() => _databaseContext.Roles.Select(p => new
+        {
+            roleId = p.RoleId,
+            roleName = p.RoleName,
+        }).ToList();
 
         public bool Update(Role entity)
         {

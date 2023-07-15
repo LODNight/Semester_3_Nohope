@@ -47,9 +47,30 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.Wards.FirstOrDefault(w => w.Code == id.ToString());
+        public dynamic Get(int id) => _databaseContext.Wards.Where(w => w.Code == id.ToString()).Select(p => new
+        {
+            code = p.Code,
+            name = p.Name,
+            nameEn = p.NameEn,
+            fullname = p.FullName,
+            fullnameEn = p.FullNameEn,
+            codeName = p.CodeName,
+            districtCode = p.DistrictCode,
+            administractiveUnit = p.AdministrativeUnit,
+        }).FirstOrDefault()!;
 
-        public dynamic Read() => _databaseContext.Wards.ToList();
+        public dynamic Read() => _databaseContext.Wards.Select(p => new
+        {
+            code = p.Code,
+            name = p.Name,
+            nameEn = p.NameEn,
+            fullname = p.FullName,
+            fullnameEn = p.FullNameEn,
+            codeName =p.CodeName,
+            districtCode = p.DistrictCode,
+            administractiveUnit = p.AdministrativeUnit,
+
+        }).ToList();
 
         public bool Update(Ward entity)
         {

@@ -21,11 +21,13 @@ public class AccountService : IAccountService
     
 
     public bool ChangePass([FromBody] ChangePass changePass)
-    {
+    { 
+
         var account = _databaseContext.Accounts.FirstOrDefault(p => p.Email == changePass.Email);
         if (account != null)
         {
-            if(!BCrypt.Net.BCrypt.Verify(changePass.CurrentPass, account.Password))
+
+            if (!BCrypt.Net.BCrypt.Verify(changePass.CurrentPass, account.Password))
             {
                 return false;
 
@@ -64,11 +66,11 @@ public class AccountService : IAccountService
     {
         try
         {
-            var accountEntity = db.Accounts.FirstOrDefault(a => a.Email == account);
+            var accountEntity = _databaseContext.Accounts.FirstOrDefault(a => a.Email == account);
             if (accountEntity != null)
             {
                 accountEntity.Status = true;
-                db.SaveChanges();
+                _databaseContext.SaveChanges();
                 return true;
             }
             return false;
@@ -96,21 +98,6 @@ public class AccountService : IAccountService
         {
             return false;
 
-        }
-        try
-        {
-            var account = db.Accounts.FirstOrDefault(a => a.Email == verify.Email && a.SecurityCode == verify.SecurityCode);
-            if (account == null)
-            {
-                return false;
-            }
-            account.Status = true;
-            db.SaveChanges();
-            return true;
-        }
-        catch
-        {
-            return false;
         }
     }
 }

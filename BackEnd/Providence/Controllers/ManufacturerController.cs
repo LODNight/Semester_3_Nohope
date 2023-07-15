@@ -1,93 +1,96 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Providence.Models;
 using Providence.Service;
+using Providence.Service.Implement;
+using Providence.Service.Interface;
 using System.Diagnostics;
-
+using static Azure.Core.HttpHeader;
 namespace Providence.Controllers;
-[Route("api/manufacture")]
+[Route("api/[controller]")]
 public class ManufacturerController : Controller
 {
-    private ManufacturerService manufacturerService;
-    private IWebHostEnvironment webHostEnvironment;
+    private readonly IServiceCRUD<Manufacturer> _serviceCRUD;
+    private IConfiguration configuration;
 
-    public ManufacturerController(ManufacturerService manufacturerService, IWebHostEnvironment webHostEnvironment)
+    public ManufacturerController(IServiceCRUD<Manufacturer> serviceCRUD)
     {
-        this.manufacturerService = manufacturerService;
-        this.webHostEnvironment = webHostEnvironment;
+        _serviceCRUD = serviceCRUD;
     }
 
     [Produces("application/json")]
-    [HttpGet("findAll")]
-    public IActionResult findAll()
+    [HttpGet("Read")]
+    public IActionResult Read()
     {
         try
         {
-            return Ok(manufacturerService.findAll());
+            return Ok(_serviceCRUD.Read());
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex);
             return BadRequest();
         }
     }
 
+
+    [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find/{id}")]
-    public IActionResult Find(int id)
+    [HttpGet("Get")]
+    public IActionResult Get(int id)
     {
         try
         {
-            return Ok(manufacturerService.find(id));
+            return Ok(_serviceCRUD.Get(id));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex);
             return BadRequest();
         }
     }
 
+    [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("create")]
+    [HttpPost("Create")]
     public IActionResult Create([FromBody] Manufacturer manufacturer)
+
     {
         try
         {
-            return Ok(manufacturerService.Create(manufacturer));
+            return Ok(_serviceCRUD.Create(manufacturer));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
 
     [Produces("application/json")]
-    [HttpPut("edit")]
-    public IActionResult Edit([FromBody] Manufacturer manufacturer)
-    {
-        try
-        {
-            return Ok(manufacturerService.Edit(manufacturer));
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
-            return BadRequest();
-        }
-    }
-
-    [Produces("application/json")]
-    [HttpDelete("delete/{id}")]
+    [HttpDelete("Delete")]
     public IActionResult Delete(int id)
     {
         try
         {
-            return Ok(manufacturerService.Delete(id));
+            return Ok(_serviceCRUD.Delete(id));
         }
-        catch (Exception ex)
+        catch
         {
-            Debug.WriteLine(ex.Message);
             return BadRequest();
         }
     }
+
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpPut("Update")]
+    public IActionResult Update([FromBody] Manufacturer manufacturer)
+    {
+        try
+        {
+            return Ok(_serviceCRUD.Update(manufacturer));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+
 }

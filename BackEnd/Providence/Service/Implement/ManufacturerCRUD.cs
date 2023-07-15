@@ -47,9 +47,21 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.Manufacturers.FirstOrDefault(m => m.MftId == id);
+        public dynamic Get(int id) => _databaseContext.Manufacturers.Where(m => m.MftId == id).Select(p => new
+        {
+            mftId = p.MftId,
+            mftName = p.MftName,
+            mftAddress = p.Address.AddressId,
+            mftDescription = p.MftDescription
+        }).FirstOrDefault()!;
 
-        public dynamic Read() => _databaseContext.Manufacturers.ToList();
+        public dynamic Read() => _databaseContext.Manufacturers.Select(p => new
+        {
+            mftId = p.MftId,
+            mftName = p.MftName,
+            mftAddress = p.Address.AddressId,
+            mftDescription = p.MftDescription
+        }).ToList();
 
         public bool Update(Manufacturer entity)
         {

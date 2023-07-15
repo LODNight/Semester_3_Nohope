@@ -47,9 +47,17 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.Categories.FirstOrDefault(c => c.CategoryId == id);
+        public dynamic Get(int id) => _databaseContext.Categories.Where(c => c.CategoryId == id).Select(p => new
+        {
+            categoryid = p.CategoryId,
+            categoryName = p.CategoryName,
+        }).FirstOrDefault()!;
 
-        public dynamic Read() => _databaseContext.Categories.ToList();
+        public dynamic Read() => _databaseContext.Categories.Select(p => new
+        {
+            categoryid = p.CategoryId,
+            categoryName = p.CategoryName,
+        }).ToList();
 
         public bool Update(Category entity)
         {

@@ -1,25 +1,29 @@
-﻿using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.SqlServer.Server;
+using Newtonsoft.Json;
+using Providence.Helpers;
 using Providence.Models;
 using Providence.Service;
 using Providence.Service.Implement;
 using Providence.Service.Interface;
 using System.Diagnostics;
+using System.Globalization;
+using static Azure.Core.HttpHeader;
+
+
 namespace Providence.Controllers;
 [Route("api/[controller]")]
-public class CartController : Controller
+[ApiController]
+public class CouponController : Controller
 {
-    private readonly IServiceCRUD<Cart> _serviceCRUD;
-    private readonly ICartService cartService;
-    private IConfiguration configuration;
-
-    public CartController(IServiceCRUD<Cart> serviceCRUD, IConfiguration configuration, ICartService cartService)
+    private readonly IServiceCRUD<Coupon> _serviceCRUD;
+    public CouponController(IServiceCRUD<Coupon> serviceCRUD)
     {
         _serviceCRUD = serviceCRUD;
-        this.configuration = configuration;
-        this.cartService = cartService;
+        
     }
 
+    // GET
     [Produces("application/json")]
     [HttpGet("Read")]
     public IActionResult Read()
@@ -34,8 +38,6 @@ public class CartController : Controller
         }
     }
 
-
-    [Consumes("application/json")]
     [Produces("application/json")]
     [HttpGet("Get")]
     public IActionResult Get(int id)
@@ -53,22 +55,22 @@ public class CartController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPost("Create")]
-    public IActionResult Create([FromBody] Cart cart)
+    public IActionResult Create([FromBody] Coupon coupon)
 
     {
         try
         {
-            cart.CreatedAt = DateTime.Now;
-            cart.UpdatedAt = DateTime.Now;
+            coupon.CreatedAt = DateTime.Now;
 
-
-            return Ok(_serviceCRUD.Create(cart));
+            return Ok(_serviceCRUD.Create(coupon));
         }
         catch
         {
             return BadRequest();
         }
     }
+
+    // Delete
 
     [Produces("application/json")]
     [HttpDelete("Delete")]
@@ -84,15 +86,17 @@ public class CartController : Controller
         }
     }
 
+
+    // PUT
+
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpPut("Update")]
-    public IActionResult Update([FromBody] Cart cart)
+    public IActionResult Update([FromBody] Coupon coupon)
     {
         try
         {
-            cart.UpdatedAt = DateTime.Now;
-            return Ok(_serviceCRUD.Update(cart));
+            return Ok(_serviceCRUD.Update(coupon));
         }
         catch
         {

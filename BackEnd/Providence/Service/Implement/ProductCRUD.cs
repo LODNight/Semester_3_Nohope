@@ -89,11 +89,20 @@ namespace Providence.Service.Implement
             updated = product.UpdatedAt,
         }).ToList();
 
-        public bool Update(Product entity)
+        public bool Update(Product product)
         {
             try
             {
-                _databaseContext.Products.Update(entity);
+                // Tìm kiếm Product theo id
+                var existingProduct = _databaseContext.Products.FirstOrDefault(a => a.ProductId == product.ProductId);
+                if (existingProduct == null)
+                {
+                    return false; // Không tìm thấy Product
+                }
+                product.CreatedAt = existingProduct.CreatedAt;
+
+                // Cập nhật các thuộc tính khác
+                _databaseContext.Entry(existingProduct).CurrentValues.SetValues(product);
                 return _databaseContext.SaveChanges() > 0;
             }
             catch (Exception)

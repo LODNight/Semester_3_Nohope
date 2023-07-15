@@ -96,7 +96,7 @@ public class AccountController : Controller
             account.CreatedAt = DateTime.Now;
             account.UpdatedAt = DateTime.Now;
 
-            if (accountService.Register(account))
+            if (_serviceCRUD.Create(account))
             {
                 var content = "Security Code: " + account.SecurityCode;
                 content += "<br><hr><br>";
@@ -148,6 +148,7 @@ public class AccountController : Controller
         {
             return BadRequest();
         }
+
     }
     
     [Consumes("application/json")]
