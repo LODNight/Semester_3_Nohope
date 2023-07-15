@@ -78,11 +78,45 @@ public class ProdupctService : IProductService
             return false;
         }
     }
-    public bool UpdateProduct(IFormFile[] files, Product product)
+    public bool UpdateProduct(int productId, IFormFile[] files, Product product)
     {
         try
         {
-            return true;
+            var existingProduct = _databaseContext.Products.Find(productId);
+            if (existingProduct != null)
+            {
+                var existingImages = _databaseContext.ProductImages.Where(p => p.ProductId == productId);
+                _databaseContext.ProductImages.RemoveRange(existingImages);
+                var urls = new List<string>();
+                if (files != null && files.Length > 0)
+                {
+                    foreach (var file in files)
+                    {
+                        // Upload file
+                        var fileName = FileHelper.generateFileName(file.FileName);
+                        var path = Path.Combine(webHostEnvironment.WebRootPath, "images", fileName);
+                        using (var fileStream = new FileStream(path, FileMode.Create))
+                        {
+                            file.CopyTo(fileStream);
+                        }
+                        urls.Add(configuration["BaseUrl"] + fileName);
+
+                        // Add image product
+                        _databaseContext.ProductImages.Add(new ProductImage()
+                        {
+                            ImageUrl = fileName,
+                            ProductId = existingProduct.ProductId,
+                        });
+                    }
+                }
+                _databaseContext.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+
+            }
         }
         catch (Exception ex) 
         {
