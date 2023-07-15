@@ -147,7 +147,7 @@ public class ProductController : Controller
     {
         try
         {
-            var productFile = JsonConvert.DeserializeObject<Product>(formData["images"]);
+            var productFile = JsonConvert.DeserializeObject<Product>(formData["Product"]);
             return Ok(_productService.AddProduct(files,productFile));
         }
         catch

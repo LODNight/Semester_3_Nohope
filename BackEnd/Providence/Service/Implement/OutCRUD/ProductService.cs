@@ -20,43 +20,6 @@ public class ProdupctService : IProductService
         this.webHostEnvironment = webHostEnvironment;
     }
 
-    public bool AddProduct(IFormFile[] files, Product product)
-    {
-        try
-        {
-            _databaseContext.Products.Add(product); 
-            _databaseContext.SaveChanges();
-
-            var urls = new List<string>();
-            Debug.WriteLine("File Info");
-            if (files != null && files.Length > 0)
-            {
-                foreach (var file in files)
-                {
-                    // Upload file
-                    var fileName = FileHelper.generateFileName(file.FileName);
-                    var path = Path.Combine(webHostEnvironment.WebRootPath, "images", fileName);
-                    using (var fileStream = new FileStream(path, FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-                    urls.Add(configuration["BaseUrl"] + fileName);
-
-                    // ADD Image Product
-                    _databaseContext.ProductImages.Add(new ProductImage() {
-                        ImageUrl = fileName,
-                        ProductId= product.ProductId,
-                    } );
-                }
-            }
-            return _databaseContext.SaveChanges() > 0;
-        }
-        catch(Exception ex)
-        {
-            return false;
-        }
-    }
-
     public dynamic HideProduct(int productId)
     {
         var product = _databaseContext.Products.Find(productId);
@@ -78,5 +41,52 @@ public class ProdupctService : IProductService
         price = product.Price,
         quantity = product.Quantity,
     });
+    public bool AddProduct(IFormFile[] files, Product product)
+    {
+        try
+        {
+            _databaseContext.Products.Add(product);
+            _databaseContext.SaveChanges();
 
+            var urls = new List<string>();
+            Debug.WriteLine("File Info");
+            if (files != null && files.Length > 0)
+            {
+                foreach (var file in files)
+                {
+                    // Upload file
+                    var fileName = FileHelper.generateFileName(file.FileName);
+                    var path = Path.Combine(webHostEnvironment.WebRootPath, "images", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    urls.Add(configuration["BaseUrl"] + fileName);
+
+                    // ADD Image Product
+                    _databaseContext.ProductImages.Add(new ProductImage()
+                    {
+                        ImageUrl = fileName,
+                        ProductId = product.ProductId,
+                    });
+                }
+            }
+            return _databaseContext.SaveChanges() > 0;
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+    }
+    public bool UpdateProduct(IFormFile[] files, Product product)
+    {
+        try
+        {
+            return true;
+        }
+        catch (Exception ex) 
+        {
+            return false;
+        }
+    }
 }

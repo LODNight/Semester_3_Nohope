@@ -9,5 +9,6 @@ public interface IProductService
     public dynamic HideProduct(int productId);
 
     public bool AddProduct(IFormFile[] files,Product product);
+    public bool UpdateProduct(IFormFile[] files,Product product);
 
 }
