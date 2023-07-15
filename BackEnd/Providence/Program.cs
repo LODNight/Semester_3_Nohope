@@ -19,14 +19,21 @@ builder.Services.AddControllers().AddJsonOptions(option =>
 builder.Services.AddScoped<DatabaseContext>();
 
 
-// Add Scoped Service
+// =============================== Add Scoped Service
+
+// Blog
 builder.Services.AddScoped<IServiceCRUD<Blog>, BlogCRUD>();
-//Product
+builder.Services.AddScoped<IServiceCRUD<BlogReview>, BlogReviewCRUD>();
+// Product
 builder.Services.AddScoped<IServiceCRUD<Product>, ProductCRUD>();
 builder.Services.AddScoped<IProductService, ProdupctService>();
+builder.Services.AddScoped<IServiceCRUD<ProductReview>, ProductReviewCRUD>();
+
+// Account
+builder.Services.AddScoped<IServiceCRUD<Account>, AccountCRUD>();
+builder.Services.AddScoped<IServiceCRUD<AccountCoupon>, AccountCouponCRUD>();
 
 builder.Services.AddScoped<IServiceCRUD<AdministrativeUnit>, AdministrativeUnitCRUD>();
-builder.Services.AddScoped<IServiceCRUD<BlogReview>, BlogReviewCRUD>();
 builder.Services.AddScoped<IServiceCRUD<CartDetail>, CartDetailCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Role>, RoleCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Category>, CategoryCRUD>();
@@ -36,19 +43,16 @@ builder.Services.AddScoped<IServiceCRUD<Coupon>, CouponCRUD>();
 builder.Services.AddScoped<IServiceCRUD<CouponType>, CouponTypeCRUD>();
 builder.Services.AddScoped<IServiceCRUD<OrderDetail>, OrderDetailCRUD>();
 builder.Services.AddScoped<IServiceCRUD<OrderStatus>, OrderStatusCRUD>();
-builder.Services.AddScoped<IServiceCRUD<ProductReview>, ProductReviewCRUD>();
 builder.Services.AddScoped<IServiceCRUD<District>, DistrictCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Province>, ProvinceCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Wishlist>, WishlistCRUD>();
 builder.Services.AddScoped<IServiceCRUD<PaymentMethod>, PaymentMethodCRUD>();
-builder.Services.AddScoped<IServiceCRUD<Account>, AccountCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Order>, OrderCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Manufacturer>, ManufacturerCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Address>, AddressCRUD>();
 builder.Services.AddScoped<IServiceCRUD<Ward>, WardCRUD>();
-builder.Services.AddScoped<IServiceCRUD<AccountCoupon>, AccountCouponCRUD>();
 
-
+// ===========================================
 
 var app = builder.Build();
 

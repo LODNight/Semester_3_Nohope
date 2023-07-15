@@ -7,13 +7,13 @@ using System.Diagnostics;
 
 namespace Providence.Service.Implement.OutCRUD;
 
-public class ProdupctService : IProductService
+public class ProductService : IProductService
 { 
     private readonly DatabaseContext _databaseContext;
     private IConfiguration configuration;
     private IWebHostEnvironment webHostEnvironment;
 
-    public ProdupctService(DatabaseContext databaseContext, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+    public ProductService(DatabaseContext databaseContext, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
     {
         _databaseContext = databaseContext;
         this.configuration = configuration;
