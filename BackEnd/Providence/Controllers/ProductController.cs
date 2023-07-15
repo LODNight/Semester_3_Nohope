@@ -13,7 +13,7 @@ public class ProductController : Controller
 {
     private readonly IServiceCRUD<Product> _serviceCRUD;
     //private readonly ProductService _productService;
-    public ProductController(IServiceCRUD<Product> serviceCRUD, ProductService productService)
+    public ProductController(IServiceCRUD<Product> serviceCRUD)
     {
         _serviceCRUD = serviceCRUD;
         //_productService = productService;
