@@ -59,7 +59,7 @@ public class ProductController : Controller
     }
 
     [Produces("application/json")]
-    [HttpGet("ProductINPQ")]
+    [HttpGet("product-inpq")]
     public IActionResult ProductINPQ()
     {
         try
@@ -142,7 +142,7 @@ public class ProductController : Controller
 
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
-    [HttpPost("AddProduct")]
+    [HttpPost("add-product")]
     public IActionResult UploadFiles(IFormFile[] files, IFormCollection formData)
     {
         try
@@ -158,7 +158,7 @@ public class ProductController : Controller
     
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
-    [HttpPost("UpdateProduct")]
+    [HttpPost("update-product")]
     public IActionResult UppdateProduct(int productId, IFormFile[] files, IFormCollection formData)
     {
         try

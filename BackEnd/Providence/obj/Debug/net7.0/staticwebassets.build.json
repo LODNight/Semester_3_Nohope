@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Rw5KZuZJqOLgHxDIzaFAUufUgolrGvD31k3UOuZB6zM=",
+  "Hash": "0ZYdOcQ58sYAX7XcNwEmnSZBBT32looLx29e3/mUGL0=",
   "Source": "Providence",
   "BasePath": "_content/Providence",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Providence\\wwwroot",
       "Source": "Providence",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\wwwroot\\",
+      "ContentRoot": "D:\\Project_Code\\Project_Semester_3\\src\\code\\Semester_3_Nohope\\BackEnd\\Providence\\wwwroot\\",
       "BasePath": "_content/Providence",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\wwwroot\\images\\noimage.png",
+      "Identity": "D:\\Project_Code\\Project_Semester_3\\src\\code\\Semester_3_Nohope\\BackEnd\\Providence\\wwwroot\\images\\noimage.png",
       "SourceId": "Providence",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\BackEnd_Semester_3\\Providence\\wwwroot\\",
+      "ContentRoot": "D:\\Project_Code\\Project_Semester_3\\src\\code\\Semester_3_Nohope\\BackEnd\\Providence\\wwwroot\\",
       "BasePath": "_content/Providence",
       "RelativePath": "images/noimage.png",
       "AssetKind": "All",

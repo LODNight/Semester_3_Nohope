@@ -106,7 +106,7 @@ public class BlogController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("Hide")]
+    [HttpPut("hide")]
     public IActionResult Hide(int id)
     {
         try
@@ -122,13 +122,13 @@ public class BlogController : Controller
 
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
-    [HttpPost("AddBlog")]
-    public IActionResult UploadFiles(IFormFile[] files, IFormCollection formData)
+    [HttpPost("addBlog")]
+    public IActionResult UploadFiles(IFormFile files, IFormCollection formData)
     {
         try
         {
-            var productFile = JsonConvert.DeserializeObject<Product>(formData["Product"]);
-            return Ok(blogService.AddProduct(files, productFile));
+            var blogFile = JsonConvert.DeserializeObject<Blog>(formData["Product"]);
+            return Ok(blogService.AddBlog(files, blogFile));
         }
         catch
         {

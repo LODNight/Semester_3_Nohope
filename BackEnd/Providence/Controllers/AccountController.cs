@@ -47,7 +47,7 @@ public class AccountController : Controller
     
     // Show Active When false
     [Produces("application/json")]
-    [HttpGet("ShowAccountActive")]
+    [HttpGet("show-account-active")]
     public IActionResult ShowAccountActive()
     {
         try
@@ -78,7 +78,7 @@ public class AccountController : Controller
     }
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("Register")]
+    [HttpPost("register")]
     public IActionResult Create([FromBody] Account account)
 
     {
@@ -152,7 +152,7 @@ public class AccountController : Controller
     }
     
     [Consumes("application/json")]
-    [HttpPut("ChangePass")]
+    [HttpPut("changePass")]
     public IActionResult ChangePass([FromBody] ChangePass changePass)
     {
         try

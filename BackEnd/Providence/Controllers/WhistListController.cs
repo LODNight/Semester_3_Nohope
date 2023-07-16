@@ -80,7 +80,7 @@ public class WishlistController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("Update")]
+    [HttpPut("update")]
     public IActionResult Update([FromBody] Wishlist wishlist)
     {
         try
