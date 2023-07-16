@@ -51,8 +51,8 @@ namespace Providence.Service.Implement
 
         public dynamic Get(int id) => _databaseContext.Products.Where(p => p.ProductId == id).Select(product => new
         {
-            id = product.ProductId,
-            name = product.ProductName,
+            productId = product.ProductId,
+            productName = product.ProductName,
             price = product.Price,
             category = product.Category.CategoryName,
             quantity = product.Quantity,
