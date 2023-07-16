@@ -60,7 +60,6 @@ public class CouponController : Controller
     {
         try
         {
-            coupon.CreatedAt = DateTime.Now;
 
             return Ok(_serviceCRUD.Create(coupon));
         }

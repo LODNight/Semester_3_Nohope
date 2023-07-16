@@ -93,9 +93,6 @@ public class AccountController : Controller
             account.Status = false;
             account.SecurityCode = RandomHelper.RandomString(4);
 
-            account.CreatedAt = DateTime.Now;
-            account.UpdatedAt = DateTime.Now;
-
             if (_serviceCRUD.Create(account))
             {
                 var content = "Security Code: " + account.SecurityCode;
@@ -141,7 +138,6 @@ public class AccountController : Controller
     {
         try
         {
-            account.UpdatedAt = DateTime.Now;
             return Ok(_serviceCRUD.Update(account));
         }
         catch

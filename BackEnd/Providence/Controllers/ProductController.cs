@@ -80,9 +80,6 @@ public class ProductController : Controller
     {
         try
         {
-            product.CreatedAt = DateTime.Now;
-            product.UpdatedAt = DateTime.Now;
-
             return Ok(_serviceCRUD.Create(product));
         }
         catch
@@ -115,7 +112,6 @@ public class ProductController : Controller
     {
         try
         {
-            product.UpdatedAt = DateTime.Now;
             return Ok(_serviceCRUD.Update(product));
         }
         catch

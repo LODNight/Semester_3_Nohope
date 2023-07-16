@@ -62,10 +62,6 @@ public class BlogController : Controller
     {
         try
         {
-            blog.CreatedAt = DateTime.Now;
-            blog.UpdatedAt = DateTime.Now;
-
-
             return Ok(_serviceCRUD.Create(blog));
         }
         catch

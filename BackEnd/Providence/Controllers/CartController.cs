@@ -58,10 +58,6 @@ public class CartController : Controller
     {
         try
         {
-            cart.CreatedAt = DateTime.Now;
-            cart.UpdatedAt = DateTime.Now;
-
-
             return Ok(_serviceCRUD.Create(cart));
         }
         catch
@@ -91,7 +87,6 @@ public class CartController : Controller
     {
         try
         {
-            cart.UpdatedAt = DateTime.Now;
             return Ok(_serviceCRUD.Update(cart));
         }
         catch

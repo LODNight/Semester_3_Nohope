@@ -59,10 +59,6 @@ public class OrderDetailController : Controller
     {
         try
         {
-            orderDetail.CreatedAt = DateTime.Now;
-            orderDetail.UpdatedAt = DateTime.Now;
-
-
             return Ok(_serviceCRUD.Create(orderDetail));
         }
         catch
@@ -92,7 +88,6 @@ public class OrderDetailController : Controller
     {
         try
         {
-            orderDetail.UpdatedAt = DateTime.Now;
             return Ok(_serviceCRUD.Update(orderDetail));
         }
         catch
