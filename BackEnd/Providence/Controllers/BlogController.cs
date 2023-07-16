@@ -135,6 +135,7 @@ public class BlogController : Controller
             return BadRequest("Failed to add BLog");
         }
     }
+
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
     [HttpPut("updateBlog")]

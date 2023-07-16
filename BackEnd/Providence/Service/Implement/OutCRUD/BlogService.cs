@@ -82,13 +82,13 @@ public class BlogService : IBlogService
     {
         try
         {
-            var existingBlog = _dbContext.Blogs.Find(blogId);
+            var existingBlog = _databaseContext.Blogs.Find(blogId);
             if (existingBlog == null)
             {
                 return false;
             }
 
-            var uploadFolderPath = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+            var uploadFolderPath = Path.Combine(webHostEnvironment.WebRootPath, "images");
 
             // Kiểm tra xem có tệp tin ảnh mới được cung cấp hay không
             if (file != null)
@@ -104,7 +104,7 @@ public class BlogService : IBlogService
                 }
 
                 // Tạo tên tệp tin mới
-                var fileName = GenerateFileName(file.FileName);
+                var fileName = FileHelper.generateFileName(file.FileName);
 
                 // Tạo đường dẫn lưu trữ tệp tin
                 var filePath = Path.Combine(uploadFolderPath, fileName);
@@ -120,16 +120,16 @@ public class BlogService : IBlogService
             }
 
             // Cập nhật thông tin cần thiết của blog
-            existingBlog.BlogName = updatedBlog.BlogName;
-            existingBlog.ShortDescription = updatedBlog.ShortDescription;
-            existingBlog.LongDescription = updatedBlog.LongDescription;
-            existingBlog.Hide = updatedBlog.Hide;
+            existingBlog.BlogName = blog.BlogName;
+            existingBlog.ShortDescription = blog.ShortDescription;
+            existingBlog.LongDescription = blog.LongDescription;
+            existingBlog.Hide = blog.Hide;
             existingBlog.UpdatedAt = DateTime.Now;
 
             // Lưu các thay đổi vào cơ sở dữ liệu
-            _dbContext.SaveChanges();
+            
 
-            return true;
+            return _databaseContext.SaveChanges() > 0;
         }
         catch (Exception ex)
         {
