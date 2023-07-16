@@ -53,7 +53,7 @@ namespace Providence.Service.Implement
             createdAt = p.CreatedAt,
             couponTypeId = p.CouponTypeId,
             couponTypeName = p.CouponType.TypeName,
-        }).FirstOrDefault();
+        }).FirstOrDefault()!;
 
         public dynamic Read() => _databaseContext.Coupons.Select(p => new
         {

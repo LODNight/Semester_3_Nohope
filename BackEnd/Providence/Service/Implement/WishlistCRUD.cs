@@ -47,7 +47,16 @@ namespace Providence.Service.Implement
             }
         }
 
-        public dynamic Get(int id) => _databaseContext.Wishlists.FirstOrDefault(w => w.WishlistId == id);
+        public dynamic Get(int id) => _databaseContext.Wishlists.Where(w => w.WishlistId == id).Select(p => new
+        {
+            wishlistId = p.WishlistId,
+            accountId = p.AccountId,
+            accountName = p.Account.Firstname + ' ' + p.Account.Lastname,
+            productId = p.ProductId,
+            productName = p.Product.ProductName,
+            createdAt = p.CreatedAt,
+            updatedAt = p.UpdatedAt,
+        }).FirstOrDefault()!;
 
         public dynamic Read() => _databaseContext.Wishlists.Select(p => new
         {

@@ -44,15 +44,15 @@ public class AccountService : IAccountService
     public dynamic ShowAccountActive() => _databaseContext.Accounts.Where(p => p.Status == true).Select(acc => new
     {
         accountId = acc.AccountId,
-        firstname = acc.Firstname,
-        lastname = acc.Lastname,
+        firstName = acc.Firstname,
+        lastName = acc.Lastname,
         email = acc.Email,
         password = acc.Password,
         avatar = configuration["BaseUrl"] + "/images/" + acc.Avatar,
-        roleid = acc.RoleId,
-        rolename = acc.Role.RoleName,
+        roleId = acc.RoleId,
+        roleName = acc.Role.RoleName,
         status = acc.Status,
-        securitycode = acc.SecurityCode,
+        securityCode = acc.SecurityCode,
         createdAt = acc.CreatedAt,
         updatedAt = acc.UpdatedAt,
     }).ToList();
