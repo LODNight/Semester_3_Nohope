@@ -1,5 +1,5 @@
 
-using Providence.Converters;
+
 using Providence.Models;
 using Providence.Service.Implement;
 using Providence.Service.Implement.OutCRUD;
@@ -10,10 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors();
 
 //
-builder.Services.AddControllers().AddJsonOptions(option =>
-{
-    option.JsonSerializerOptions.Converters.Add(new DateConverter());
-});
+builder.Services.AddControllers();
 
 
 builder.Services.AddScoped<DatabaseContext>();
