@@ -50,11 +50,11 @@ namespace Providence.Service.Implement
         public dynamic Get(int id) => _databaseContext.Orders.Where(o => o.OrderId == id).Select(p => new
         {
             orderId = p.OrderId,
-            accountName = p.Account.Firstname + ' ' + p.Account.Lastname,
+            acocuntEmail = p.Account.Email,
             totalPrice = p.TotalPrice,
-            orderStatus = p.OrderStatus.StatusName,
-            payment = p.Payment.PaymentName,
-            coupon = p.Coupon.CouponName,
+            orderStatus = p.OrderStatus,
+            payment = p.Payment,
+            coupon = p.Coupon,
             createdAt = p.CreatedAt,
             updatedAt = p.UpdatedAt,
         }).FirstOrDefault()!;
@@ -62,11 +62,11 @@ namespace Providence.Service.Implement
         public dynamic Read() => _databaseContext.Orders.Select(p => new 
         {
             orderId = p.OrderId,
-            accountName = p.Account.Firstname + ' ' + p.Account.Lastname,
+            acocuntEmail = p.Account.Email,
             totalPrice = p.TotalPrice,
-            orderStatus = p.OrderStatus.StatusName,
-            payment = p.Payment.PaymentName,
-            coupon = p.Coupon.CouponName,
+            orderStatus = p.OrderStatus,
+            payment = p.Payment,
+            coupon = p.Coupon,
             createdAt = p.CreatedAt,
             updatedAt = p.UpdatedAt,
         }).ToList();

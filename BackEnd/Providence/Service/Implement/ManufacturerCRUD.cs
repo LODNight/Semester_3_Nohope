@@ -51,7 +51,7 @@ namespace Providence.Service.Implement
         {
             mftId = p.MftId,
             mftName = p.MftName,
-            mftAddress = p.Address.AddressId,
+            mftAddress = p.Address,
             mftDescription = p.MftDescription
         }).FirstOrDefault()!;
 
@@ -59,7 +59,7 @@ namespace Providence.Service.Implement
         {
             mftId = p.MftId,
             mftName = p.MftName,
-            mftAddress = p.Address.AddressId,
+            mftAddress = p.Address,
             mftDescription = p.MftDescription
         }).ToList();
 

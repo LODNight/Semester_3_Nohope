@@ -50,7 +50,7 @@ namespace Providence.Service.Implement
         public dynamic Get(int id) => _databaseContext.Carts.Where(c => c.CartId == id).Select(p => new 
         {
             cartId = p.CartId,
-            accountName = p.Account.Firstname + ' ' + p.Account.Lastname,
+           accountEmail = p.Account.Email,
             createdAt = p.CreatedAt,
             updatedAt = p.UpdatedAt,
         }).FirstOrDefault()!;
@@ -58,7 +58,7 @@ namespace Providence.Service.Implement
         public dynamic Read() => _databaseContext.Carts.Select(p => new
         {
             cartId = p.CartId,
-            accountName = p.Account.Firstname + ' ' + p.Account.Lastname,
+            accountEmail = p.Account.Email,
             createdAt = p.CreatedAt,
             updatedAt = p.UpdatedAt,
         }).ToList();

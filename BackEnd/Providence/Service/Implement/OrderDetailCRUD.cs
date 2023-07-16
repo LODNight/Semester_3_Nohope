@@ -51,8 +51,8 @@ namespace Providence.Service.Implement
         {
             orderDetailId = p.OrderDetailId,
             orderId = p.OrderId,
-            accountName = p.Order.Account.Firstname + ' ' + p.Order.Account.Lastname,
-            productName = p.Product.ProductName,
+            accountEmail = p.Order.Account.Email,
+            product = p.Product,
             quantity = p.Quantity,
             price = p.Price,
             createdAt = p.CreatedAt,
@@ -63,14 +63,12 @@ namespace Providence.Service.Implement
         {
             orderDetailId = p.OrderDetailId,
             orderId = p.OrderId,
-            accountName = p.Order.Account.Firstname + ' ' + p.Order.Account.Lastname,
-            productName = p.Product.ProductName,
+            accountEmail = p.Order.Account.Email,
+            product = p.Product,
             quantity = p.Quantity,
             price = p.Price,
             createdAt = p.CreatedAt,
             updatedAt = p.UpdatedAt,
-
-
         }).ToList();
 
         public bool Update(OrderDetail entity)

@@ -51,9 +51,8 @@ namespace Providence.Service.Implement
         {
             wishlistId = p.WishlistId,
             accountId = p.AccountId,
-            accountName = p.Account.Firstname + ' ' + p.Account.Lastname,
-            productId = p.ProductId,
-            productName = p.Product.ProductName,
+            accountEmail = p.Account.Email,
+            product = p.Product,
             createdAt = p.CreatedAt,
             updatedAt = p.UpdatedAt,
         }).FirstOrDefault()!;
@@ -62,9 +61,8 @@ namespace Providence.Service.Implement
         {
             wishlistId = p.WishlistId,
             accountId = p.AccountId,
-            accountName = p.Account.Firstname + ' ' + p.Account.Lastname,
-            productId = p.ProductId,
-            productName = p.Product.ProductName,
+            accountEmail = p.Account.Email,
+            product = p.Product,
             createdAt = p.CreatedAt,
             updatedAt = p.UpdatedAt,
         }).ToList();

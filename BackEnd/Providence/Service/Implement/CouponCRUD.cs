@@ -51,8 +51,7 @@ namespace Providence.Service.Implement
             description = p.Description,
             expiredAt = p.ExpiredAt,
             createdAt = p.CreatedAt,
-            couponTypeId = p.CouponTypeId,
-            couponTypeName = p.CouponType.TypeName,
+            couponType = p.CouponType
         }).FirstOrDefault()!;
 
         public dynamic Read() => _databaseContext.Coupons.Select(p => new
@@ -63,8 +62,7 @@ namespace Providence.Service.Implement
             description = p.Description,
             expiredAt = p.ExpiredAt,
             createdAt = p.CreatedAt,
-            couponTypeId = p.CouponTypeId,
-            couponTypeName = p.CouponType.TypeName,
+            couponType = p.CouponType
         }).ToList();
 
         public bool Update(Coupon coupon)
