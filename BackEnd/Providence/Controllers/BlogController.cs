@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Providence.Helper;
 using Providence.Helpers;
 using Providence.Models;
@@ -119,4 +120,19 @@ public class BlogController : Controller
         }
     }
 
+    [Consumes("multipart/form-data")]
+    [Produces("application/json")]
+    [HttpPost("AddBlog")]
+    public IActionResult UploadFiles(IFormFile[] files, IFormCollection formData)
+    {
+        try
+        {
+            var productFile = JsonConvert.DeserializeObject<Product>(formData["Product"]);
+            return Ok(blogService.AddProduct(files, productFile));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
 }

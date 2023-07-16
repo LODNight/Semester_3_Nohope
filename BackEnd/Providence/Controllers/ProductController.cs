@@ -155,5 +155,21 @@ public class ProductController : Controller
             return BadRequest();
         }
     }
+    
+    [Consumes("multipart/form-data")]
+    [Produces("application/json")]
+    [HttpPost("UpdateProduct")]
+    public IActionResult UppdateProduct(int productId, IFormFile[] files, IFormCollection formData)
+    {
+        try
+        {
+            var productFile = JsonConvert.DeserializeObject<Product>(formData["Product"]);
+            return Ok(_productService.UpdateProduct(productId,files,productFile));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
 
 }
