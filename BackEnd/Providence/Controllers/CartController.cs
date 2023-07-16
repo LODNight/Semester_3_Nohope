@@ -21,7 +21,7 @@ public class CartController : Controller
     }
 
     [Produces("application/json")]
-    [HttpGet("Read")]
+    [HttpGet("findAll")]
     public IActionResult Read()
     {
         try
@@ -37,7 +37,7 @@ public class CartController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("Get")]
+    [HttpGet("find")]
     public IActionResult Get(int id)
     {
         try
@@ -52,7 +52,7 @@ public class CartController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("Create")]
+    [HttpPost("create")]
     public IActionResult Create([FromBody] Cart cart)
 
     {
@@ -71,7 +71,7 @@ public class CartController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("Delete")]
+    [HttpDelete("delete")]
     public IActionResult Delete(int id)
     {
         try
@@ -86,7 +86,7 @@ public class CartController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPut("Update")]
+    [HttpPut("update")]
     public IActionResult Update([FromBody] Cart cart)
     {
         try

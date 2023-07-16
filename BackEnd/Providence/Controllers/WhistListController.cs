@@ -19,7 +19,7 @@ public class WishlistController : Controller
     }
 
     [Produces("application/json")]
-    [HttpGet("Read")]
+    [HttpGet("findAll")]
     public IActionResult Read()
     {
         try
@@ -35,7 +35,7 @@ public class WishlistController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("Get")]
+    [HttpGet("find")]
     public IActionResult Get(int id)
     {
         try
@@ -50,7 +50,7 @@ public class WishlistController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpPost("Create")]
+    [HttpPost("create")]
     public IActionResult Create([FromBody] Wishlist wishlist)
 
     {
@@ -65,7 +65,7 @@ public class WishlistController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("Delete")]
+    [HttpDelete("delete")]
     public IActionResult Delete(int id)
     {
         try
