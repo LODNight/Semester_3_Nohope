@@ -11,11 +11,13 @@ namespace Providence.Controllers;
 public class DistrictController : Controller
 {
     private readonly IServiceCRUD<District> _serviceCRUD;
+    private readonly IDistrictService districtService;
     private IConfiguration configuration;
 
-    public DistrictController(IServiceCRUD<District> serviceCRUD)
+    public DistrictController(IServiceCRUD<District> serviceCRUD, IDistrictService districtService)
     {
         _serviceCRUD = serviceCRUD;
+        this.districtService = districtService;
     }
 
     [Produces("application/json")]
@@ -41,6 +43,20 @@ public class DistrictController : Controller
         try
         {
             return Ok(_serviceCRUD.Get(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    } 
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpGet("findDistrictByProvince")]
+    public IActionResult findDistrictByProvince(string provinceId)
+    {
+        try
+        {
+            return Ok(_serviceCRUD.FindDistrictByProvince(provinceId));
         }
         catch
         {

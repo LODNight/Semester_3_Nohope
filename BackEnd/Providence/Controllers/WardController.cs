@@ -11,11 +11,15 @@ namespace Providence.Controllers;
 public class WardController : Controller
 {
     private readonly IServiceCRUD<Ward> _serviceCRUD;
+    private readonly IWardService wardService;
     private IConfiguration configuration;
 
-    public WardController(IServiceCRUD<Ward> serviceCRUD)
+    public WardController(IServiceCRUD<Ward> serviceCRUD, IWardService wardService, IConfiguration configuration)
     {
         _serviceCRUD = serviceCRUD;
+        this.wardService = wardService;
+        this.configuration = configuration;
+
     }
 
     [Produces("application/json")]
@@ -41,6 +45,21 @@ public class WardController : Controller
         try
         {
             return Ok(_serviceCRUD.Get(id));
+        }
+        catch
+        {
+            return BadRequest();
+        }
+    }
+    
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    [HttpGet("findWardByDistrict")]
+    public IActionResult FindWardByDistrict(string districtCode)
+    {
+        try
+        {
+            return Ok(wardService.FindWardByDistrict(districtCode));
         }
         catch
         {

@@ -4,5 +4,7 @@ namespace Providence.Service.Interface;
 
 public interface IDistrictService
 {
-    public dynamic FindWardByDistrict(int idWard);
+    public dynamic FindDistrictByProvince(string provinceId);
+
+    
 }

@@ -8,30 +8,30 @@ using System.Diagnostics;
 
 namespace Providence.Service.Implement.OutCRUD;
 
-public class DistrictService : IDistrictService
+public class WardService : IWardService
 {
     private readonly DatabaseContext _databaseContext;
     private readonly IConfiguration configuration;
     private IWebHostEnvironment webHostEnvironment;
 
-    public DistrictService(DatabaseContext databaseContext, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
+    public WardService(DatabaseContext databaseContext, IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
     {
         _databaseContext = databaseContext;
         this.configuration = configuration;
         this.webHostEnvironment = webHostEnvironment;
     }
 
-    public dynamic FindDistrictByProvince(string provinceId)
+    public dynamic FindWardByDistrict(string districtId)
     {
-        return _databaseContext.Districts.Where(p => p.ProvinceCode == provinceId).Select(p => new
+        return _databaseContext.Wards.Where(p => p.DistrictCode == districtId).Select(p => new
         {
             code = p.Code,
             name = p.Name,
             nameEn = p.NameEn,
             fullName = p.FullName,
             fullNameEn = p.FullNameEn,
-            codeName = p.CodeName,
-            provinceCode = p.ProvinceCode,
+            codeName =p.CodeName,
+            districtCode = p.DistrictCode,
             administrativeUnitId = p.AdministrativeUnitId,
         }).ToList();
     }

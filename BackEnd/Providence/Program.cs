@@ -58,7 +58,11 @@ builder.Services.AddScoped<IServiceCRUD<PaymentMethod>, PaymentMethodCRUD>(); //
 // Address
 builder.Services.AddScoped<IServiceCRUD<Address>, AddressCRUD>(); //-
 builder.Services.AddScoped<IServiceCRUD<District>, DistrictCRUD>(); //-
+builder.Services.AddScoped<IDistrictService, DistrictService>();
+
 builder.Services.AddScoped<IServiceCRUD<Ward>, WardCRUD>(); //-
+builder.Services.AddScoped<IWardService, WardService>();
+
 builder.Services.AddScoped<IServiceCRUD<Province>, ProvinceCRUD>(); //-
 builder.Services.AddScoped<IServiceCRUD<Manufacturer>, ManufacturerCRUD>(); //-
 
