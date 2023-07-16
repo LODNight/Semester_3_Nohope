@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Providence.Helper;
 using Providence.Models;
 using Providence.Service.Interface;
@@ -40,26 +41,38 @@ public class BlogService : IBlogService
     {
         try
         {
+            var uploadFolderPath = Path.Combine(webHostEnvironment.WebRootPath, "images");
+
+            // Kiểm tra xem có tệp tin ảnh được cung cấp hay không
+            if (file == null)
+            {
+                return false;
+            }
+
+            // Tạo tên tệp tin mới
+            var fileName = FileHelper.generateFileName(file.FileName);
+
+            // Tạo đường dẫn lưu trữ tệp tin
+            var filePath = Path.Combine(uploadFolderPath, fileName);
+
+            // Lưu tệp tin mới
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            // Cập nhật tên ảnh cho blog
+            blog.BlogImage = fileName;
+
+            // Thêm blog vào cơ sở dữ liệu
             _databaseContext.Blogs.Add(blog);
             _databaseContext.SaveChanges();
 
-            var urls = new List<string>();
-            Debug.WriteLine("File Info");
-            if (file != null && file.Length > 0)
-            {
-                var fileName = FileHelper.generateFileName(file.FileName);
-                var path = Path.Combine(webHostEnvironment.WebRootPath, "images", fileName);
-                using (var fileStream = new FileStream(path, FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
-                urls.Add(configuration["BaseUrl"] + fileName);
-
-            }
-            return _databaseContext.SaveChanges() > 0;
+            return true;
         }
         catch (Exception ex)
         {
+            // Xử lý ngoại lệ nếu cần thiết
             return false;
         }
     }
@@ -69,20 +82,58 @@ public class BlogService : IBlogService
     {
         try
         {
-            var uploadFolderPath = Path.Combine(webHostEnvironment.WebRootPath, "upload");
-
-            // Tiến hành tải lên hình ảnh
-            var fileName = FileHelper.generateFileName(file.FileName);
-            var path = Path.Combine(uploadFolderPath, fileName);
-            using (var fileStream = new FileStream(path, FileMode.Create))
+            var existingBlog = _dbContext.Blogs.Find(blogId);
+            if (existingBlog == null)
             {
-                file.CopyTo(fileStream);
+                return false;
             }
 
-            return _databaseContext.SaveChanges() > 0;
+            var uploadFolderPath = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+
+            // Kiểm tra xem có tệp tin ảnh mới được cung cấp hay không
+            if (file != null)
+            {
+                // Xóa ảnh cũ (nếu có)
+                if (!string.IsNullOrEmpty(existingBlog.BlogImage))
+                {
+                    var existingImagePath = Path.Combine(uploadFolderPath, existingBlog.BlogImage);
+                    if (System.IO.File.Exists(existingImagePath))
+                    {
+                        System.IO.File.Delete(existingImagePath);
+                    }
+                }
+
+                // Tạo tên tệp tin mới
+                var fileName = GenerateFileName(file.FileName);
+
+                // Tạo đường dẫn lưu trữ tệp tin
+                var filePath = Path.Combine(uploadFolderPath, fileName);
+
+                // Lưu tệp tin mới
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                // Cập nhật tên ảnh mới cho blog
+                existingBlog.BlogImage = fileName;
+            }
+
+            // Cập nhật thông tin cần thiết của blog
+            existingBlog.BlogName = updatedBlog.BlogName;
+            existingBlog.ShortDescription = updatedBlog.ShortDescription;
+            existingBlog.LongDescription = updatedBlog.LongDescription;
+            existingBlog.Hide = updatedBlog.Hide;
+            existingBlog.UpdatedAt = DateTime.Now;
+
+            // Lưu các thay đổi vào cơ sở dữ liệu
+            _dbContext.SaveChanges();
+
+            return true;
         }
-        catch
+        catch (Exception ex)
         {
+            // Xử lý ngoại lệ nếu cần thiết
             return false;
         }
     }

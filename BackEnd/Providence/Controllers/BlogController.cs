@@ -123,16 +123,31 @@ public class BlogController : Controller
     [Consumes("multipart/form-data")]
     [Produces("application/json")]
     [HttpPost("addBlog")]
-    public IActionResult UploadFiles(IFormFile files, IFormCollection formData)
+    public IActionResult AddBlog(IFormFile files, IFormCollection formData)
     {
         try
         {
-            var blogFile = JsonConvert.DeserializeObject<Blog>(formData["Product"]);
+            var blogFile = JsonConvert.DeserializeObject<Blog>(formData["Blog"]);
             return Ok(blogService.AddBlog(files, blogFile));
         }
         catch
         {
-            return BadRequest();
+            return BadRequest("Failed to add BLog");
+        }
+    }
+    [Consumes("multipart/form-data")]
+    [Produces("application/json")]
+    [HttpPut("updateBlog")]
+    public IActionResult UpdateBlog(int blogid,IFormFile file, IFormCollection formData)
+    {
+        try
+        {
+            var blogFile = JsonConvert.DeserializeObject<Blog>(formData["Blog"]);
+            return Ok(blogService.UpdateBlog(blogid, file, blogFile));
+        }
+        catch
+        {
+            return BadRequest("Failed to updated Blog");
         }
     }
 }
