@@ -21,9 +21,9 @@ public class WardService : IWardService
         this.webHostEnvironment = webHostEnvironment;
     }
 
-    public dynamic FindWardByDistrict(string districtId)
+    public dynamic FindWardByDistrict(string code)
     {
-        return _databaseContext.Wards.Where(p => p.DistrictCode == districtId).Select(p => new
+        return _databaseContext.Wards.Where(p => p.DistrictCode == code).Select(p => new
         {
             code = p.Code,
             name = p.Name,

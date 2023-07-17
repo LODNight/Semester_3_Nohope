@@ -52,11 +52,11 @@ public class DistrictController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpGet("find-district-by-province")]
-    public IActionResult findDistrictByProvince(string provinceId)
+    public IActionResult findDistrictByProvince(string code)
     {
         try
         {
-            return Ok(districtService.FindDistrictByProvince(provinceId));
+            return Ok(districtService.FindDistrictByProvince(code));
         }
         catch
         {

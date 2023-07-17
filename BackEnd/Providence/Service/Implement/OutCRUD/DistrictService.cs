@@ -21,9 +21,9 @@ public class DistrictService : IDistrictService
         this.webHostEnvironment = webHostEnvironment;
     }
 
-    public dynamic FindDistrictByProvince(string provinceId)
+    public dynamic FindDistrictByProvince(string code)
     {
-        return _databaseContext.Districts.Where(p => p.ProvinceCode == provinceId).Select(p => new
+        return _databaseContext.Districts.Where(p => p.ProvinceCode == code).Select(p => new
         {
             code = p.Code,
             name = p.Name,

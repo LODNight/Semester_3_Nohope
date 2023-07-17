@@ -55,11 +55,11 @@ public class WardController : Controller
     [Consumes("application/json")]
     [Produces("application/json")]
     [HttpGet("find-ward-by-district")]
-    public IActionResult FindWardByDistrict(string districtCode)
+    public IActionResult FindWardByDistrict(string code)
     {
         try
         {
-            return Ok(wardService.FindWardByDistrict(districtCode));
+            return Ok(wardService.FindWardByDistrict(code));
         }
         catch
         {
