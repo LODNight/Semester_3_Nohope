@@ -71,7 +71,7 @@ public partial class DatabaseContext : DbContext
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.AccountId).HasName("PK__Account__46A222CD7E292E21");
+            entity.HasKey(e => e.AccountId).HasName("PK__Account__46A222CD70EDB8F0");
 
             entity.ToTable("Account");
 
@@ -79,7 +79,6 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.AddressId).HasColumnName("address_id");
             entity.Property(e => e.Avatar)
                 .HasMaxLength(500)
-                .IsUnicode(false)
                 .HasColumnName("avatar");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -87,30 +86,25 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
                 .HasMaxLength(200)
-                .IsUnicode(false)
                 .HasColumnName("email");
             entity.Property(e => e.Firstname)
                 .HasMaxLength(100)
                 .HasColumnName("firstname");
             entity.Property(e => e.Gender)
                 .HasMaxLength(5)
-                .IsUnicode(false)
                 .HasColumnName("gender");
             entity.Property(e => e.Lastname)
                 .HasMaxLength(100)
                 .HasColumnName("lastname");
             entity.Property(e => e.Password)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("password");
             entity.Property(e => e.Phone)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("phone");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.SecurityCode)
                 .HasMaxLength(4)
-                .IsUnicode(false)
                 .HasColumnName("security_code");
             entity.Property(e => e.Status)
                 .HasDefaultValueSql("((1))")
@@ -130,7 +124,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<AccountCoupon>(entity =>
         {
-            entity.HasKey(e => new { e.CouponId, e.AccountId }).HasName("PK__AccountC__9CA541A53B763CF0");
+            entity.HasKey(e => new { e.CouponId, e.AccountId }).HasName("PK__AccountC__9CA541A51E93ECDC");
 
             entity.ToTable("AccountCoupon");
 
@@ -151,26 +145,22 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Address>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__Address__CAA247C80F3DC568");
+            entity.HasKey(e => e.AddressId).HasName("PK__Address__CAA247C8FE4034A3");
 
             entity.ToTable("Address");
 
             entity.Property(e => e.AddressId).HasColumnName("address_id");
             entity.Property(e => e.DistrictCode)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("district_code");
             entity.Property(e => e.ProvinceCode)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("province_code");
             entity.Property(e => e.RoadName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("road_name");
             entity.Property(e => e.WardCode)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("ward_code");
 
             entity.HasOne(d => d.DistrictCodeNavigation).WithMany(p => p.Addresses)
@@ -198,44 +188,36 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.AccountId).HasColumnName("account_id");
             entity.Property(e => e.CodeName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("code_name");
             entity.Property(e => e.CodeNameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("code_name_en");
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("full_name");
             entity.Property(e => e.FullNameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("full_name_en");
             entity.Property(e => e.ShortName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("short_name");
             entity.Property(e => e.ShortNameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("short_name_en");
         });
 
         modelBuilder.Entity<Blog>(entity =>
         {
-            entity.HasKey(e => e.BlogId).HasName("PK__Blog__2975AA28DBADE751");
+            entity.HasKey(e => e.BlogId).HasName("PK__Blog__2975AA282B269763");
 
             entity.ToTable("Blog");
 
             entity.Property(e => e.BlogId).HasColumnName("blog_id");
             entity.Property(e => e.BlogImage)
                 .HasMaxLength(250)
-                .IsUnicode(false)
                 .HasColumnName("blog_image");
             entity.Property(e => e.BlogName)
                 .HasMaxLength(250)
-                .IsUnicode(false)
                 .HasColumnName("blog_name");
             entity.Property(e => e.CreatedAt)
                 .HasDefaultValueSql("(getdate())")
@@ -249,7 +231,6 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("long_description");
             entity.Property(e => e.ShortDescription)
                 .HasMaxLength(250)
-                .IsUnicode(false)
                 .HasColumnName("short_description");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -258,7 +239,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<BlogReview>(entity =>
         {
-            entity.HasKey(e => e.BlogReviewId).HasName("PK__BlogRevi__2539138E92F0A5DD");
+            entity.HasKey(e => e.BlogReviewId).HasName("PK__BlogRevi__2539138E328633A7");
 
             entity.ToTable("BlogReview");
 
@@ -287,7 +268,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Cart>(entity =>
         {
-            entity.HasKey(e => e.CartId).HasName("PK__Cart__2EF52A270684C759");
+            entity.HasKey(e => e.CartId).HasName("PK__Cart__2EF52A27F4CA5F7E");
 
             entity.ToTable("Cart");
 
@@ -308,7 +289,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<CartDetail>(entity =>
         {
-            entity.HasKey(e => e.CartDetailId).HasName("PK__CartDeta__0F08F529F7454E8C");
+            entity.HasKey(e => e.CartDetailId).HasName("PK__CartDeta__0F08F529583F6ADC");
 
             entity.ToTable("CartDetail");
 
@@ -338,27 +319,25 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Category__D54EE9B450CAD45A");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Category__D54EE9B431B9467A");
 
             entity.ToTable("Category");
 
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
             entity.Property(e => e.CategoryName)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("category_name");
         });
 
         modelBuilder.Entity<Coupon>(entity =>
         {
-            entity.HasKey(e => e.CouponId).HasName("PK__Coupon__58CF6389A9E81919");
+            entity.HasKey(e => e.CouponId).HasName("PK__Coupon__58CF6389963F7D97");
 
             entity.ToTable("Coupon");
 
             entity.Property(e => e.CouponId).HasColumnName("coupon_id");
             entity.Property(e => e.CouponName)
                 .HasMaxLength(200)
-                .IsUnicode(false)
                 .HasColumnName("coupon_name");
             entity.Property(e => e.CouponTypeId).HasColumnName("coupon_type_id");
             entity.Property(e => e.CreatedAt)
@@ -380,7 +359,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<CouponType>(entity =>
         {
-            entity.HasKey(e => e.CouponTypeId).HasName("PK__CouponTy__AD2AFC0A38039697");
+            entity.HasKey(e => e.CouponTypeId).HasName("PK__CouponTy__AD2AFC0A65C7849E");
 
             entity.ToTable("CouponType");
 
@@ -391,7 +370,6 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.TypeName)
                 .HasMaxLength(200)
-                .IsUnicode(false)
                 .HasColumnName("type_name");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -410,32 +388,25 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("code");
             entity.Property(e => e.AdministrativeUnitId).HasColumnName("administrative_unit_id");
             entity.Property(e => e.CodeName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("code_name");
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("full_name");
             entity.Property(e => e.FullNameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("full_name_en");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("name");
             entity.Property(e => e.NameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("name_en");
             entity.Property(e => e.ProvinceCode)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("province_code");
 
             entity.HasOne(d => d.AdministrativeUnit).WithMany(p => p.Districts)
@@ -449,23 +420,17 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Manufacturer>(entity =>
         {
-            entity.HasKey(e => e.MftId).HasName("PK__Manufact__B4D5DD9835E5CC87");
+            entity.HasKey(e => e.MftId).HasName("PK__Manufact__B4D5DD98277A6A93");
 
             entity.ToTable("Manufacturer");
 
             entity.Property(e => e.MftId).HasColumnName("mft_id");
             entity.Property(e => e.AddressId).HasColumnName("address_id");
-            entity.Property(e => e.MftAddress)
-                .HasMaxLength(250)
-                .IsUnicode(false)
-                .HasColumnName("mft_address");
             entity.Property(e => e.MftDescription)
                 .HasMaxLength(250)
-                .IsUnicode(false)
                 .HasColumnName("mft_description");
             entity.Property(e => e.MftName)
                 .HasMaxLength(250)
-                .IsUnicode(false)
                 .HasColumnName("mft_name");
 
             entity.HasOne(d => d.Address).WithMany(p => p.Manufacturers)
@@ -475,7 +440,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Order__46596229D16BEDF9");
+            entity.HasKey(e => e.OrderId).HasName("PK__Order__4659622936966089");
 
             entity.ToTable("Order");
 
@@ -514,7 +479,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__3C5A4080A066A13A");
+            entity.HasKey(e => e.OrderDetailId).HasName("PK__OrderDet__3C5A4080F11339B7");
 
             entity.ToTable("OrderDetail");
 
@@ -544,7 +509,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<OrderStatus>(entity =>
         {
-            entity.HasKey(e => e.OrderStatusId).HasName("PK__OrderSta__A499CF239C6FD049");
+            entity.HasKey(e => e.OrderStatusId).HasName("PK__OrderSta__A499CF238052963F");
 
             entity.ToTable("OrderStatus");
 
@@ -555,11 +520,9 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.StatusDescription)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("status_description");
             entity.Property(e => e.StatusName)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("status_name");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -568,7 +531,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<PaymentMethod>(entity =>
         {
-            entity.HasKey(e => e.PaymentId).HasName("PK__PaymentM__ED1FC9EAC2367781");
+            entity.HasKey(e => e.PaymentId).HasName("PK__PaymentM__ED1FC9EAB19FE643");
 
             entity.ToTable("PaymentMethod");
 
@@ -579,7 +542,6 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.PaymentName)
                 .HasMaxLength(100)
-                .IsUnicode(false)
                 .HasColumnName("payment_name");
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
@@ -588,7 +550,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Product__47027DF5D1363DA3");
+            entity.HasKey(e => e.ProductId).HasName("PK__Product__47027DF5ED37E601");
 
             entity.ToTable("Product");
 
@@ -606,7 +568,6 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("detail");
             entity.Property(e => e.ExpireDate)
                 .HasMaxLength(8)
-                .IsUnicode(false)
                 .HasColumnName("expire_date");
             entity.Property(e => e.Hide).HasColumnName("hide");
             entity.Property(e => e.ManufacturerId).HasColumnName("manufacturer_id");
@@ -615,7 +576,6 @@ public partial class DatabaseContext : DbContext
                 .HasColumnName("price");
             entity.Property(e => e.ProductName)
                 .HasMaxLength(250)
-                .IsUnicode(false)
                 .HasColumnName("product_name");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.UpdatedAt)
@@ -633,12 +593,11 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<ProductImage>(entity =>
         {
-            entity.HasKey(e => e.ImageId).HasName("PK__ProductI__DC9AC955C958746B");
+            entity.HasKey(e => e.ImageId).HasName("PK__ProductI__DC9AC9552B1F7BA5");
 
             entity.Property(e => e.ImageId).HasColumnName("image_id");
             entity.Property(e => e.ImageUrl)
                 .HasMaxLength(250)
-                .IsUnicode(false)
                 .HasColumnName("image_url");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
 
@@ -649,7 +608,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<ProductReview>(entity =>
         {
-            entity.HasKey(e => e.ProductReviewId).HasName("PK__ProductR__8440EB03AA825D4D");
+            entity.HasKey(e => e.ProductReviewId).HasName("PK__ProductR__8440EB03FAAA5B0E");
 
             entity.ToTable("ProductReview");
 
@@ -687,29 +646,23 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("code");
             entity.Property(e => e.AdministrativeRegionId).HasColumnName("administrative_region_id");
             entity.Property(e => e.AdministrativeUnitId).HasColumnName("administrative_unit_id");
             entity.Property(e => e.CodeName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("code_name");
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("full_name");
             entity.Property(e => e.FullNameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("full_name_en");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("name");
             entity.Property(e => e.NameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("name_en");
 
             entity.HasOne(d => d.AdministrativeUnit).WithMany(p => p.Provinces)
@@ -719,14 +672,13 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CC714D2604");
+            entity.HasKey(e => e.RoleId).HasName("PK__Role__760965CC65541242");
 
             entity.ToTable("Role");
 
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.RoleName)
                 .HasMaxLength(50)
-                .IsUnicode(false)
                 .HasColumnName("role_name");
         });
 
@@ -742,32 +694,25 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Code)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("code");
             entity.Property(e => e.AdministrativeUnitId).HasColumnName("administrative_unit_id");
             entity.Property(e => e.CodeName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("code_name");
             entity.Property(e => e.DistrictCode)
                 .HasMaxLength(20)
-                .IsUnicode(false)
                 .HasColumnName("district_code");
             entity.Property(e => e.FullName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("full_name");
             entity.Property(e => e.FullNameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("full_name_en");
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("name");
             entity.Property(e => e.NameEn)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("name_en");
 
             entity.HasOne(d => d.AdministrativeUnit).WithMany(p => p.Wards)
@@ -781,7 +726,7 @@ public partial class DatabaseContext : DbContext
 
         modelBuilder.Entity<Wishlist>(entity =>
         {
-            entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__6151514E9D3E41B1");
+            entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__6151514E57C75487");
 
             entity.ToTable("Wishlist");
 

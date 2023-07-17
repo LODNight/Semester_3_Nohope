@@ -35,7 +35,7 @@ public class ManufacturerController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find")]
+    [HttpGet("find/{id}")]
     public IActionResult Get(int id)
     {
         try

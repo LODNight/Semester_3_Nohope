@@ -20,6 +20,9 @@ namespace Providence.Service.Implement
         {
             try
             {
+                _databaseContext.Addresses.Add(entity.Address);
+                _databaseContext.SaveChanges();
+                entity.AddressId = entity.Address.AddressId;
                 _databaseContext.Manufacturers.Add(entity);
                 return _databaseContext.SaveChanges() > 0;
             }
@@ -51,7 +54,50 @@ namespace Providence.Service.Implement
         {
             mftId = p.MftId,
             mftName = p.MftName,
-            mftAddress = p.Address,
+            address = new
+            {
+                roadName = p.Address.RoadName,
+                ward = new
+                {
+                    code = p.Address.WardCodeNavigation.Code,
+                    name = p.Address.WardCodeNavigation.Name,
+                    nameEn = p.Address.WardCodeNavigation.NameEn,
+                    fullName = p.Address.WardCodeNavigation.FullName,
+                    fullNameEn = p.Address.WardCodeNavigation.FullNameEn,
+                    codeName = p.Address.WardCodeNavigation.CodeName,
+                    districtCode = p.Address.WardCodeNavigation.DistrictCode,
+                    administrativeUnitId = p.Address.WardCodeNavigation.AdministrativeUnitId,
+                    //addresses = p.Address.WardCodeNavigation.Addresses,
+                    administrativeUnit = p.Address.WardCodeNavigation.AdministrativeUnit,
+                },
+                district = new
+                {
+                    code = p.Address.DistrictCodeNavigation.Code,
+                    name = p.Address.DistrictCodeNavigation.Name,
+                    nameEn = p.Address.DistrictCodeNavigation.NameEn,
+                    fullName = p.Address.DistrictCodeNavigation.FullName,
+                    fullNameEn = p.Address.DistrictCodeNavigation.FullNameEn,
+                    codeName = p.Address.DistrictCodeNavigation.CodeName,
+                    provinceCode = p.Address.DistrictCodeNavigation.ProvinceCode,
+                    administrativeUnitId = p.Address.DistrictCodeNavigation.AdministrativeUnitId,
+                    //addresses = p.Address.DistrictCodeNavigation.Addresses,
+                    administrativeUnit = p.Address.DistrictCodeNavigation.AdministrativeUnit,
+                },
+                province = new
+                {
+                    code = p.Address.ProvinceCodeNavigation.Code,
+                    name = p.Address.ProvinceCodeNavigation.Name,
+                    nameEn = p.Address.ProvinceCodeNavigation.NameEn,
+                    fullName = p.Address.ProvinceCodeNavigation.FullName,
+                    fullNameEn = p.Address.ProvinceCodeNavigation.FullNameEn,
+                    codeName = p.Address.ProvinceCodeNavigation.CodeName,
+                    administrativeUnitId = p.Address.ProvinceCodeNavigation.AdministrativeUnitId,
+                    //addresses = p.Address.ProvinceCodeNavigation.Addresses,
+                    administrativeUnit = p.Address.ProvinceCodeNavigation.AdministrativeUnit,
+                    administrativeRegionId = p.Address.ProvinceCodeNavigation.AdministrativeRegionId,
+                },
+
+            },
             mftDescription = p.MftDescription
         }).FirstOrDefault()!;
 
@@ -59,7 +105,50 @@ namespace Providence.Service.Implement
         {
             mftId = p.MftId,
             mftName = p.MftName,
-            mftAddress = p.Address,
+            address = new
+            {
+                roadName = p.Address.RoadName,
+                ward = new
+                {
+                    code = p.Address.WardCodeNavigation.Code,
+                    name = p.Address.WardCodeNavigation.Name,
+                    nameEn = p.Address.WardCodeNavigation.NameEn,
+                    fullName = p.Address.WardCodeNavigation.FullName,
+                    fullNameEn = p.Address.WardCodeNavigation.FullNameEn,
+                    codeName = p.Address.WardCodeNavigation.CodeName,
+                    districtCode= p.Address.WardCodeNavigation.DistrictCode,
+                    administrativeUnitId = p.Address.WardCodeNavigation.AdministrativeUnitId,
+                    //addresses = p.Address.WardCodeNavigation.Addresses,
+                    administrativeUnit = p.Address.WardCodeNavigation.AdministrativeUnit,
+                },
+                district = new
+                {
+                    code = p.Address.DistrictCodeNavigation.Code,
+                    name = p.Address.DistrictCodeNavigation.Name,
+                    nameEn = p.Address.DistrictCodeNavigation.NameEn,
+                    fullName = p.Address.DistrictCodeNavigation.FullName,
+                    fullNameEn = p.Address.DistrictCodeNavigation.FullNameEn,
+                    codeName = p.Address.DistrictCodeNavigation.CodeName,
+                    provinceCode= p.Address.DistrictCodeNavigation.ProvinceCode,
+                    administrativeUnitId = p.Address.DistrictCodeNavigation.AdministrativeUnitId,
+                    //addresses = p.Address.DistrictCodeNavigation.Addresses,
+                    administrativeUnit = p.Address.DistrictCodeNavigation.AdministrativeUnit,
+                },
+                province = new
+                {
+                    code = p.Address.ProvinceCodeNavigation.Code,
+                    name = p.Address.ProvinceCodeNavigation.Name,
+                    nameEn = p.Address.ProvinceCodeNavigation.NameEn,
+                    fullName = p.Address.ProvinceCodeNavigation.FullName,
+                    fullNameEn = p.Address.ProvinceCodeNavigation.FullNameEn,
+                    codeName = p.Address.ProvinceCodeNavigation.CodeName,
+                    administrativeUnitId = p.Address.ProvinceCodeNavigation.AdministrativeUnitId,
+                    //addresses = p.Address.ProvinceCodeNavigation.Addresses,
+                    administrativeUnit = p.Address.ProvinceCodeNavigation.AdministrativeUnit,
+                    administrativeRegionId = p.Address.ProvinceCodeNavigation.AdministrativeRegionId,
+                },
+                
+            },
             mftDescription = p.MftDescription
         }).ToList();
 
@@ -67,6 +156,9 @@ namespace Providence.Service.Implement
         {
             try
             {
+                _databaseContext.Addresses.Update(entity.Address);
+                _databaseContext.SaveChanges();
+                entity.AddressId = entity.Address.AddressId;
                 _databaseContext.Manufacturers.Update(entity);
                 return _databaseContext.SaveChanges() > 0;
             }

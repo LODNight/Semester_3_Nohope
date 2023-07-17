@@ -9,8 +9,6 @@ public partial class Manufacturer
 
     public string? MftName { get; set; }
 
-    public string? MftAddress { get; set; }
-
     public int? AddressId { get; set; }
 
     public string? MftDescription { get; set; }

@@ -54,7 +54,7 @@ public class WardController : Controller
     
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find-ward-by-district/{id}")]
+    [HttpGet("find-ward-by-district/{code}")]
     public IActionResult FindWardByDistrict(string code)
     {
         try
@@ -84,7 +84,7 @@ public class WardController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public IActionResult Delete(int id)
     {
         try

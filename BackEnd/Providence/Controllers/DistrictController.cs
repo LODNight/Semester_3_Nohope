@@ -51,7 +51,7 @@ public class DistrictController : Controller
     } 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find-district-by-province/{id}")]
+    [HttpGet("find-district-by-province/{code}")]
     public IActionResult findDistrictByProvince(string code)
     {
         try
@@ -81,7 +81,7 @@ public class DistrictController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public IActionResult Delete(int id)
     {
         try
