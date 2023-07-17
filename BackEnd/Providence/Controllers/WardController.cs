@@ -54,7 +54,7 @@ public class WardController : Controller
     
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("findWardByDistrict")]
+    [HttpGet("find-ward-by-district")]
     public IActionResult FindWardByDistrict(string districtCode)
     {
         try
