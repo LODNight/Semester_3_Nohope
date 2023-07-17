@@ -37,7 +37,7 @@ public class DistrictController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find")]
+    [HttpGet("find/{id}")]
     public IActionResult Get(int id)
     {
         try
@@ -51,7 +51,7 @@ public class DistrictController : Controller
     } 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find-district-by-province")]
+    [HttpGet("find-district-by-province/{id}")]
     public IActionResult findDistrictByProvince(string code)
     {
         try

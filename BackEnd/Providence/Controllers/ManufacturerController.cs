@@ -65,7 +65,7 @@ public class ManufacturerController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public IActionResult Delete(int id)
     {
         try

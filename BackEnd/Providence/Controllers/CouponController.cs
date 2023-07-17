@@ -39,7 +39,7 @@ public class CouponController : Controller
     }
 
     [Produces("application/json")]
-    [HttpGet("find")]
+    [HttpGet("find/{id}")]
     public IActionResult Get(int id)
     {
         try
@@ -72,7 +72,7 @@ public class CouponController : Controller
     // Delete
 
     [Produces("application/json")]
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public IActionResult Delete(int id)
     {
         try

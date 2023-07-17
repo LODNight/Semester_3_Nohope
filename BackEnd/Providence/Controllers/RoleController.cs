@@ -32,7 +32,7 @@ public class RoleController : Controller
 
     [Consumes("application/json")]
     [Produces("application/json")]
-    [HttpGet("find")]
+    [HttpGet("find/{id}")]
     public IActionResult Get(int id)
     {
         try
@@ -62,7 +62,7 @@ public class RoleController : Controller
     }
 
     [Produces("application/json")]
-    [HttpDelete("delete")]
+    [HttpDelete("delete/{id}")]
     public IActionResult Delete(int id)
     {
         try
